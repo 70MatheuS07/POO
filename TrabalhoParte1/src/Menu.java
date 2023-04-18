@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
@@ -15,15 +17,21 @@ public class Menu {
                     break;
 
                 case 1:
-                    CadastrarCurso();
+                    Curso curso = new Curso();
+                    curso.CadastrarCurso(scanner);
+                    Curso.cursos.add(curso);
                     break;
 
                 case 2:
-                    CadastrarDisciplina();
+                    Disciplina disciplina = new Disciplina();
+                    disciplina.CadastrarDisciplina(scanner);
+                    Disciplina.disciplinas.add(disciplina);
                     break;
 
                 case 3:
-                    CadastrarProva();
+                    Prova prova = new Prova();
+                    prova.CadastrarProva(scanner);
+                    Prova.provas.add(prova);
                     break;
 
                 case 4:

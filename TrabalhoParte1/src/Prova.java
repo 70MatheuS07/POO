@@ -1,17 +1,20 @@
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Scanner;
 
 public class Prova {
-    private Disciplina disciplina;
+    static ArrayList<Prova> provas = new ArrayList<Prova>();
+    private String disciplina;
     private String codigo;
     private String nome;
     private double peso;
     private Date data;
 
-    public Disciplina getDisciplina() {
+    public String getDisciplina() {
         return disciplina;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
+    public void setDisciplina(String disciplina) {
         this.disciplina = disciplina;
     }
 
@@ -45,5 +48,25 @@ public class Prova {
 
     public void setData(Date data) {
         this.data = data;
+    }
+
+    public void CadastrarProva(Scanner scanner) {
+        this.disciplina = Disciplina.SelecionaDisciplina(scanner);
+
+        System.out.print("Digite o codigo da prova: ");
+        this.codigo = scanner.next();
+
+        System.out.print("Digite o nome da prova: ");
+        this.codigo = scanner.next();
+
+        System.out.print("Digite o peso da prova: ");
+        this.peso = scanner.nextDouble();
+
+        System.out.print("Digite a data da prova no formato dd/mm/yyyy: ");
+        String data = scanner.next();
+        this.data = data.parse();
+
+        //Parei aqui
+
     }
 }
