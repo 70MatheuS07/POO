@@ -1,14 +1,13 @@
-import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
-        int numero=0;
-        boolean valido=false;
+        int numero = 0;
+        boolean valido = false;
         while (true) {
+            valido = false;
             ImprimeMenu();
 
             while (!valido) {
@@ -18,7 +17,7 @@ public class Menu {
                     valido = true;
                 } catch (InputMismatchException e) {
                     System.out.println("Você digitou um valor inválido. Tente novamente.");
-                    scanner.next(); 
+                    scanner.next();
                 }
             }
 
@@ -36,7 +35,7 @@ public class Menu {
                 case 2:
                     Disciplina disciplina = new Disciplina();
                     disciplina.CadastrarDisciplina(scanner);
-                    Disciplina.disciplinas.add(disciplina);
+                    Disciplina.getDisciplinas().add(disciplina);
                     scanner.nextLine();
                     break;
 
@@ -48,11 +47,13 @@ public class Menu {
                     break;
 
                 case 4:
-                    // CadastrarAluno();
+                    Aluno aluno = new Aluno();
+                    aluno.CadastrarAluno(scanner);
+                    Aluno.alunos.add(aluno);
                     break;
 
                 case 5:
-                    // MatricularAlunoDisciplina();
+                    Disciplina.MatricularAlunoDisciplina(scanner);
                     break;
 
                 case 6:

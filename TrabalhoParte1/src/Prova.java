@@ -53,24 +53,32 @@ public class Prova {
     }
 
     public void CadastrarProva(Scanner scanner) throws ParseException {
-        this.disciplina = Disciplina.SelecionaDisciplina(scanner);
+        String codigoDisciplina = new String();
 
-        SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+        codigoDisciplina = Disciplina.SelecionaDisciplina(scanner);
 
-        System.out.print("Digite o codigo da prova: ");
-        this.codigo = scanner.next();
+        if (codigoDisciplina == null) {
+            System.out.println("Nao existe disciplinas para serem escolhidas");
+        } else {
+            this.disciplina = codigoDisciplina;
 
-        System.out.print("Digite o nome da prova: ");
-        this.codigo = scanner.next();
+            SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
 
-        System.out.print("Digite o peso da prova: ");
-        this.peso = scanner.nextDouble();
+            System.out.print("Digite o codigo da prova: ");
+            this.codigo = scanner.next();
 
-        System.out.print("Digite a data da prova no formato dd/mm/yyyy:");
-        String data = scanner.next();
-        this.data = formatData.parse(data);
+            System.out.print("Digite o nome da prova: ");
+            this.codigo = scanner.next();
 
-        //Parei aqui
+            System.out.print("Digite o peso da prova: ");
+            this.peso = scanner.nextDouble();
+
+            System.out.print("Digite a data da prova no formato dd/mm/yyyy:");
+            String data = scanner.next();
+            this.data = formatData.parse(data);
+        }
+
+        // Parei aqui
 
     }
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Disciplina {
-    static ArrayList<Disciplina> disciplinas = new ArrayList<Disciplina>();
+    static private ArrayList<Disciplina> disciplinas = new ArrayList<Disciplina>();
     private String codigo;
     private String nome;
 
@@ -32,12 +32,13 @@ public class Disciplina {
 
     public static String SelecionaDisciplina(Scanner scanner) {
         if (disciplinas.size() < 1) {
+
             return null;
         }
 
         for (int i = 0; i < disciplinas.size(); i++) {
             Disciplina disciplina = disciplinas.get(i);
-            System.out.print((i + 1) + " " + disciplina.nome + " - " + disciplina.codigo);
+            System.out.println((i + 1) + " " + disciplina.nome + " - " + disciplina.codigo);
         }
 
         int num = 0;
@@ -58,4 +59,24 @@ public class Disciplina {
 
     }
 
+    public static void MatricularAlunoDisciplina(Scanner scanner) {
+        int matricula = Aluno.SelecionaAluno(scanner);
+
+        if (matricula == -1) {
+            System.out.println("Nao existe alunos para serem escolhidos");
+        }
+
+        else
+        {
+            
+        }
+    }
+
+    public static ArrayList<Disciplina> getDisciplinas() {
+        return disciplinas;
+    }
+
+    public static void setDisciplinas(ArrayList<Disciplina> disciplinas) {
+        Disciplina.disciplinas = disciplinas;
+    }
 }
