@@ -1,3 +1,5 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Scanner;
@@ -50,8 +52,10 @@ public class Prova {
         this.data = data;
     }
 
-    public void CadastrarProva(Scanner scanner) {
+    public void CadastrarProva(Scanner scanner) throws ParseException {
         this.disciplina = Disciplina.SelecionaDisciplina(scanner);
+
+        SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
 
         System.out.print("Digite o codigo da prova: ");
         this.codigo = scanner.next();
@@ -62,9 +66,9 @@ public class Prova {
         System.out.print("Digite o peso da prova: ");
         this.peso = scanner.nextDouble();
 
-        System.out.print("Digite a data da prova no formato dd/mm/yyyy: ");
+        System.out.print("Digite a data da prova no formato dd/mm/yyyy:");
         String data = scanner.next();
-        this.data = data.parse();
+        this.data = formatData.parse(data);
 
         //Parei aqui
 
