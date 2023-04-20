@@ -1,4 +1,7 @@
+import java.util.ArrayList;
+
 public class Aluno {
+    ArrayList<Aluno> alunos=new  ArrayList<Aluno>();
     private int matricula;
     private String nome;
     private Curso curso;

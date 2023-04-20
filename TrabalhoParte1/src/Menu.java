@@ -1,16 +1,26 @@
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class Menu {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
-
+        int numero=0;
+        boolean valido=false;
         while (true) {
             ImprimeMenu();
 
-            String linha = scanner.nextLine();
-            int numero = Integer.parseInt(linha);
+            while (!valido) {
+                try {
+                    System.out.print("Digite um número inteiro: ");
+                    numero = scanner.nextInt();
+                    valido = true;
+                } catch (InputMismatchException e) {
+                    System.out.println("Você digitou um valor inválido. Tente novamente.");
+                    scanner.next(); 
+                }
+            }
 
             switch (numero) {
                 case 0:
@@ -20,38 +30,37 @@ public class Menu {
                     Curso curso = new Curso();
                     curso.CadastrarCurso(scanner);
                     Curso.cursos.add(curso);
+                    scanner.nextLine();
                     break;
 
                 case 2:
                     Disciplina disciplina = new Disciplina();
                     disciplina.CadastrarDisciplina(scanner);
                     Disciplina.disciplinas.add(disciplina);
+                    scanner.nextLine();
                     break;
 
                 case 3:
                     Prova prova = new Prova();
                     prova.CadastrarProva(scanner);
                     Prova.provas.add(prova);
+                    scanner.nextLine();
                     break;
 
                 case 4:
-                    CadastrarAluno();
+                    // CadastrarAluno();
                     break;
 
                 case 5:
-                    MatricularAlunoDisciplina();
+                    // MatricularAlunoDisciplina();
                     break;
 
                 case 6:
-                    RegistrarNotaAlunoDisciplina();
+                    // RegistrarNotaAlunoDisciplina();
                     break;
 
                 case 7:
-                    ImprimirDados();
-                    break;
-
-                case 7:
-                    CadastrarDisciplina();
+                    // ImprimirDados();
                     break;
 
                 default:
