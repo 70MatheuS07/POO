@@ -28,7 +28,7 @@ public class Menu {
                 case 1:
                     Curso curso = new Curso();
                     curso.CadastrarCurso(scanner);
-                    Curso.cursos.add(curso);
+                    Curso.getCursos().add(curso);
                     scanner.nextLine();
                     break;
 
@@ -42,14 +42,14 @@ public class Menu {
                 case 3:
                     Prova prova = new Prova();
                     prova.CadastrarProva(scanner);
-                    Prova.provas.add(prova);
+                    Prova.getProvas().add(prova);
                     scanner.nextLine();
                     break;
 
                 case 4:
                     Aluno aluno = new Aluno();
                     aluno.CadastrarAluno(scanner);
-                    Aluno.alunos.add(aluno);
+                    Aluno.getAlunos().add(aluno);
                     break;
 
                 case 5:

@@ -2,10 +2,18 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Aluno {
-    static ArrayList<Aluno> alunos = new ArrayList<Aluno>();
+    private static ArrayList<Aluno> alunos = new ArrayList<Aluno>();
     private int matricula;
     private String nome;
     private int curso;
+
+    public static ArrayList<Aluno> getAlunos() {
+        return alunos;
+    }
+
+    public static void setAlunos(ArrayList<Aluno> alunos) {
+        Aluno.alunos = alunos;
+    }
 
     public int getMatricula() {
         return matricula;
@@ -32,8 +40,26 @@ public class Aluno {
     }
 
     public void CadastrarAluno(Scanner scanner) {
-        System.out.print("Digite sua matricula: ");
-        this.matricula = scanner.nextInt();
+        while (true) {
+            System.out.print("Digite sua matricula: ");
+            this.matricula = scanner.nextInt();
+
+            boolean iguais = false;
+
+            for (int i = 0; i < alunos.size(); i++) {
+                if (alunos.get(i).matricula == this.matricula) {
+                    iguais = true;
+                    break;
+                }
+            }
+
+            if (!iguais) {
+                break;
+            }
+
+            System.out.println("\nEssa matricula ja existe, tente outra.\n");
+
+        }
 
         System.out.print("Digite seu nome: ");
         this.nome = scanner.next();
@@ -42,8 +68,7 @@ public class Aluno {
         this.curso = scanner.nextInt();
     }
 
-    public static int SelecionaAluno(Scanner scanner)
-    {
+    public static int SelecionaAluno(Scanner scanner) {
         if (alunos.size() < 1) {
 
             return -1;
@@ -51,7 +76,7 @@ public class Aluno {
 
         for (int i = 0; i < alunos.size(); i++) {
             Aluno aluno = alunos.get(i);
-            System.out.println((i + 1) + " " + aluno.nome + " - " + aluno.matricula);
+            System.out.println((i + 1) + ". " + aluno.nome + " - " + aluno.matricula);
         }
 
         int num = 0;
@@ -63,11 +88,11 @@ public class Aluno {
             if (num > 0 || num <= alunos.size()) {
                 break;
             } else {
-                System.out.println("Digite um numero valido.");
-                System.out.println();
+                System.out.println("Numero invalido. Digite um inteiro exibido.\n");
             }
         }
 
-        return alunos.get(num - 1).matricula;
+        return num - 1;
     }
+
 }

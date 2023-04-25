@@ -5,12 +5,20 @@ import java.util.Date;
 import java.util.Scanner;
 
 public class Prova {
-    static ArrayList<Prova> provas = new ArrayList<Prova>();
+    private static ArrayList<Prova> provas = new ArrayList<Prova>();
     private String disciplina;
     private String codigo;
     private String nome;
     private double peso;
     private Date data;
+
+    public static ArrayList<Prova> getProvas() {
+        return provas;
+    }
+
+    public static void setProvas(ArrayList<Prova> provas) {
+        Prova.provas = provas;
+    }
 
     public String getDisciplina() {
         return disciplina;
@@ -67,6 +75,27 @@ public class Prova {
             System.out.print("Digite o codigo da prova: ");
             this.codigo = scanner.next();
 
+            while (true) {
+                System.out.print("Digite o codigo da prova: ");
+                this.codigo = scanner.next();
+
+                boolean iguais = false;
+
+                for (int i = 0; i < provas.size(); i++) {
+                    if (provas.get(i).codigo.equals(this.codigo)) {
+                        iguais = true;
+                        break;
+                    }
+                }
+
+                if (!iguais) {
+                    break;
+                }
+
+                System.out.println("\nEsse codigo ja existe, tente outro.\n");
+
+            }
+
             System.out.print("Digite o nome da prova: ");
             this.codigo = scanner.next();
 
@@ -81,4 +110,5 @@ public class Prova {
         // Parei aqui
 
     }
+
 }

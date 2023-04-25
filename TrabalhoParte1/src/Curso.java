@@ -2,9 +2,17 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Curso {
-    static ArrayList<Curso> cursos = new ArrayList<Curso>();
+    private static ArrayList<Curso> cursos = new ArrayList<Curso>();
     private int codigo;
     private String nome;
+
+    public static ArrayList<Curso> getCursos() {
+        return cursos;
+    }
+
+    public static void setCursos(ArrayList<Curso> cursos) {
+        Curso.cursos = cursos;
+    }
 
     public int getCodigo() {
         return codigo;
@@ -23,8 +31,26 @@ public class Curso {
     }
 
     public void CadastrarCurso(Scanner scanner) {
-        System.out.print("Digite o codigo do curso: ");
-        this.codigo = scanner.nextInt();
+        while (true) {
+            System.out.print("Digite o codigo do curso: ");
+            this.codigo = scanner.nextInt();
+
+            boolean iguais = false;
+
+            for (int i = 0; i < cursos.size(); i++) {
+                if (cursos.get(i).codigo == this.codigo) {
+                    iguais = true;
+                    break;
+                }
+            }
+
+            if (!iguais) {
+                break;
+            }
+
+            System.out.println("\nEsse codigo ja existe, tente outro.\n");
+
+        }
 
         System.out.print("Digite o nome do curso: ");
         this.nome = scanner.next();
