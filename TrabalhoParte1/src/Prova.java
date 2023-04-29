@@ -1,39 +1,23 @@
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Prova {
-    private static ArrayList<Prova> provas = new ArrayList<Prova>();
-    private String disciplina;
-    private String codigo;
+    private static Map<String, Prova> provas = new HashMap<String, Prova>();
+    private Disciplina disciplina;
     private String nome;
     private double peso;
     private Date data;
 
-    public static ArrayList<Prova> getProvas() {
-        return provas;
-    }
-
-    public static void setProvas(ArrayList<Prova> provas) {
-        Prova.provas = provas;
-    }
-
-    public String getDisciplina() {
+    public Disciplina getDisciplina() {
         return disciplina;
     }
 
-    public void setDisciplina(String disciplina) {
+    public void setDisciplina(Disciplina disciplina) {
         this.disciplina = disciplina;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getNome() {
@@ -61,34 +45,20 @@ public class Prova {
     }
 
     public void CadastrarProva(Scanner scanner) throws ParseException {
-        String codigoDisciplina = new String();
+        String codigo;
 
-        codigoDisciplina = Disciplina.SelecionaDisciplina(scanner);
+        this.disciplina = Disciplina.SelecionaDisciplina(scanner);
 
-        if (codigoDisciplina == null) {
+        if (this.disciplina == null) {
             System.out.println("Nao existe disciplinas para serem escolhidas");
         } else {
-            this.disciplina = codigoDisciplina;
-
             SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
-
-            System.out.print("Digite o codigo da prova: ");
-            this.codigo = scanner.next();
 
             while (true) {
                 System.out.print("Digite o codigo da prova: ");
-                this.codigo = scanner.next();
+                codigo = scanner.next();
 
-                boolean iguais = false;
-
-                for (int i = 0; i < provas.size(); i++) {
-                    if (provas.get(i).codigo.equals(this.codigo)) {
-                        iguais = true;
-                        break;
-                    }
-                }
-
-                if (!iguais) {
+                if (!provas.containsKey(codigo)) {
                     break;
                 }
 
@@ -97,18 +67,22 @@ public class Prova {
             }
 
             System.out.print("Digite o nome da prova: ");
-            this.codigo = scanner.next();
+            this.nome = scanner.next();
 
             System.out.print("Digite o peso da prova: ");
             this.peso = scanner.nextDouble();
 
             System.out.print("Digite a data da prova no formato dd/mm/yyyy:");
-            String data = scanner.next();
-            this.data = formatData.parse(data);
+            this.data = formatData.parse(scanner.next());
+
+            provas.put(codigo, this);
         }
+    }
 
-        // Parei aqui
-
+    public static void RegistraNotaAlunoProva(Scanner scanner) {
+        Aluno aluno = Aluno.getAlunos().get(scanner.nextInt());
+        String prova = scanner.next();
+        provas.get(prova).alunos.add(aluno);
     }
 
 }

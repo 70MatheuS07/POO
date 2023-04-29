@@ -1,26 +1,10 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Curso {
-    private static ArrayList<Curso> cursos = new ArrayList<Curso>();
-    private int codigo;
+    private static Map<Integer, Curso> cursos = new HashMap<Integer, Curso>();
     private String nome;
-
-    public static ArrayList<Curso> getCursos() {
-        return cursos;
-    }
-
-    public static void setCursos(ArrayList<Curso> cursos) {
-        Curso.cursos = cursos;
-    }
-
-    public int getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(int codigo) {
-        this.codigo = codigo;
-    }
 
     public String getNome() {
         return nome;
@@ -31,20 +15,13 @@ public class Curso {
     }
 
     public void CadastrarCurso(Scanner scanner) {
+        int codigo;
+
         while (true) {
             System.out.print("Digite o codigo do curso: ");
-            this.codigo = scanner.nextInt();
+            codigo = scanner.nextInt();
 
-            boolean iguais = false;
-
-            for (int i = 0; i < cursos.size(); i++) {
-                if (cursos.get(i).codigo == this.codigo) {
-                    iguais = true;
-                    break;
-                }
-            }
-
-            if (!iguais) {
+            if (!cursos.containsKey(codigo)) {
                 break;
             }
 
@@ -54,6 +31,8 @@ public class Curso {
 
         System.out.print("Digite o nome do curso: ");
         this.nome = scanner.next();
+
+        cursos.put(codigo, this);
     }
 
 }

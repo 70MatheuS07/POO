@@ -1,26 +1,18 @@
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Scanner;
 
 public class Aluno {
-    private static ArrayList<Aluno> alunos = new ArrayList<Aluno>();
-    private int matricula;
+    private static Map<Integer, Aluno> alunos = new HashMap<Integer, Aluno>();
     private String nome;
     private int curso;
 
-    public static ArrayList<Aluno> getAlunos() {
+    public static Map<Integer, Aluno> getAlunos() {
         return alunos;
     }
 
-    public static void setAlunos(ArrayList<Aluno> alunos) {
+    public static void setAlunos(Map<Integer, Aluno> alunos) {
         Aluno.alunos = alunos;
-    }
-
-    public int getMatricula() {
-        return matricula;
-    }
-
-    public void setMatricula(int matricula) {
-        this.matricula = matricula;
     }
 
     public String getNome() {
@@ -40,20 +32,14 @@ public class Aluno {
     }
 
     public void CadastrarAluno(Scanner scanner) {
+        int matricula;
+        Aluno aluno = new Aluno();
+
         while (true) {
             System.out.print("Digite sua matricula: ");
-            this.matricula = scanner.nextInt();
+            matricula = scanner.nextInt();
 
-            boolean iguais = false;
-
-            for (int i = 0; i < alunos.size(); i++) {
-                if (alunos.get(i).matricula == this.matricula) {
-                    iguais = true;
-                    break;
-                }
-            }
-
-            if (!iguais) {
+            if (!alunos.containsKey(matricula)) {
                 break;
             }
 
@@ -62,37 +48,12 @@ public class Aluno {
         }
 
         System.out.print("Digite seu nome: ");
-        this.nome = scanner.next();
+        aluno.nome = scanner.next();
 
         System.out.print("Digite qual curso deseja fazer: ");
-        this.curso = scanner.nextInt();
-    }
+        aluno.curso = scanner.nextInt();
 
-    public static int SelecionaAluno(Scanner scanner) {
-        if (alunos.size() < 1) {
-
-            return -1;
-        }
-
-        for (int i = 0; i < alunos.size(); i++) {
-            Aluno aluno = alunos.get(i);
-            System.out.println((i + 1) + ". " + aluno.nome + " - " + aluno.matricula);
-        }
-
-        int num = 0;
-
-        while (true) {
-            System.out.print("Qual aluno deseja matricular: ");
-            num = scanner.nextInt();
-
-            if (num > 0 || num <= alunos.size()) {
-                break;
-            } else {
-                System.out.println("Numero invalido. Digite um inteiro exibido.\n");
-            }
-        }
-
-        return num - 1;
+        alunos.put(matricula, aluno);
     }
 
 }
