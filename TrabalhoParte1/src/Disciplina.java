@@ -67,4 +67,24 @@ public class Disciplina {
         String disciplina = scanner.next();
         disciplinas.get(disciplina).alunos.add(aluno);
     }
+
+    public static void DisciplinasAlunosMatriculados() {
+        System.out.println("Disciplinas e alunos matriculados:");
+
+        for (String key : disciplinas.keySet()) {
+            System.out.println("- " + disciplinas.get(key).nome + " (" + key + ")");
+
+            ImprimeAlunosDisciplina(disciplinas.get(key));
+
+        }
+    }
+
+    public static void ImprimeAlunosDisciplina(Disciplina disciplina) {
+        for (int i = 0; i < disciplina.alunos.size(); i++) {
+            System.out.println("\t- " + disciplina.alunos.get(i).getNome() +
+                    " (" + Curso.getCursos().get(disciplina.alunos.get(i).getCurso()).getNome() + ")");
+        }
+    }
+
+    
 }

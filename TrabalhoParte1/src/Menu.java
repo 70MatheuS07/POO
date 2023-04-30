@@ -56,10 +56,11 @@ public class Menu {
 
                 case 6:
                     Prova.RegistraNotaAlunoProva(scanner);
+                    scanner.nextLine();
                     break;
 
                 case 7:
-                    // ImprimirDados();
+                    ImprimeDados();
                     break;
 
                 default:
@@ -86,5 +87,10 @@ public class Menu {
         System.out.println("6 - Registrar nota de aluno em prova.");
         System.out.println("7 - Imprimir dados.");
         System.out.println("0 - Sair do programa.");
+    }
+
+    public static void ImprimeDados() {
+        Disciplina.DisciplinasAlunosMatriculados();
+        Aluno.ProvasNotaRecebida();
     }
 }

@@ -6,6 +6,7 @@ public class Aluno {
     private static Map<Integer, Aluno> alunos = new HashMap<Integer, Aluno>();
     private String nome;
     private int curso;
+    private static Map<String, Double> notasProvas = new HashMap<String, Double>();
 
     public static Map<Integer, Aluno> getAlunos() {
         return alunos;
@@ -29,6 +30,14 @@ public class Aluno {
 
     public void setCurso(int curso) {
         this.curso = curso;
+    }
+
+    public Map<String, Double> getNotasProvas() {
+        return notasProvas;
+    }
+
+    public void setNotasProvas(Map<String, Double> notasProvas) {
+        Aluno.notasProvas = notasProvas;
     }
 
     public void CadastrarAluno(Scanner scanner) {

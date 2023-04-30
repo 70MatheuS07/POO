@@ -82,7 +82,8 @@ public class Prova {
     public static void RegistraNotaAlunoProva(Scanner scanner) {
         Aluno aluno = Aluno.getAlunos().get(scanner.nextInt());
         String prova = scanner.next();
-        provas.get(prova).alunos.add(aluno);
+
+        aluno.getNotasProvas().put(prova, scanner.nextDouble());
     }
 
 }
