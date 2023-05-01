@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.Set;
 
 public class Prova {
     private static Map<String, Prova> provas = new HashMap<String, Prova>();
@@ -99,6 +100,25 @@ public class Prova {
         System.out.print("Digite a nota da prova: ");
         aluno.getNotasProvas().put(prova, scanner.nextDouble());
         scanner.nextLine();
+    }
+
+    public static void ProvasNotaRecebida() {
+        System.out.println("Provas e notas recebidas:");
+
+        for (String key : provas.keySet()) {
+            System.out.println("- " + Prova.getProvas().get(key).getDisciplina().getNome()
+                    + " - " + Prova.getProvas().get(key).getNome() + " "
+                    + "(" + Prova.getProvas().get(key).getData() + ")");
+
+            for (Integer key2 : Aluno.getAlunos().keySet()) {
+                Set<String> keys = Aluno.getAlunos().get(key2).getNotasProvas().keySet();
+
+                if (keys.contains(key)) {
+                    System.out.print("\t- " + Aluno.getAlunos().get(key2).getNome() + ": ");
+                    System.out.printf("%.2f\n", Aluno.getAlunos().get(key2).getNotasProvas().get(key));
+                }
+            }
+        }
     }
 
 }

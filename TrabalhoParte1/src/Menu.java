@@ -86,6 +86,6 @@ public class Menu {
 
     public static void ImprimeDados() {
         Disciplina.DisciplinasAlunosMatriculados();
-        Aluno.ProvasNotaRecebida();
+        Prova.ProvasNotaRecebida();
     }
 }
