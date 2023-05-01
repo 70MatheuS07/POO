@@ -53,6 +53,7 @@ public class Disciplina {
     }
 
     public static Disciplina SelecionaDisciplina(Scanner scanner) {
+        System.out.print("Digite o nome da disciplina: ");
         String disciplina = scanner.next();
 
         if (disciplinas.containsKey(disciplina)) {
@@ -86,5 +87,4 @@ public class Disciplina {
         }
     }
 
-    
 }
