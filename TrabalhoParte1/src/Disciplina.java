@@ -37,7 +37,7 @@ public class Disciplina {
 
         while (true) {
             System.out.print("Digite o codigo da disciplina: ");
-            codigo = scanner.next();
+            codigo = scanner.nextLine();
 
             if (!disciplinas.containsKey(codigo)) {
                 break;
@@ -47,14 +47,14 @@ public class Disciplina {
         }
 
         System.out.print("Digite o nome da disciplina: ");
-        this.nome = scanner.next();
+        this.nome = scanner.nextLine();
 
         disciplinas.put(codigo, this);
     }
 
     public static Disciplina SelecionaDisciplina(Scanner scanner) {
-        System.out.print("Digite o nome da disciplina: ");
-        String disciplina = scanner.next();
+        System.out.print("Digite o codigo da disciplina: ");
+        String disciplina = scanner.nextLine();
 
         if (disciplinas.containsKey(disciplina)) {
             return disciplinas.get(disciplina);
@@ -64,8 +64,13 @@ public class Disciplina {
     }
 
     public static void MatricularAlunoDisciplina(Scanner scanner) {
+        System.out.print("Digite a matricula do aluno: ");
         Aluno aluno = Aluno.getAlunos().get(scanner.nextInt());
-        String disciplina = scanner.next();
+        scanner.nextLine();
+
+        System.out.print("Digite o codigo da disciplina: ");
+        String disciplina = scanner.nextLine();
+
         disciplinas.get(disciplina).alunos.add(aluno);
     }
 

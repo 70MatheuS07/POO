@@ -47,6 +47,7 @@ public class Aluno {
         while (true) {
             System.out.print("Digite sua matricula: ");
             matricula = scanner.nextInt();
+            scanner.nextLine();
 
             if (!alunos.containsKey(matricula)) {
                 break;
@@ -57,10 +58,11 @@ public class Aluno {
         }
 
         System.out.print("Digite seu nome: ");
-        aluno.nome = scanner.next();
+        aluno.nome = scanner.nextLine();
 
         System.out.print("Digite qual curso deseja fazer: ");
         aluno.curso = scanner.nextInt();
+        scanner.nextLine();
 
         alunos.put(matricula, aluno);
     }

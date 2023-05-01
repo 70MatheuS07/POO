@@ -29,6 +29,7 @@ public class Curso {
         while (true) {
             System.out.print("Digite o codigo do curso: ");
             codigo = scanner.nextInt();
+            scanner.nextLine();
 
             if (!cursos.containsKey(codigo)) {
                 break;
@@ -39,7 +40,7 @@ public class Curso {
         }
 
         System.out.print("Digite o nome do curso: ");
-        this.nome = scanner.next();
+        this.nome = scanner.nextLine();
 
         cursos.put(codigo, this);
     }

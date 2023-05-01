@@ -28,35 +28,29 @@ public class Menu {
                 case 1:
                     Curso curso = new Curso();
                     curso.CadastrarCurso(scanner);
-                    scanner.nextLine();
                     break;
 
                 case 2:
                     Disciplina disciplina = new Disciplina();
                     disciplina.CadastrarDisciplina(scanner);
-                    scanner.nextLine();
                     break;
 
                 case 3:
                     Prova prova = new Prova();
                     prova.CadastrarProva(scanner);
-                    scanner.nextLine();
                     break;
 
                 case 4:
                     Aluno aluno = new Aluno();
                     aluno.CadastrarAluno(scanner);
-                    scanner.nextLine();
                     break;
 
                 case 5:
                     Disciplina.MatricularAlunoDisciplina(scanner);
-                    scanner.nextLine();
                     break;
 
                 case 6:
                     Prova.RegistraNotaAlunoProva(scanner);
-                    scanner.nextLine();
                     break;
 
                 case 7:

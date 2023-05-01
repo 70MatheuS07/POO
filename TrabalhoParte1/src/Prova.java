@@ -65,7 +65,7 @@ public class Prova {
 
             while (true) {
                 System.out.print("Digite o codigo da prova: ");
-                codigo = scanner.next();
+                codigo = scanner.nextLine();
 
                 if (!provas.containsKey(codigo)) {
                     break;
@@ -76,23 +76,30 @@ public class Prova {
             }
 
             System.out.print("Digite o nome da prova: ");
-            this.nome = scanner.next();
+            this.nome = scanner.nextLine();
 
             System.out.print("Digite o peso da prova: ");
             this.peso = scanner.nextDouble();
+            scanner.nextLine();
 
             System.out.print("Digite a data da prova no formato dd/mm/yyyy:");
-            this.data = formatData.parse(scanner.next());
+            this.data = formatData.parse(scanner.nextLine());
 
             provas.put(codigo, this);
         }
     }
 
     public static void RegistraNotaAlunoProva(Scanner scanner) {
+        System.out.print("Digite a matricula do aluno: ");
         Aluno aluno = Aluno.getAlunos().get(scanner.nextInt());
-        String prova = scanner.next();
+        scanner.nextLine();
 
+        System.out.print("Digite o codigo da prova: ");
+        String prova = scanner.nextLine();
+
+        System.out.print("Digite a nota da prova: ");
         aluno.getNotasProvas().put(prova, scanner.nextDouble());
+        scanner.nextLine();
     }
 
 }
