@@ -7,10 +7,19 @@ import java.util.Scanner;
 
 public class Prova {
     private static Map<String, Prova> provas = new HashMap<String, Prova>();
+
     private Disciplina disciplina;
     private String nome;
     private double peso;
     private Date data;
+
+    public static Map<String, Prova> getProvas() {
+        return provas;
+    }
+
+    public static void setProvas(Map<String, Prova> provas) {
+        Prova.provas = provas;
+    }
 
     public Disciplina getDisciplina() {
         return disciplina;
