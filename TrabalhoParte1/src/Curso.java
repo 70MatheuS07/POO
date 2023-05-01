@@ -4,7 +4,6 @@ import java.util.Scanner;
 
 public class Curso {
     private static Map<Integer, Curso> cursos = new HashMap<Integer, Curso>();
-
     private String nome;
 
     public static Map<Integer, Curso> getCursos() {

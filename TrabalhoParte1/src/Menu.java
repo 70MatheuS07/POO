@@ -14,10 +14,11 @@ public class Menu {
                 try {
                     System.out.print("Digite um número inteiro: ");
                     numero = scanner.nextInt();
+                    scanner.nextLine();
                     valido = true;
                 } catch (InputMismatchException e) {
                     System.out.println("Você digitou um valor inválido. Tente novamente.");
-                    scanner.next();
+                    scanner.nextLine();
                 }
             }
 

@@ -7,7 +7,6 @@ import java.util.Scanner;
 
 public class Prova {
     private static Map<String, Prova> provas = new HashMap<String, Prova>();
-
     private Disciplina disciplina;
     private String nome;
     private double peso;
