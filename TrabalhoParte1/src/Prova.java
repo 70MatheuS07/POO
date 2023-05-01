@@ -105,17 +105,19 @@ public class Prova {
     public static void ProvasNotaRecebida() {
         System.out.println("Provas e notas recebidas:");
 
+        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+
         for (String key : provas.keySet()) {
             System.out.println("- " + Prova.getProvas().get(key).getDisciplina().getNome()
                     + " - " + Prova.getProvas().get(key).getNome() + " "
-                    + "(" + Prova.getProvas().get(key).getData() + ")");
+                    + "(" + formatador.format(Prova.getProvas().get(key).getData()) + ")");
 
             for (Integer key2 : Aluno.getAlunos().keySet()) {
                 Set<String> keys = Aluno.getAlunos().get(key2).getNotasProvas().keySet();
 
                 if (keys.contains(key)) {
                     System.out.print("\t- " + Aluno.getAlunos().get(key2).getNome() + ": ");
-                    System.out.printf("%.2f\n", Aluno.getAlunos().get(key2).getNotasProvas().get(key));
+                    System.out.println(Aluno.getAlunos().get(key2).getNotasProvas().get(key));
                 }
             }
         }
