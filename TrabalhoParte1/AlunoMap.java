@@ -9,11 +9,15 @@ public class AlunoMap {
         return alunos;
     }
 
-    public void setAlunoMap(Map<Integer, Aluno> alunos)
-    {
+    public void setAlunoMap(Map<Integer, Aluno> alunos) {
         this.alunos = alunos;
     }
 
+    /**
+     * Cadastra um aluno passado pelo terminal.
+     * 
+     * @param scanner
+     */
     public void CadastrarAluno(Scanner scanner) {
         int matricula;
 
@@ -42,6 +46,11 @@ public class AlunoMap {
         alunos.put(matricula, aluno);
     }
 
+    /**
+     * Registra nota do aluno no prova específica.
+     * 
+     * @param scanner
+     */
     public void RegistraNotaAlunoProva(Scanner scanner) {
         System.out.print("Digite a matricula do aluno: ");
         int matricula = Leitura.LehInt(scanner);
@@ -52,7 +61,7 @@ public class AlunoMap {
 
         System.out.print("Digite a nota da prova: ");
         double nota = Leitura.LehDouble(scanner);
-        
+
         aluno.getNotasProvas().put(prova, nota);
     }
 
