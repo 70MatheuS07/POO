@@ -12,8 +12,6 @@ public class CursoMap {
     public void CadastrarCurso(Scanner scanner) {
         int codigo;
 
-        Curso curso = new Curso();
-
         while (true) {
             System.out.print("Digite o codigo do curso: ");
             codigo = Leitura.LehInt(scanner);
@@ -27,7 +25,12 @@ public class CursoMap {
         }
 
         System.out.print("Digite o nome do curso: ");
-        curso.setCurso(Leitura.LehLine(scanner));
+
+        String nome = Leitura.LehLine(scanner);
+
+        Curso curso = new Curso();
+
+        curso.setCurso(nome);
 
         cursos.put(codigo, curso);
     }

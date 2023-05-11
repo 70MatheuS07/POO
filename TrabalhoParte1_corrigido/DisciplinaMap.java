@@ -26,7 +26,10 @@ public class DisciplinaMap {
         }
 
         System.out.print("Digite o nome da disciplina: ");
-        disciplina.setDisciplina(Leitura.LehLine(scanner));
+
+        String nome = Leitura.LehLine(scanner);
+
+        disciplina.setDisciplina(nome);
 
         disciplinas.put(codigo, disciplina);
     }

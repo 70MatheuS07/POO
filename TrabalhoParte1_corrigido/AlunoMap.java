@@ -5,10 +5,6 @@ import java.util.Scanner;
 public class AlunoMap {
     private Map<Integer, Aluno> alunos = new HashMap<Integer, Aluno>();
 
-    public AlunoMap() {
-        alunos = new HashMap<Integer, Aluno>();
-    }
-
     public Map<Integer, Aluno> getAlunoMap() {
         return alunos;
     }
@@ -43,13 +39,16 @@ public class AlunoMap {
 
     public void RegistraNotaAlunoProva(Scanner scanner) {
         System.out.print("Digite a matricula do aluno: ");
-        Aluno aluno = alunos.get(Leitura.LehInt(scanner));
+        int matricula = Leitura.LehInt(scanner);
+        Aluno aluno = alunos.get(matricula);
 
         System.out.print("Digite o codigo da prova: ");
         String prova = Leitura.LehLine(scanner);
 
         System.out.print("Digite a nota da prova: ");
-        aluno.getNotasProvas().put(prova, Leitura.LehDouble(scanner));
+        double nota = Leitura.LehDouble(scanner);
+        
+        aluno.getNotasProvas().put(prova, nota);
     }
 
 }
