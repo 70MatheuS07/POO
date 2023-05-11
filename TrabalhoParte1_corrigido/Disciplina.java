@@ -1,13 +1,13 @@
 public class Disciplina {
     private String nome;
-    private AlunoMap alunos;
+    private AlunoMap alunos = new AlunoMap();
 
     public AlunoMap getAlunoMap() {
         return alunos;
     }
 
-    public void setDisciplina(String name) {
-        nome = name;
+    public void setDisciplina(String nome) {
+        this.nome = nome;
     }
 
     public String getNome() {

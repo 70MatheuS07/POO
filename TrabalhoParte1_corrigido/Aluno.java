@@ -6,6 +6,11 @@ public class Aluno {
     private int curso;
     private Map<String, Double> notasProvas = new HashMap<String, Double>();
 
+    public void setAluno(String nome, int curso) {
+        this.nome = nome;
+        this.curso = curso;
+    }
+
     public String getNome() {
         return nome;
     }

@@ -9,6 +9,10 @@ import java.util.Set;
 public class ProvaMap {
     private Map<String, Prova> provas = new HashMap<String, Prova>();
 
+    public Map<String, Prova> getProvaMap() {
+        return provas;
+    }
+
     public void CadastrarProva(DisciplinaMap disciplinas, Scanner scanner) throws ParseException {
         String codigo;
 
@@ -37,7 +41,7 @@ public class ProvaMap {
             String nome = Leitura.LehLine(scanner);
 
             System.out.print("Digite o peso da prova: ");
-            Double peso = Leitura.LehDouble(scanner);
+            double peso = Leitura.LehDouble(scanner);
 
             System.out.print("Digite a data da prova no formato dd/mm/yyyy:");
             Date data = formatData.parse(Leitura.LehLine(scanner));

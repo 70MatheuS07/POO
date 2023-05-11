@@ -5,6 +5,10 @@ import java.util.Scanner;
 public class DisciplinaMap {
     private Map<String, Disciplina> disciplinas = new HashMap<String, Disciplina>();
 
+    public Map<String, Disciplina> getDisciplinaMap() {
+        return disciplinas;
+    }
+
     public void CadastrarDisciplina(Scanner scanner) {
         String codigo;
 
@@ -46,7 +50,7 @@ public class DisciplinaMap {
         System.out.print("Digite o codigo da disciplina: ");
         String disciplina = Leitura.LehLine(scanner);
 
-        disciplinas.get(disciplina).getAlunoMap().addAlunoMap(matricula, aluno);
+        disciplinas.get(disciplina).getAlunoMap().getAlunoMap().put(matricula, aluno);
     }
 
     public void DisciplinasAlunosMatriculados(CursoMap cursos) {
