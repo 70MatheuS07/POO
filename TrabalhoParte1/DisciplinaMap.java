@@ -59,11 +59,15 @@ public class DisciplinaMap {
     public void DisciplinasAlunosMatriculados(CursoMap cursos) {
         System.out.println("Disciplinas e alunos matriculados:");
 
-        for (String key : disciplinas.keySet()) {
-            System.out.println("- " + disciplinas.get(key).getNome() + " (" + key + ")");
-
-            disciplinas.get(key).ImprimeAlunosDisciplina(cursos);
-
+        for (Map.Entry<String, Disciplina> entry : disciplinas.entrySet()) {
+            String codigo = entry.getKey();
+            Disciplina disciplina = entry.getValue();
+            String nome = disciplina.getNome();
+        
+            System.out.printf("- %s (%s)%n", nome, codigo);
+        
+            disciplina.ImprimeAlunosDisciplina(cursos);
+            System.out.println(); // adiciona uma linha em branco entre as disciplinas
         }
     }
 }

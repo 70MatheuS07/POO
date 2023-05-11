@@ -1,3 +1,5 @@
+import java.util.Map;
+
 public class Disciplina {
     private String nome;
     private AlunoMap alunos = new AlunoMap();
@@ -19,10 +21,11 @@ public class Disciplina {
     }
 
     public void ImprimeAlunosDisciplina(CursoMap cursos) {
-        for (int i = 0; i < alunos.getAlunoMap().size(); i++) {
-            System.out.println("\t- " + alunos.getAlunoMap().get(i).getNome() +
-                    " (" + cursos.getCursoMap().get(alunos.getAlunoMap().get(i).getCurso()).getNome()
-                    + ")");
+        for (Map.Entry<Integer, Aluno> entry : alunos.getAlunoMap().entrySet()) {
+            Aluno aluno = entry.getValue();
+            Curso curso = cursos.getCursoMap().get(aluno.getCurso());
+            String nomeCurso = curso.getNome();
+            System.out.println("\t- " + aluno.getNome() + " (" + nomeCurso + ")");
         }
     }
 

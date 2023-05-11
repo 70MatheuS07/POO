@@ -9,6 +9,11 @@ public class AlunoMap {
         return alunos;
     }
 
+    public void setAlunoMap(Map<Integer, Aluno> alunos)
+    {
+        this.alunos = alunos;
+    }
+
     public void CadastrarAluno(Scanner scanner) {
         int matricula;
 

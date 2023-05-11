@@ -3,8 +3,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Scanner;
-import java.util.Set;
 
 public class ProvaMap {
     private Map<String, Prova> provas = new HashMap<String, Prova>();
@@ -46,7 +46,7 @@ public class ProvaMap {
             System.out.print("Digite a data da prova no formato dd/mm/yyyy:");
             Date data = formatData.parse(Leitura.LehLine(scanner));
 
-            prova.setProva(nome, peso, data);
+            prova.setProva(disciplina, nome, peso, data);
 
             provas.put(codigo, prova);
         }
@@ -55,21 +55,24 @@ public class ProvaMap {
     public void ProvasNotaRecebida(AlunoMap alunos) {
         System.out.println("Provas e notas recebidas:");
 
-        SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
+        for (Map.Entry<String, Prova> entry : provas.entrySet()) {
+            String codigo = entry.getKey();
+            Prova prova = entry.getValue();
+            String nomeDisciplina = prova.getDisciplina().getNome();
+            String nomeProva = prova.getNome();
+            Date dataProva = prova.getData();
 
-        for (String key : provas.keySet()) {
-            System.out.println("- " + provas.get(key).getDisciplina().getNome()
-                    + " - " + provas.get(key).getNome() + " "
-                    + "(" + formatador.format(provas.get(key).getData()) + ")");
+            SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy");
 
-            for (Integer key2 : alunos.getAlunoMap().keySet()) {
-                Set<String> keys = alunos.getAlunoMap().get(key2).getNotasProvas().keySet();
+            System.out.printf("- %s - %s (%s)%n", nomeDisciplina, nomeProva, formatador.format(dataProva));
 
-                if (keys.contains(key)) {
-                    System.out.print("\t- " + alunos.getAlunoMap().get(key2).getNome() + ": ");
-                    System.out.println(alunos.getAlunoMap().get(key2).getNotasProvas().get(key));
-                }
+            for (Aluno aluno : alunos.getAlunoMap().values()) {
+                Optional<Double> notaProva = Optional.ofNullable(aluno.getNotasProvas().get(codigo));
+                notaProva.ifPresent(nota -> {
+                    System.out.printf("\t- %s: %s%n", aluno.getNome(), nota);
+                });
             }
         }
+
     }
 }

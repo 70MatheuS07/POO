@@ -6,7 +6,8 @@ public class Prova {
     private double peso;
     private Date data;
 
-    public void setProva(String nome, double peso, Date data) {
+    public void setProva(Disciplina disciplina, String nome, double peso, Date data) {
+        this.disciplina = disciplina;
         this.nome = nome;
         this.peso = peso;
         this.data = data;
