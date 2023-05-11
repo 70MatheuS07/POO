@@ -1,6 +1,4 @@
-import java.util.HashMap;
 import java.util.InputMismatchException;
-import java.util.Map;
 import java.util.Scanner;
 
 public class Menu {
@@ -9,10 +7,10 @@ public class Menu {
         int numero = 0;
         boolean valido = false;
 
-        Map<String, Disciplina> disciplinas = new HashMap<String, Disciplina>();
-        Map<Integer, Curso> cursos = new HashMap<Integer, Curso>();
-        Map<String, Prova> provas = new HashMap<String, Prova>();
-        Map<Integer, Aluno> alunos = new HashMap<Integer, Aluno>();
+        AlunoMap alunos = new AlunoMap();
+        CursoMap cursos = new CursoMap();
+        DisciplinaMap disciplinas = new DisciplinaMap();
+        ProvaMap provas = new ProvaMap();
 
         while (true) {
             valido = false;
@@ -21,7 +19,7 @@ public class Menu {
             while (!valido) {
                 try {
                     System.out.print("Digite um número inteiro: ");
-                    numero = Leitura.LehInteiro(scanner);
+                    numero = Leitura.LehInt(scanner);
                     valido = true;
                 } catch (InputMismatchException e) {
                     System.out.println("Você digitou um valor inválido. Tente novamente.");
@@ -34,35 +32,31 @@ public class Menu {
                     break;
 
                 case 1:
-                    Curso curso = new Curso();
-                    curso.CadastrarCurso(cursos,scanner);
+                    cursos.CadastrarCurso(scanner);
                     break;
 
                 case 2:
-                    Disciplina disciplina = new Disciplina();
-                    disciplina.CadastrarDisciplina(scanner);
+                    disciplinas.CadastrarDisciplina(scanner);
                     break;
 
                 case 3:
-                    Prova prova = new Prova();
-                    prova.CadastrarProva(scanner);
+                    provas.CadastrarProva(disciplinas, scanner);
                     break;
 
                 case 4:
-                    Aluno aluno = new Aluno();
-                    aluno.CadastrarAluno(scanner);
+                    alunos.CadastrarAluno(scanner);
                     break;
 
                 case 5:
-                    Disciplina.MatricularAlunoDisciplina(scanner);
+                    disciplinas.MatricularAlunoDisciplina(alunos, scanner);
                     break;
 
                 case 6:
-                    Prova.RegistraNotaAlunoProva(scanner);
+                    alunos.RegistraNotaAlunoProva(scanner);
                     break;
 
                 case 7:
-                    ImprimeDados();
+                    ImprimeDados(disciplinas, provas, cursos, alunos);
                     break;
 
                 default:
@@ -91,8 +85,8 @@ public class Menu {
         System.out.println("0 - Sair do programa.");
     }
 
-    public static void ImprimeDados() {
-        Disciplina.DisciplinasAlunosMatriculados();
-        Prova.ProvasNotaRecebida();
+    public static void ImprimeDados(DisciplinaMap disciplinas, ProvaMap provas, CursoMap cursos, AlunoMap alunos) {
+        disciplinas.DisciplinasAlunosMatriculados(cursos);
+        provas.ProvasNotaRecebida(alunos);
     }
 }

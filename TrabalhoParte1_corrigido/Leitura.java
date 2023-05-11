@@ -1,10 +1,10 @@
 import java.util.Scanner;
 
 public class Leitura {
-    public static int LehInteiro(Scanner scanner) {
-        int codigo = scanner.nextInt();
+    public static int LehInt(Scanner scanner) {
+        int inteiro = scanner.nextInt();
         scanner.nextLine();
-        return codigo;
+        return inteiro;
     }
 
     public static double LehDouble(Scanner scanner) {
@@ -13,8 +13,8 @@ public class Leitura {
         return valor;
     }
 
-    public static String LehString(Scanner scanner) {
-        String valor = scanner.nextLine();
-        return valor;
+    public static String LehLine(Scanner scanner) {
+        String linha = scanner.nextLine();
+        return linha;
     }
 }
