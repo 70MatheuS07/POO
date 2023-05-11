@@ -20,6 +20,11 @@ public class Disciplina {
         this.nome = nome;
     }
 
+    /**
+     * Imprime os alunos de acordo com suas matrículas nas disciplinas.
+     * 
+     * @param cursos
+     */
     public void ImprimeAlunosDisciplina(CursoMap cursos) {
         for (Map.Entry<Integer, Aluno> entry : alunos.getAlunoMap().entrySet()) {
             Aluno aluno = entry.getValue();

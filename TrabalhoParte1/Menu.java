@@ -4,13 +4,14 @@ import java.util.Scanner;
 public class Menu {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
-        int numero = 0;
-        boolean valido = false;
 
         AlunoMap alunos = new AlunoMap();
         CursoMap cursos = new CursoMap();
         DisciplinaMap disciplinas = new DisciplinaMap();
         ProvaMap provas = new ProvaMap();
+
+        int numero = 0;
+        boolean valido = false;
 
         while (true) {
             valido = false;
@@ -73,6 +74,9 @@ public class Menu {
         scanner.close();
     }
 
+    /**
+     * Imprime o menu.
+     */
     public static void ImprimeMenu() {
         System.out.println("Opcoes:");
         System.out.println("1 - Cadastrar curso.");
@@ -85,6 +89,14 @@ public class Menu {
         System.out.println("0 - Sair do programa.");
     }
 
+    /**
+     * Imprime os dados.
+     * 
+     * @param disciplinas
+     * @param provas
+     * @param cursos
+     * @param alunos
+     */
     public static void ImprimeDados(DisciplinaMap disciplinas, ProvaMap provas, CursoMap cursos, AlunoMap alunos) {
         disciplinas.DisciplinasAlunosMatriculados(cursos);
         provas.ProvasNotaRecebida(alunos);

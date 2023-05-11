@@ -9,6 +9,11 @@ public class DisciplinaMap {
         return disciplinas;
     }
 
+    /**
+     * Cadastra disciplina passada pelo terminal.
+     * 
+     * @param scanner
+     */
     public void CadastrarDisciplina(Scanner scanner) {
         String codigo;
 
@@ -34,6 +39,12 @@ public class DisciplinaMap {
         disciplinas.put(codigo, disciplina);
     }
 
+    /**
+     * Escolhe uma disciplina com base em um código passado pelo terminal.
+     * 
+     * @param scanner
+     * @return Disciplina selecionada.
+     */
     public Disciplina SelecionaDisciplina(Scanner scanner) {
         System.out.print("Digite o codigo da disciplina: ");
         String disciplina = Leitura.LehLine(scanner);
@@ -45,6 +56,13 @@ public class DisciplinaMap {
         return null;
     }
 
+    /**
+     * Matricula aluno na disciplina. O aluno é selecionado pela sua matricula
+     * e a disciplina pelo seu código. Tudo via terminal.
+     * 
+     * @param alunos
+     * @param scanner
+     */
     public void MatricularAlunoDisciplina(AlunoMap alunos, Scanner scanner) {
         System.out.print("Digite a matricula do aluno: ");
         int matricula = Leitura.LehInt(scanner);
@@ -56,6 +74,11 @@ public class DisciplinaMap {
         disciplinas.get(disciplina).getAlunoMap().getAlunoMap().put(matricula, aluno);
     }
 
+    /**
+     * Imprime as disciplinas com seus alunos matriculados.
+     * 
+     * @param cursos
+     */
     public void DisciplinasAlunosMatriculados(CursoMap cursos) {
         System.out.println("Disciplinas e alunos matriculados:");
 
@@ -63,9 +86,9 @@ public class DisciplinaMap {
             String codigo = entry.getKey();
             Disciplina disciplina = entry.getValue();
             String nome = disciplina.getNome();
-        
+
             System.out.printf("- %s (%s)%n", nome, codigo);
-        
+
             disciplina.ImprimeAlunosDisciplina(cursos);
             System.out.println(); // adiciona uma linha em branco entre as disciplinas
         }

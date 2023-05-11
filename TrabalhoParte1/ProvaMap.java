@@ -13,6 +13,13 @@ public class ProvaMap {
         return provas;
     }
 
+    /**
+     * Cadastra prova passada via terminal.
+     * 
+     * @param disciplinas
+     * @param scanner
+     * @throws ParseException
+     */
     public void CadastrarProva(DisciplinaMap disciplinas, Scanner scanner) throws ParseException {
         String codigo;
 
@@ -52,6 +59,11 @@ public class ProvaMap {
         }
     }
 
+    /**
+     * Registra nota na prova específica.
+     * 
+     * @param alunos
+     */
     public void ProvasNotaRecebida(AlunoMap alunos) {
         System.out.println("Provas e notas recebidas:");
 

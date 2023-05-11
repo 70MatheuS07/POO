@@ -9,6 +9,11 @@ public class CursoMap {
         return cursos;
     }
 
+    /**
+     * Cadastra o curso passado pelo terminal.
+     * 
+     * @param scanner
+     */
     public void CadastrarCurso(Scanner scanner) {
         int codigo;
 
