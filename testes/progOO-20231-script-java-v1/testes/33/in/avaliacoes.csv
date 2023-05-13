@@ -1,0 +1,8 @@
+Disciplina;Código;Nome;Peso;Tipo;Data;Tamanho Máximo Grupo
+ECO0325;ECO1-P1;Prova 1;2;P;01/02/16
+ECO0325;ECO1-T1;Trabalho 1;1;T;02/04/16;3
+ECO0325;ECO1-T2;Trabalho 2;1;T;03/06/16;4
+ECO0326;ECO2-P1;Prova 1;1;P;05/02/16
+ECO0326;ECO2-P2;Prova 2;1;P;06/03/16
+ECO0326;ECO2-PF;Prova Final;1;F;07/06/16
+ECO0325;ECO1-PF;Prova Final;1;F;20/06/16

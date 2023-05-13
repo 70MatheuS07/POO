@@ -1,0 +1,13 @@
+Código;Disciplina;Curso;Média;% Aprovados
+FIL00;Patologia;Doutorado;9,75;100,0%
+FIL00;Patologia;Mestrado;8,29;100,0%
+FIL00;Patologia;Engenharia;7,16;100,0%
+FIL00;Patologia;Direito;5,93;66,7%
+MIC01;Criaturas Mágicas;Doutorado;9,53;100,0%
+MIC01;Criaturas Mágicas;Mestrado;7,69;100,0%
+MIC01;Criaturas Mágicas;Engenharia;7,60;100,0%
+MIC01;Criaturas Mágicas;Direito;5,59;66,7%
+TRI10;Arte das Trevas;Doutorado;9,36;100,0%
+TRI10;Arte das Trevas;Engenharia;8,62;100,0%
+TRI10;Arte das Trevas;Mestrado;7,77;66,7%
+TRI10;Arte das Trevas;Direito;6,20;50,0%

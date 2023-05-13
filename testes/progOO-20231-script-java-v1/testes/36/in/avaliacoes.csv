@@ -1,0 +1,14 @@
+Disciplina;Código;Nome;Peso;Tipo;Data;Tamanho Máximo Grupo
+INF06969;PC-P1;Prova Parcial Map/Set;1;P;15/03/2016
+INF06969;PC-P2;Prova Parcial Segment Tree;1;P;17/04/2016
+INF06969;PC-P3;Prova Parcial Graphs;1;P;23/05/2016
+INF06969;PC-T1;Trabalho Competição;2;T;29/06/2016;3
+INF03117;DJ-T1;Trabalho Mobile;1;T;23/09/2016;2
+INF03117;DJ-T2;Trabalho Console;1;T;24/10/2016;2
+INF03117;DJ-T3;Trabalho PC;1;T;25/11/2016;2
+INF08000;IA-P1;Prova Parcial IA;1;P;21/08/2016
+INF01919;BD-P1;Prova Parcial MySQL;1;P;22/08/2016
+INF06969;PC-PF;Prova Final Prog. Comp.;1;F;07/07/2016
+INF03117;DJ-PF;Prova Final Desenv. Jogos;1;F;06/12/2016
+INF08000;IA-PF;Prova Final Inteligência Art.;1;F;03/12/2016
+INF01919;BD-PF;Prova Final Banco de Dados;1;F;01/12/2016

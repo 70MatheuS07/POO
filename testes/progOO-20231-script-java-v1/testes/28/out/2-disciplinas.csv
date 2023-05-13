@@ -1,0 +1,15 @@
+Código;Disciplina;Curso;Média;% Aprovados
+EST00010;Estatística Básica;Mestrado;6,38;50,0%
+EST00010;Estatística Básica;Doutorado;5,38;50,0%
+INF00001;Lógica de Programação;Engenharia Elétrica;8,25;100,0%
+INF00001;Lógica de Programação;Ciência da Computação;8,13;100,0%
+INF00001;Lógica de Programação;Engenharia de Produção;8,13;100,0%
+INF00001;Lógica de Programação;Engenharia de Computação;8,00;100,0%
+INF00001;Lógica de Programação;Doutorado;7,75;100,0%
+INF00001;Lógica de Programação;Mestrado;7,75;100,0%
+INF00011;Arquitetura de Computadores;Doutorado;8,70;100,0%
+INF00011;Arquitetura de Computadores;Mestrado;7,70;100,0%
+MAT00001;Cálculo I;Engenharia de Produção;6,85;100,0%
+MAT00001;Cálculo I;Engenharia de Computação;6,05;100,0%
+MAT00001;Cálculo I;Engenharia Elétrica;5,75;50,0%
+MAT00001;Cálculo I;Ciência da Computação;4,33;0,0%

@@ -1,0 +1,13 @@
+Disciplina;Código;Nome;Peso;Tipo;Data;Tamanho Máximo Grupo
+ART0544;LGraf-P;Prova Parcial;1;P;15/04/2016
+ART0544;LGraf-T;Trabalho Prático;3;T;21/05/2016;4
+ART0968;Foto-T1;Trabalho Prático Fotográfico;1;T;15/06/2016;4
+ART0968;Foto-T2;Trabalho Prático Fotográfico;1;T;15/07/2016;4
+FIS06326;PFE-P1;Prova Parcial 01;1;P;30/04/2016
+FIS06326;PFE-P2;Prova Parcial 02;2;P;01/06/2016
+FIS06326;PFE-P3;Prova Parcial 03;2;P;15/07/2016
+FIS06326;PFE-PF;Prova Final;1;F;22/07/2016
+MAT06579;PAL-P1;Prova Parcial 01;1;P;25/04/2016
+MAT06579;PAL-P2;Prova Parcial 02;1;P;26/05/2016
+MAT06579;PAL-P3;Prova Parcial 03;1;P;10/07/2016
+MAT06579;PAL-PF;Prova Final;1;F;07/08/2016

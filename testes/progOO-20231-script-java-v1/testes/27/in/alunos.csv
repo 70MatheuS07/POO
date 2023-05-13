@@ -1,0 +1,21 @@
+Matrícula;Nome;Disciplinas;Tipo;Curso
+1;Harry Potter;MIC01;G;21
+2;Rony Weasley;MIC01;G;21
+3;Mione Granger;FIL00, MIC01, TRI10;G;21
+4;Nerva McGonald;FIL00, MIC01, TRI10;P;M
+5;Albus Dumbledore;FIL00, MIC01, TRI10;P;D
+6;Severo Snape;FIL00, TRI10;P;M
+7;Pontas Potter;TRI10;P;D
+8;Arthur Weasley;TRI10;G;21
+9;Dudley Dursley;MIC01;G;12
+10;Fred Weasley;FIL00;G;21
+11;Jorge Weasley;FIL00;G;12
+12;Gina Weasley;TRI10;G;21
+13;Percy Weasley;FIL00, MIC01, TRI10;G;12
+14;Tom Riddle;FIL00, MIC01, TRI10;P;D
+15;Lucius Malfoy;MIC01, TRI10;P;M
+16;Draco Malfoy;MIC01;G;12
+17;Almofadinha Black;TRI10;P;D
+18;Victor Krum;TRI10;G;12
+19;Aluado Lupin;TRI10;P;D
+20;Rabicho Pettigrew;FIL00;G;12
