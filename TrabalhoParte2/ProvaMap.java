@@ -1,3 +1,4 @@
+import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -6,7 +7,7 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Scanner;
 
-public class ProvaMap {
+public class ProvaMap implements Serializable {
     private Map<String, Prova> provas = new HashMap<String, Prova>();
 
     public Map<String, Prova> getProvaMap() {

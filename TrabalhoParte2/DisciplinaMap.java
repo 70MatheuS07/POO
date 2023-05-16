@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class DisciplinaMap {
+public class DisciplinaMap implements Serializable {
     private Map<String, Disciplina> disciplinas = new HashMap<String, Disciplina>();
 
     public Map<String, Disciplina> getDisciplinaMap() {

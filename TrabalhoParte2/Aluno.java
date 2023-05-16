@@ -1,15 +1,14 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Aluno {
+public class Aluno implements Serializable {
     private String nome;
-    private String tipo;
-    private Object curso;
+    private int curso;
     private Map<String, Double> notasProvas = new HashMap<String, Double>();
 
-    public void setAluno(String nome, String tipo, Object curso) {
+    public void setAluno(String nome, int curso) {
         this.nome = nome;
-        this.tipo = tipo;
         this.curso = curso;
     }
 
@@ -21,19 +20,11 @@ public class Aluno {
         this.nome = nome;
     }
 
-    public String getTipo() {
-        return tipo;
-    }
-
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
-    }
-
-    public Object getCurso() {
+    public int getCurso() {
         return curso;
     }
 
-    public void setCurso(Object curso) {
+    public void setCurso(int curso) {
         this.curso = curso;
     }
 

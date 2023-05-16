@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class CursoMap {
+public class CursoMap implements Serializable {
     private Map<Integer, Curso> cursos = new HashMap<Integer, Curso>();
 
     public Map<Integer, Curso> getCursoMap() {

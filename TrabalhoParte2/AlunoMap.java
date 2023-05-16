@@ -1,8 +1,9 @@
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class AlunoMap {
+public class AlunoMap implements Serializable {
     private Map<Integer, Aluno> alunos = new HashMap<Integer, Aluno>();
 
     public Map<Integer, Aluno> getAlunoMap() {
@@ -18,7 +19,31 @@ public class AlunoMap {
      * 
      * @param scanner
      */
-    public void CadastrarAluno(int matricula, Aluno aluno) {
+    public void CadastrarAluno(Scanner scanner) {
+        int matricula;
+
+        while (true) {
+            System.out.print("Digite sua matricula: ");
+            matricula = Leitura.LehInt(scanner);
+
+            if (!alunos.containsKey(matricula)) {
+                break;
+            }
+
+            System.out.println("\nEssa matricula ja existe, tente outra.\n");
+
+        }
+
+        System.out.print("Digite seu nome: ");
+        String nome = Leitura.LehLine(scanner);
+
+        System.out.print("Digite qual curso deseja fazer: ");
+        int curso = Leitura.LehInt(scanner);
+
+        Aluno aluno = new Aluno();
+
+        aluno.setAluno(nome, curso);
+
         alunos.put(matricula, aluno);
     }
 

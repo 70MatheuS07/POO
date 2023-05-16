@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Date;
 
-public class Prova {
+public class Prova implements Serializable {
     private Disciplina disciplina;
     private String nome;
     private double peso;

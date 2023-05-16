@@ -1,6 +1,7 @@
+import java.io.Serializable;
 import java.util.Map;
 
-public class Disciplina {
+public class Disciplina implements Serializable {
     private String nome;
     private AlunoMap alunos = new AlunoMap();
 
