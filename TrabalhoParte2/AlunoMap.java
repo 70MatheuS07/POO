@@ -37,24 +37,22 @@ public class AlunoMap implements Serializable {
         System.out.print("Digite seu nome: ");
         String nome = Leitura.LehLine(scanner);
 
-        
         System.out.println("Digite G - Graduacao\nDigite P - Pos graduacao");
-        String PG=Leitura.LehLine(scanner);
+        String PG = Leitura.LehLine(scanner);
         Aluno aluno;
-        if(PG.equals("G")){
+        if (PG.equals("G")) {
             System.out.print("Digite qual curso deseja fazer: ");
             int curso = Leitura.LehInt(scanner);
-            aluno=new AlunoGrad(nome,"G", curso);
-            
-        }
-        else{
+            aluno = new AlunoGrad(nome, "G", curso);
+
+        } else {
             System.out.print("Digite M - Mestrado\n D - Doutorado ");
-            String MD=Leitura.LehLine(scanner);
-            if(MD.equals("M"))
-                aluno=new AlunoPos(nome,"P", "Mestrado");
-            
-            else{
-                aluno=new AlunoPos(nome,"P", "Doutorado");
+            String MD = Leitura.LehLine(scanner);
+            if (MD.equals("M"))
+                aluno = new AlunoPos(nome, "P", "Mestrado");
+
+            else {
+                aluno = new AlunoPos(nome, "P", "Doutorado");
             }
 
         }
@@ -67,18 +65,34 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void RegistraNotaAlunoAvaliacao(Scanner scanner) {
-        System.out.print("Digite a matricula do aluno: ");
-        int matricula = Leitura.LehInt(scanner);
-        Aluno aluno = alunos.get(matricula);
+    public void RegistraNotaAlunoAvaliacao(AvaliacaoMap avaliacoes, Scanner scanner) {
+        System.out.print("Digite o codigo da avaliacao: ");
+        String codigo = Leitura.LehLine(scanner);
+        Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(codigo);
 
-        System.out.print("Digite o codigo da prova: ");
-        String prova = Leitura.LehLine(scanner);
+        Aluno aluno = null;
+        int matricula = 0;
+        double nota = 0;
+        if (avaliacao instanceof Prova) {
+            System.out.print("Digite a matricula do aluno: ");
+            matricula = Leitura.LehInt(scanner);
+            aluno = alunos.get(matricula);
+            System.out.print("Digite a nota da prova: ");
+            nota = Leitura.LehDouble(scanner);
+            aluno.getNotasAvaliacoes().put(codigo, nota);
+        } else {
+            System.out.println("Digite as matriculas dos alunos");
+            matricula = Leitura.LehInt(scanner);
+            while (matricula != 0) {
+                aluno = alunos.get(matricula);
+                System.out.print("Digite a nota da prova: ");
+                nota = Leitura.LehDouble(scanner);
+                aluno.getNotasAvaliacoes().put(codigo, nota);
+                System.out.println("Se ja forneceu todos os alunos do grupo digite 0");
+                matricula = Leitura.LehInt(scanner);
+            }
+        }
 
-        System.out.print("Digite a nota da prova: ");
-        double nota = Leitura.LehDouble(scanner);
-
-        aluno.getNotasAvaliacoes().put(prova, nota);
     }
 
 }
