@@ -8,7 +8,7 @@ Programação Orientada a Objetos
 INF15933
 ProgOO-P1
 Prova Parcial 1
-1,0
+1.0
 25/04/2023
 4
 2000000005
@@ -29,6 +29,6 @@ INF15933
 6
 2000000005
 ProgOO-P1
-9,9
+9.9
 7
 0

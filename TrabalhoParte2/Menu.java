@@ -10,7 +10,7 @@ public class Menu {
         AlunoMap alunos = null;
         CursoMap cursos = null;
         DisciplinaMap disciplinas = null;
-        ProvaMap provas = null;
+        AvaliacaoMap avaliacoes = null;
 
         File arquivo = new File("dados.ser");
 
@@ -23,7 +23,7 @@ public class Menu {
                 alunos = dados.getAlunos();
                 cursos = dados.getCursos();
                 disciplinas = dados.getDisciplinas();
-                provas = dados.getProvas();
+                avaliacoes = dados.getAvaliacoes();
             } else {
                 System.out.println("Não foi possível realizar a desserialização do arquivo.");
             }
@@ -33,7 +33,7 @@ public class Menu {
             alunos = new AlunoMap();
             cursos = new CursoMap();
             disciplinas = new DisciplinaMap();
-            provas = new ProvaMap();
+            avaliacoes = new AvaliacaoMap();
         }
 
         int numero = 0;
@@ -67,7 +67,7 @@ public class Menu {
                     break;
 
                 case 3:
-                    provas.CadastrarProva(disciplinas, scanner);
+                    avaliacoes.CadastrarAvaliacao(disciplinas, scanner);
                     break;
 
                 case 4:
@@ -79,11 +79,11 @@ public class Menu {
                     break;
 
                 case 6:
-                    alunos.RegistraNotaAlunoProva(scanner);
+                    alunos.RegistraNotaAlunoAvaliacao(scanner);
                     break;
 
                 case 7:
-                    ImprimeDados(disciplinas, provas, cursos, alunos);
+                    ImprimeDados(disciplinas, avaliacoes, cursos, alunos);
                     break;
 
                 default:
@@ -98,8 +98,8 @@ public class Menu {
                     dados.setCursos(cursos);
                 if (disciplinas != null)
                     dados.setDisciplinas(disciplinas);
-                if (provas != null)
-                    dados.setProvas(provas);
+                if (avaliacoes != null)
+                    dados.setAvaliacoes(avaliacoes);
                 Empacotamento.GravarArquivoBinario(dados);
                 break;
             }
@@ -108,7 +108,6 @@ public class Menu {
 
         scanner.close();
     }
-
     /**
      * Imprime o menu.
      */
@@ -116,7 +115,7 @@ public class Menu {
         System.out.println("Opcoes:");
         System.out.println("1 - Cadastrar curso.");
         System.out.println("2 - Cadastrar disciplina.");
-        System.out.println("3 - Cadastrar prova.");
+        System.out.println("3 - Cadastrar avaliacao.");
         System.out.println("4 - Cadastrar aluno(a).");
         System.out.println("5 - Matricular aluno(a) em disciplina.");
         System.out.println("6 - Registrar nota de aluno em prova.");
@@ -128,12 +127,12 @@ public class Menu {
      * Imprime os dados.
      * 
      * @param disciplinas
-     * @param provas
+     * @param avaliacoes
      * @param cursos
      * @param alunos
      */
-    public static void ImprimeDados(DisciplinaMap disciplinas, ProvaMap provas, CursoMap cursos, AlunoMap alunos) {
+    public static void ImprimeDados(DisciplinaMap disciplinas, AvaliacaoMap avaliacoes, CursoMap cursos, AlunoMap alunos) {
         disciplinas.DisciplinasAlunosMatriculados(cursos);
-        provas.ProvasNotaRecebida(alunos);
+        avaliacoes.avaliacoesNotaRecebida(alunos);
     }
 }

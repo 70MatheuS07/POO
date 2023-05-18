@@ -4,7 +4,7 @@ public class Dados implements Serializable {
     AlunoMap alunos;
     CursoMap cursos;
     DisciplinaMap disciplinas;
-    ProvaMap provas;
+    AvaliacaoMap provas;
 
     public AlunoMap getAlunos() {
         return alunos;
@@ -30,11 +30,11 @@ public class Dados implements Serializable {
         this.disciplinas = disciplinas;
     }
 
-    public ProvaMap getProvas() {
+    public AvaliacaoMap getAvaliacoes() {
         return provas;
     }
 
-    public void setProvas(ProvaMap provas) {
+    public void setAvaliacoes(AvaliacaoMap provas) {
         this.provas = provas;
     }
 }

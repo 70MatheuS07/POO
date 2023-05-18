@@ -20,7 +20,7 @@ public class Aluno implements Serializable {
         this.nome = nome;
     }
 
-    public Map<String, Double> getNotasProvas() {
+    public Map<String, Double> getNotasAvaliacoes() {
         return notasProvas;
     }
 
