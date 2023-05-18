@@ -38,6 +38,7 @@ public class Menu {
 
         int numero = 0;
         boolean valido = false;
+        Relatorio relatorio = new Relatorio();
 
         while (true) {
             valido = false;
@@ -86,8 +87,12 @@ public class Menu {
                     ImprimeDados(disciplinas, avaliacoes, cursos, alunos);
                     break;
 
+                case 8:
+                    relatorio.EscolheRelatorio(scanner);
+                    break;
+
                 default:
-                    System.out.println("Erro: o número deve estar entre 0 e 7.");
+                    System.out.println("Erro: o número deve estar entre 0 e 8.");
                     break;
             }
 

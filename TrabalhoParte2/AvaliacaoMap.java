@@ -54,8 +54,8 @@ public class AvaliacaoMap implements Serializable {
 
             System.out.println("Qual o tipo de avaliacao:\n Digite P - Prova\n Digite T - Trabalho Pratico");
             String tipoAvaliacao = Leitura.LehLine(scanner);
-            
-            Avaliacao avaliacao;
+
+            Avaliacao avaliacao = null;
             boolean Booltipo;
 
             if (tipoAvaliacao.equals("P")) {
@@ -68,9 +68,9 @@ public class AvaliacaoMap implements Serializable {
                 }
                 avaliacao = new Prova(disciplina, nome, peso, data, Booltipo);
             }
-            if(tipoAvaliacao.equals("T")){
+            if (tipoAvaliacao.equals("T")) {
                 System.out.println("Digite numero maximo de alunos nesse trabalho pratico");
-                int tamMax= Leitura.LehInt(scanner);
+                int tamMax = Leitura.LehInt(scanner);
                 avaliacao = new Trabalho(disciplina, nome, peso, data, tamMax);
             }
 
