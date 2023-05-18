@@ -29,9 +29,17 @@ public class Disciplina implements Serializable {
     public void ImprimeAlunosDisciplina(CursoMap cursos) {
         for (Map.Entry<Integer, Aluno> entry : alunos.getAlunoMap().entrySet()) {
             Aluno aluno = entry.getValue();
-            Curso curso = cursos.getCursoMap().get(aluno.getCurso());
+            if(aluno instanceof AlunoGrad){
+            AlunoGrad alunoGrad = (AlunoGrad) aluno;
+            Curso curso = cursos.getCursoMap().get(alunoGrad.getCurso());
             String nomeCurso = curso.getNome();
             System.out.println("\t- " + aluno.getNome() + " (" + nomeCurso + ")");
+            }
+            else{
+            AlunoPos alunoPos = (AlunoPos) aluno;
+            String grad = alunoPos.getNivel();
+            System.out.println("\t- " + aluno.getNome() + " (" + grad + ")");
+            }
         }
     }
 

@@ -37,12 +37,27 @@ public class AlunoMap implements Serializable {
         System.out.print("Digite seu nome: ");
         String nome = Leitura.LehLine(scanner);
 
-        System.out.print("Digite qual curso deseja fazer: ");
-        int curso = Leitura.LehInt(scanner);
+        
+        System.out.println("Digite G - Graduacao\nDigite P - Pos graduacao");
+        String PG=Leitura.LehLine(scanner);
+        Aluno aluno;
+        if(PG.equals("G")){
+            System.out.print("Digite qual curso deseja fazer: ");
+            int curso = Leitura.LehInt(scanner);
+            aluno=new AlunoGrad(nome,"G", curso);
+            
+        }
+        else{
+            System.out.print("Digite M - Mestrado\n D - Doutorado ");
+            String MD=Leitura.LehLine(scanner);
+            if(MD.equals("M"))
+                aluno=new AlunoPos(nome,"P", "Mestrado");
+            
+            else{
+                aluno=new AlunoPos(nome,"P", "Doutorado");
+            }
 
-        Aluno aluno = new Aluno();
-
-        aluno.setAluno(nome, curso);
+        }
 
         alunos.put(matricula, aluno);
     }
@@ -52,7 +67,7 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void RegistraNotaAlunoProva(Scanner scanner) {
+    public void RegistraNotaAlunoAvaliacao(Scanner scanner) {
         System.out.print("Digite a matricula do aluno: ");
         int matricula = Leitura.LehInt(scanner);
         Aluno aluno = alunos.get(matricula);
@@ -63,7 +78,7 @@ public class AlunoMap implements Serializable {
         System.out.print("Digite a nota da prova: ");
         double nota = Leitura.LehDouble(scanner);
 
-        aluno.getNotasProvas().put(prova, nota);
+        aluno.getNotasAvaliacoes().put(prova, nota);
     }
 
 }
