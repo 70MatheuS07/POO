@@ -3,14 +3,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Aluno implements Serializable {
-    private String nome;
-    private int curso;
-    private Map<String, Double> notasProvas = new HashMap<String, Double>();
+    protected String nome;
+    protected String Grad;
+    protected Map<String, Double> notasProvas = new HashMap<String, Double>();
 
-    public void setAluno(String nome, int curso) {
+    public Aluno(String nome, String Grad) {
         this.nome = nome;
-        this.curso = curso;
     }
+
 
     public String getNome() {
         return nome;
@@ -18,14 +18,6 @@ public class Aluno implements Serializable {
 
     public void setNome(String nome) {
         this.nome = nome;
-    }
-
-    public int getCurso() {
-        return curso;
-    }
-
-    public void setCurso(int curso) {
-        this.curso = curso;
     }
 
     public Map<String, Double> getNotasProvas() {
