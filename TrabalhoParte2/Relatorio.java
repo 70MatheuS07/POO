@@ -97,8 +97,6 @@ public class Relatorio {
     }
 
     public void EstatisticasAvaliacao(AvaliacaoMap a, DisciplinaMap d) {
-        double total = 0.0;
-
         Map<String, Avaliacao> avaliacoes = a.getAvaliacaoMap();
 
         for (Map.Entry<String, Avaliacao> entry : avaliacoes.entrySet()) {
