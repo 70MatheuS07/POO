@@ -2,24 +2,24 @@ import java.io.Serializable;
 import java.util.Date;
 
 public class Avaliacao implements Serializable {
-    private Disciplina disciplina;
+    private String disciplinaKey;
     private String nome;
     private double peso;
     private Date data;
 
-    public Avaliacao(Disciplina disciplina, String nome, double peso, Date data) {
-        this.disciplina = disciplina;
+    public Avaliacao(String disciplina, String nome, double peso, Date data) {
+        this.disciplinaKey = disciplina;
         this.nome = nome;
         this.peso = peso;
         this.data = data;
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
+    public String getDisciplina() {
+        return disciplinaKey;
     }
 
-    public void setDisciplina(Disciplina disciplina) {
-        this.disciplina = disciplina;
+    public void setDisciplina(String disciplina) {
+        this.disciplinaKey = disciplina;
     }
 
     public String getNome() {

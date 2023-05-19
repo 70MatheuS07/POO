@@ -41,23 +41,6 @@ public class DisciplinaMap implements Serializable {
     }
 
     /**
-     * Escolhe uma disciplina com base em um código passado pelo terminal.
-     * 
-     * @param scanner
-     * @return Disciplina selecionada.
-     */
-    public Disciplina SelecionaDisciplina(Scanner scanner) {
-        System.out.print("Digite o codigo da disciplina: ");
-        String disciplina = Leitura.LehLine(scanner);
-
-        if (disciplinas.containsKey(disciplina)) {
-            return disciplinas.get(disciplina);
-        }
-
-        return null;
-    }
-
-    /**
      * Matricula aluno na disciplina. O aluno é selecionado pela sua matricula
      * e a disciplina pelo seu código. Tudo via terminal.
      * 

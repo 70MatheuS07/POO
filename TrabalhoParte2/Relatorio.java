@@ -1,3 +1,5 @@
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
@@ -35,7 +37,7 @@ public class Relatorio {
                 break;
 
             case 3:
-                EstatisticasAvaliacao(a);
+                EstatisticasAvaliacao(a, d);
                 break;
         }
 
@@ -63,16 +65,55 @@ public class Relatorio {
     }
 
     public void ImprimeNotasProvasAluno(Map<String, Double> notas, Map<String, Avaliacao> avaliacoes) {
-        double total = 0.0, media = 0.0;
-
         for (Map.Entry<String, Double> entry : notas.entrySet()) {
             String keyProva = entry.getKey();
             double notaProva = entry.getValue();
             String nomeProva = avaliacoes.get(keyProva).getNome();
 
             System.out.printf("- %s nota: %.2f\n", nomeProva, notaProva);
-            
-            CalculaMediaParcial();
+
+            // CalculaMediaParcial();
+            // NotaProvaFinal(); Se ele fizer a final.
+            // MediaFinal(); Se ele fizer a final.
+        }
+    }
+
+    public void EstatisticasDisciplina(DisciplinaMap d) {
+        Map<String, Disciplina> disciplinas = d.getDisciplinaMap();
+
+        System.out.println("- Estatísticas por disciplina:");
+
+        for (Map.Entry<String, Disciplina> entry : disciplinas.entrySet()) {
+            String key = entry.getKey();
+            Disciplina disciplina = entry.getValue();
+
+            System.out.printf("\t- Código: %s; Nome: %s; ", key, disciplina.getNome());
+
+            /*
+             * Calcular e exibir a média das notas finais dos alunos
+             * daquele curso e o percentual de alunos aprovados daquele curso.
+             */
+        }
+    }
+
+    public void EstatisticasAvaliacao(AvaliacaoMap a, DisciplinaMap d) {
+        double total = 0.0;
+
+        Map<String, Avaliacao> avaliacoes = a.getAvaliacaoMap();
+
+        for (Map.Entry<String, Avaliacao> entry : avaliacoes.entrySet()) {
+            String key = entry.getKey();
+            Avaliacao avaliacao = entry.getValue();
+            String avaliacaoNome = avaliacao.getNome();
+            Date data = avaliacao.getData();
+            SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
+            String avaliacaoData = formato.format(data);
+
+            String disciplinaKey = avaliacao.getDisciplina();
+            System.out.printf("Código: %s; Código disciplina: %s; ", key, disciplinaKey);
+            System.out.printf("Nome: %s; Data: %s", key, disciplinaKey, avaliacaoNome, avaliacaoData);
+
+            // Fazer a média das notas obtidas.
         }
     }
 

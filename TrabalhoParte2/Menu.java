@@ -88,7 +88,7 @@ public class Menu {
                     break;
 
                 case 8:
-                    relatorio.EscolheRelatorio(scanner);
+                    relatorio.EscolheRelatorio(scanner, disciplinas, avaliacoes);
                     break;
 
                 default:
@@ -113,6 +113,7 @@ public class Menu {
 
         scanner.close();
     }
+
     /**
      * Imprime o menu.
      */
@@ -136,8 +137,9 @@ public class Menu {
      * @param cursos
      * @param alunos
      */
-    public static void ImprimeDados(DisciplinaMap disciplinas, AvaliacaoMap avaliacoes, CursoMap cursos, AlunoMap alunos) {
+    public static void ImprimeDados(DisciplinaMap disciplinas, AvaliacaoMap avaliacoes, CursoMap cursos,
+            AlunoMap alunos) {
         disciplinas.DisciplinasAlunosMatriculados(cursos);
-        avaliacoes.avaliacoesNotaRecebida(alunos);
+        avaliacoes.avaliacoesNotaRecebida(alunos, disciplinas);
     }
 }
