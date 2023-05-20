@@ -24,7 +24,8 @@ public class AvaliacaoMap implements Serializable {
     public void CadastrarAvaliacao(DisciplinaMap disciplinas, Scanner scanner) throws ParseException {
         String codigo;
 
-        Disciplina disciplina = disciplinas.SelecionaDisciplina(scanner);
+        System.out.print("Digite o codigo da disciplina: ");
+        String disciplina = Leitura.LehLine(scanner);
 
         if (disciplina == null) {
             System.out.println("Nao existe disciplinas para serem escolhidas");
@@ -62,7 +63,6 @@ public class AvaliacaoMap implements Serializable {
                 data = formatData.parse(Leitura.LehLine(scanner));
             }
 
-
             Avaliacao avaliacao = null;
             boolean Booltipo;
 
@@ -75,7 +75,12 @@ public class AvaliacaoMap implements Serializable {
                     Booltipo = true;
                 }
                 avaliacao = new Prova(disciplina, nome, peso, data, Booltipo);
+
+            }
+            if (tipoAvaliacao.equals("T")) {
+
             } else if (tipoAvaliacao.equals("T")) {
+
                 System.out.println("Digite numero maximo de alunos nesse trabalho pratico");
                 int tamMax = Leitura.LehInt(scanner);
                 avaliacao = new Trabalho(disciplina, nome, peso, data, tamMax);
@@ -90,13 +95,13 @@ public class AvaliacaoMap implements Serializable {
      * 
      * @param alunos
      */
-    public void avaliacoesNotaRecebida(AlunoMap alunos) {
+    public void avaliacoesNotaRecebida(AlunoMap alunos, DisciplinaMap d) {
         System.out.println("avaliacoes e notas recebidas:");
 
         for (Map.Entry<String, Avaliacao> entry : avaliacoes.entrySet()) {
             String codigo = entry.getKey();
             Avaliacao avaliacao = entry.getValue();
-            String nomeDisciplina = avaliacao.getDisciplina().getNome();
+            String nomeDisciplina = d.getDisciplinaMap().get(avaliacao.getDisciplina()).getNome();
             String nomeAvaliacao = avaliacao.getNome();
             Date dataAvaliacao = avaliacao.getData();
 
