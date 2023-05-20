@@ -66,13 +66,14 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void RegistraNotaAlunoAvaliacao(AvaliacaoMap avaliacoes, Scanner scanner) {
+    public void RegistraNotaAlunoAvaliacao(AvaliacaoMap avaliacoes, DisciplinaMap disciplinas, Scanner scanner) {
         System.out.print("Digite o codigo da avaliacao: ");
         String codigo = Leitura.LehLine(scanner);
         //Pega codigo da avaliacao  a partir do mapa de avaliacoes
         Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(codigo);
         //Pega o mapa de alunos da disciplina em que a avaliacao ocorreu
-        AlunoMap mapaAlunos = avaliacao.getDisciplina().getAlunoMap();
+        Disciplina disciplina = disciplinas.getDisciplinaMap().get(avaliacao.getDisciplina());
+        AlunoMap mapaAlunos = disciplina.getAlunoMap();
 
         Aluno aluno = null;
         int matricula = -1;

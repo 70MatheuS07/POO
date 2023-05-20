@@ -80,7 +80,7 @@ public class Menu {
                     break;
 
                 case 6:
-                    alunos.RegistraNotaAlunoAvaliacao(avaliacoes,scanner);
+                    alunos.RegistraNotaAlunoAvaliacao(avaliacoes, disciplinas, scanner);
                     break;
 
                 case 7:
