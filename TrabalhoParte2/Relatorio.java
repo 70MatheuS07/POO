@@ -70,12 +70,34 @@ public class Relatorio {
             double notaProva = entry.getValue();
             String nomeProva = avaliacoes.get(keyProva).getNome();
 
-            System.out.printf("- %s nota: %.2f\n", nomeProva, notaProva);
+            System.out.printf("- %s nota: %.2f; ", nomeProva, notaProva);
 
-            // CalculaMediaParcial();
+            double mediaParcial = CalculaMediaParcial(notas, avaliacoes);
+
+            if (mediaParcial >= 7.0) {
+                System.out.printf("média parcial: %.2f", mediaParcial);
+            } else {
+
+            }
             // NotaProvaFinal(); Se ele fizer a final.
             // MediaFinal(); Se ele fizer a final.
         }
+    }
+
+    public double CalculaMediaParcial(Map<String, Double> notas, Map<String, Avaliacao> avaliacoes) {
+        double total = 0.0, pesoTotal = 0.0;
+
+        for (Map.Entry<String, Double> entry : notas.entrySet()) {
+            String keyProva = entry.getKey();
+            double notaProva = entry.getValue();
+            Avaliacao avaliacao = avaliacoes.get(keyProva);
+            double pesoProva = avaliacao.getPeso();
+
+            total += notaProva * pesoProva;
+            pesoTotal += pesoProva;
+        }
+
+        return total / pesoTotal;
     }
 
     public void EstatisticasDisciplina(DisciplinaMap d) {
