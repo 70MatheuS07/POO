@@ -52,8 +52,15 @@ public class AvaliacaoMap implements Serializable {
             System.out.println("Qual o tipo de avaliacao:\n Digite P - Prova\n Digite T - Trabalho Pratico");
             String tipoAvaliacao = Leitura.LehLine(scanner);
 
-            System.out.print("Digite a data da avaliacao no formato dd/mm/yyyy:");
-            Date data = formatData.parse(Leitura.LehLine(scanner));
+            Date data=null;
+            if(tipoAvaliacao.equals("P")){
+                System.out.print("Digite a data da avaliacao no formato dd/mm/yyyy:");
+                data = formatData.parse(Leitura.LehLine(scanner));
+            }
+            else if(tipoAvaliacao.equals("T")){
+                System.out.print("Digite a data de entrega do trabalho no formato dd/mm/yyyy:");
+                data = formatData.parse(Leitura.LehLine(scanner));
+            }
 
 
             Avaliacao avaliacao = null;
