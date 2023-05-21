@@ -77,8 +77,7 @@ public class AvaliacaoMap implements Serializable {
                 avaliacao = new Prova(disciplina, nome, peso, data, Booltipo);
 
             }
-            if (tipoAvaliacao.equals("T")) {
-
+            
             } else if (tipoAvaliacao.equals("T")) {
 
                 System.out.println("Digite numero maximo de alunos nesse trabalho pratico");
