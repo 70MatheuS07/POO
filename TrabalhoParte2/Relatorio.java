@@ -33,7 +33,7 @@ public class Relatorio {
                 break;
 
             case 2:
-                EstatisticasDisciplina(d);
+                EstatisticasDisciplina(d, a);
                 break;
 
             case 3:
@@ -75,12 +75,18 @@ public class Relatorio {
             double mediaParcial = CalculaMediaParcial(notas, avaliacoes);
 
             if (mediaParcial >= 7.0) {
-                System.out.printf("média parcial: %.2f", mediaParcial);
+                System.out.printf("média final: %.2f\n", mediaParcial);
             } else {
+                System.out.printf("média parcial: %.2f; ", mediaParcial);
 
+                double notaProvaFinal = RetornaNotaProvaFinal(notas, avaliacoes);
+
+                System.out.printf("nota prova final: %.2f; ", notaProvaFinal);
+
+                double mediaFinal = (mediaParcial + notaProvaFinal) / 2;
+
+                System.out.printf("média final: %.2f\n", mediaFinal);
             }
-            // NotaProvaFinal(); Se ele fizer a final.
-            // MediaFinal(); Se ele fizer a final.
         }
     }
 
@@ -93,14 +99,41 @@ public class Relatorio {
             Avaliacao avaliacao = avaliacoes.get(keyProva);
             double pesoProva = avaliacao.getPeso();
 
-            total += notaProva * pesoProva;
-            pesoTotal += pesoProva;
+            if (avaliacao instanceof Prova) {
+                Prova prova = (Prova) avaliacao;
+
+                if (prova.getTipoProva() == false) {
+                    total += notaProva * pesoProva;
+                    pesoTotal += pesoProva;
+                }
+            } else {
+                total += notaProva * pesoProva;
+                pesoTotal += pesoProva;
+            }
         }
 
         return total / pesoTotal;
     }
 
-    public void EstatisticasDisciplina(DisciplinaMap d) {
+    public double RetornaNotaProvaFinal(Map<String, Double> notas, Map<String, Avaliacao> avaliacoes) {
+        for (Map.Entry<String, Double> entry : notas.entrySet()) {
+            String keyProva = entry.getKey();
+            double notaProva = entry.getValue();
+            Avaliacao avaliacao = avaliacoes.get(keyProva);
+
+            if (avaliacao instanceof Prova) {
+                Prova prova = (Prova) avaliacao;
+
+                if (prova.getTipoProva() == true) {
+                    return notaProva;
+                }
+            }
+        }
+
+        return -1;
+    }
+
+    public void EstatisticasDisciplina(DisciplinaMap d, AvaliacaoMap a) {
         Map<String, Disciplina> disciplinas = d.getDisciplinaMap();
 
         System.out.println("- Estatísticas por disciplina:");
@@ -115,7 +148,99 @@ public class Relatorio {
              * Calcular e exibir a média das notas finais dos alunos
              * daquele curso e o percentual de alunos aprovados daquele curso.
              */
+
+            CalculaMediaAlunosDisciplina(disciplina, a);
         }
+    }
+
+    public void CalculaMediaAlunosDisciplina(Disciplina disciplina, AvaliacaoMap a) {
+        Map<Integer, Aluno> alunos = disciplina.getAlunoMap().getAlunoMap();
+
+        int num = 0;
+
+        for (Map.Entry<Integer, Aluno> entry : alunos.entrySet()) {
+            Aluno aluno = entry.getValue();
+
+            num += DifereAlunos(aluno, a);
+
+        }
+
+        double taxaAprovacao = (double) ((num / alunos.size()) * 100);
+
+        System.out.printf("percentual de alunos aprovados: %.2f%% ", taxaAprovacao);
+    }
+
+    public int DifereAlunos(Aluno aluno, AvaliacaoMap a) {
+        double mediaFinal = 0;
+        if (aluno instanceof AlunoGrad) {
+            AlunoGrad alunoGrad = (AlunoGrad) aluno;
+
+            int curso = alunoGrad.getCurso();
+
+            Map<String, Double> notas = alunoGrad.getNotasAvaliacoes();
+
+            System.out.printf("Curso: %d; ", curso);
+
+            double mediaParcial = CalculaMediaParcial(notas, a.getAvaliacaoMap());
+
+            if (mediaParcial >= 7.0) {
+                System.out.printf("média notas final: %.2f; ", mediaParcial);
+            } else {
+                double notaProvaFinal = RetornaNotaProvaFinal(notas, a.getAvaliacaoMap());
+
+                mediaFinal = (mediaParcial + notaProvaFinal) / 2;
+
+                System.out.printf("média notas final: %.2f; ", mediaFinal);
+            }
+        }
+
+        else {
+            AlunoPos alunoPos = (AlunoPos) aluno;
+
+            if (alunoPos.getNivel() == "mestrado") {
+                String curso = alunoPos.getNivel();
+
+                Map<String, Double> notas = alunoPos.getNotasAvaliacoes();
+
+                System.out.printf("Curso: %s; ", curso);
+
+                double mediaParcial = CalculaMediaParcial(notas, a.getAvaliacaoMap());
+
+                if (mediaParcial >= 7.0) {
+                    System.out.printf("média notas final: %.2f; ", mediaParcial);
+                } else {
+                    double notaProvaFinal = RetornaNotaProvaFinal(notas, a.getAvaliacaoMap());
+
+                    mediaFinal = (mediaParcial + notaProvaFinal) / 2;
+
+                    System.out.printf("média notas final: %.2f; ", mediaFinal);
+                }
+            } else {
+                String curso = alunoPos.getNivel();
+
+                Map<String, Double> notas = alunoPos.getNotasAvaliacoes();
+
+                System.out.printf("Curso: %s; ", curso);
+
+                double mediaParcial = CalculaMediaParcial(notas, a.getAvaliacaoMap());
+
+                if (mediaParcial >= 7.0) {
+                    System.out.printf("média notas final: %.2f; ", mediaParcial);
+                } else {
+                    double notaProvaFinal = RetornaNotaProvaFinal(notas, a.getAvaliacaoMap());
+
+                    mediaFinal = (mediaParcial + notaProvaFinal) / 2;
+
+                    System.out.printf("média notas final: %.2f; ", mediaFinal);
+                }
+            }
+        }
+
+        if (mediaFinal >= 7.0) {
+            return 1;
+        }
+
+        return 0;
     }
 
     public void EstatisticasAvaliacao(AvaliacaoMap a, DisciplinaMap d) {
@@ -131,10 +256,31 @@ public class Relatorio {
 
             String disciplinaKey = avaliacao.getDisciplina();
             System.out.printf("Código: %s; Código disciplina: %s; ", key, disciplinaKey);
-            System.out.printf("Nome: %s; Data: %s", key, disciplinaKey, avaliacaoNome, avaliacaoData);
+            System.out.printf("Nome: %s; Data: %s; ", avaliacaoNome, avaliacaoData);
 
             // Fazer a média das notas obtidas.
+            Disciplina disciplina = d.getDisciplinaMap().get(disciplinaKey);
+
+            double mediaNotasObtidas = CalculaMediaAlunosDisciplinaAvaliacao(disciplina, key);
+            System.out.printf("média notas obtidas: %.2f\n", mediaNotasObtidas);
         }
+    }
+
+    public double CalculaMediaAlunosDisciplinaAvaliacao(Disciplina disciplina, String key) {
+        Map<Integer, Aluno> alunos = disciplina.getAlunoMap().getAlunoMap();
+
+        double total = 0.0;
+
+        for (Map.Entry<Integer, Aluno> entry : alunos.entrySet()) {
+            Aluno aluno = entry.getValue();
+
+            double notaAvaliacao = aluno.getNotasAvaliacoes().get(key);
+
+            total += notaAvaliacao;
+
+        }
+
+        return (double) (total / alunos.size());
     }
 
     public void RelatorioMenu() {
