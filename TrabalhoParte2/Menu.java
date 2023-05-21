@@ -142,6 +142,7 @@ public class Menu {
         System.out.println("5 - Matricular aluno(a) em disciplina.");
         System.out.println("6 - Registrar nota de aluno em prova.");
         System.out.println("7 - Imprimir dados.");
+        System.out.println("8 - Imprimir relatório.");
         System.out.println("0 - Sair do programa.");
     }
 
