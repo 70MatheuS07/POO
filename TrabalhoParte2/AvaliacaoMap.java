@@ -53,12 +53,11 @@ public class AvaliacaoMap implements Serializable {
             System.out.println("Qual o tipo de avaliacao:\n Digite P - Prova\n Digite T - Trabalho Pratico");
             String tipoAvaliacao = Leitura.LehLine(scanner);
 
-            Date data=null;
-            if(tipoAvaliacao.equals("P")){
+            Date data = null;
+            if (tipoAvaliacao.equals("P")) {
                 System.out.print("Digite a data da avaliacao no formato dd/mm/yyyy:");
                 data = formatData.parse(Leitura.LehLine(scanner));
-            }
-            else if(tipoAvaliacao.equals("T")){
+            } else if (tipoAvaliacao.equals("T")) {
                 System.out.print("Digite a data de entrega do trabalho no formato dd/mm/yyyy:");
                 data = formatData.parse(Leitura.LehLine(scanner));
             }
@@ -76,8 +75,6 @@ public class AvaliacaoMap implements Serializable {
                 }
                 avaliacao = new Prova(disciplina, nome, peso, data, Booltipo);
 
-            }
-            
             } else if (tipoAvaliacao.equals("T")) {
 
                 System.out.println("Digite numero maximo de alunos nesse trabalho pratico");
