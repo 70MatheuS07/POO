@@ -12,7 +12,18 @@ public class Menu {
         DisciplinaMap disciplinas = null;
         AvaliacaoMap avaliacoes = null;
 
-        File arquivo = new File("dados.ser");
+        System.out.printf("Deseja carregar dados de arquivo?\n");
+        System.out.printf("1 - Sim\n");
+        System.out.printf("2 - Não\n");
+        String linha = Leitura.LehLine(scanner);
+
+        File arquivo = null;
+
+        if (linha == "1") {
+            System.out.printf("Digite o nome do arquivo: ");
+            String nomeArq = Leitura.LehLine(scanner);
+            arquivo = new File(nomeArq);
+        }
 
         if (arquivo.exists()) {
             // O arquivo existe, então realizamos a desserialização
@@ -97,15 +108,20 @@ public class Menu {
             }
 
             if (numero == 0) {
-                if (alunos != null)
+
+                System.out.printf("Quer salvar todos os dados cadastrados?");
+                System.out.printf("1 - Sim\n");
+                System.out.printf("2 - Não\n");
+                String resp = Leitura.LehLine(scanner);
+
+                if (resp == "1") {
                     dados.setAlunos(alunos);
-                if (cursos != null)
                     dados.setCursos(cursos);
-                if (disciplinas != null)
                     dados.setDisciplinas(disciplinas);
-                if (avaliacoes != null)
                     dados.setAvaliacoes(avaliacoes);
-                Empacotamento.GravarArquivoBinario(dados);
+                    Empacotamento.GravarArquivoBinario(dados);
+                }
+
                 break;
             }
 
