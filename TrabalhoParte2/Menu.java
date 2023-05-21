@@ -25,7 +25,7 @@ public class Menu {
             arquivo = new File(nomeArq);
         }
 
-        if (arquivo.exists()) {
+        if (arquivo != null) {
             // O arquivo existe, então realizamos a desserialização
             dados = Empacotamento.LerArquivoBinario();
             if (dados != null) {
@@ -109,7 +109,7 @@ public class Menu {
 
             if (numero == 0) {
 
-                System.out.printf("Quer salvar todos os dados cadastrados?");
+                System.out.printf("Quer salvar todos os dados cadastrados\n?");
                 System.out.printf("1 - Sim\n");
                 System.out.printf("2 - Não\n");
                 String resp = Leitura.LehLine(scanner);
