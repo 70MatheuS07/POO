@@ -14,11 +14,11 @@ public class Avaliacao implements Serializable {
         this.data = data;
     }
 
-    public String getDisciplina() {
+    public String getDisciplinaKey() {
         return disciplinaKey;
     }
 
-    public void setDisciplina(String disciplina) {
+    public void setDisciplinaKey(String disciplina) {
         this.disciplinaKey = disciplina;
     }
 

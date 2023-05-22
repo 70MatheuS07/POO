@@ -72,7 +72,7 @@ public class AlunoMap implements Serializable {
         //Pega codigo da avaliacao  a partir do mapa de avaliacoes
         Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(codigo);
         //Pega o mapa de alunos da disciplina em que a avaliacao ocorreu
-        Disciplina disciplina = disciplinas.getDisciplinaMap().get(avaliacao.getDisciplina());
+        Disciplina disciplina = disciplinas.getDisciplinaMap().get(avaliacao.getDisciplinaKey());
         AlunoMap mapaAlunos = disciplina.getAlunoMap();
 
         Aluno aluno = null;

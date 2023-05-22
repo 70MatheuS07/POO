@@ -18,16 +18,17 @@ public class Menu {
         String linha = Leitura.LehLine(scanner);
 
         File arquivo = null;
+        String nomeArq = null;
 
-        if (linha == "1") {
+        if (linha.equals("1")) {
             System.out.printf("Digite o nome do arquivo: ");
-            String nomeArq = Leitura.LehLine(scanner);
+            nomeArq = Leitura.LehLine(scanner);
             arquivo = new File(nomeArq);
         }
 
         if (arquivo != null) {
             // O arquivo existe, então realizamos a desserialização
-            dados = Empacotamento.LerArquivoBinario();
+            dados = Empacotamento.LerArquivoBinario(nomeArq);
             if (dados != null) {
                 // A desserialização foi bem-sucedida, utilize os objetos desserializados
                 // conforme necessário
@@ -109,17 +110,20 @@ public class Menu {
 
             if (numero == 0) {
 
-                System.out.printf("Quer salvar todos os dados cadastrados\n?");
+                System.out.printf("Quer salvar todos os dados cadastrados?\n");
                 System.out.printf("1 - Sim\n");
                 System.out.printf("2 - Não\n");
                 String resp = Leitura.LehLine(scanner);
 
-                if (resp == "1") {
+                if (resp.equals("1")) {
                     dados.setAlunos(alunos);
                     dados.setCursos(cursos);
                     dados.setDisciplinas(disciplinas);
                     dados.setAvaliacoes(avaliacoes);
-                    Empacotamento.GravarArquivoBinario(dados);
+
+                    System.out.printf("Digite o nome do arquivo: ");
+                    String nomeArquivo = Leitura.LehLine(scanner);
+                    Empacotamento.GravarArquivoBinario(nomeArquivo, dados);
                 }
 
                 break;

@@ -97,7 +97,7 @@ public class AvaliacaoMap implements Serializable {
         for (Map.Entry<String, Avaliacao> entry : avaliacoes.entrySet()) {
             String codigo = entry.getKey();
             Avaliacao avaliacao = entry.getValue();
-            String nomeDisciplina = d.getDisciplinaMap().get(avaliacao.getDisciplina()).getNome();
+            String nomeDisciplina = d.getDisciplinaMap().get(avaliacao.getDisciplinaKey()).getNome();
             String nomeAvaliacao = avaliacao.getNome();
             Date dataAvaliacao = avaliacao.getData();
 

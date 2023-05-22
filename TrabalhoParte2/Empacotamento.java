@@ -11,11 +11,11 @@ public class Empacotamento {
    * 
    * @param dados
    */
-  public static void GravarArquivoBinario(Dados dados) {
-    try (FileOutputStream fileOut = new FileOutputStream("dados.ser");
+  public static void GravarArquivoBinario(String nomeArquivo, Dados dados) {
+    try (FileOutputStream fileOut = new FileOutputStream(nomeArquivo);
         ObjectOutputStream out = new ObjectOutputStream(fileOut)) {
       out.writeObject(dados);
-      System.out.println("Objetos serializados e salvos no arquivo dados.ser");
+      System.out.printf("Objetos serializados e salvos no arquivo %s\n", nomeArquivo);
     } catch (IOException e) {
       e.printStackTrace();
     }
@@ -26,10 +26,10 @@ public class Empacotamento {
    * 
    * @return
    */
-  public static Dados LerArquivoBinario() {
+  public static Dados LerArquivoBinario(String nomeArquivo) {
     Dados dados = null;
 
-    try (FileInputStream fileIn = new FileInputStream("dados.ser");
+    try (FileInputStream fileIn = new FileInputStream(nomeArquivo);
         ObjectInputStream in = new ObjectInputStream(fileIn)) {
       dados = (Dados) in.readObject();
     } catch (IOException | ClassNotFoundException e) {

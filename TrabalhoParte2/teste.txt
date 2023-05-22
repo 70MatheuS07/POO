@@ -1,3 +1,4 @@
+2
 1
 11
 Ciência da Computação
@@ -10,24 +11,24 @@ Tecnicas de Busca e Ordenacao
 3
 INF15933
 ProgOO-P1
-Prova Parcial 1
-1,0
+Prova Parcial 1 - POO
+1.0
 P
 25/04/2023
 P
 3
 INF45432
 TBO-P1
-Prova Parcial 1
-3,0
+Prova Parcial 1 - TBO
+3.0
 P
 25/05/2023
 P
 3
 INF45432
 TBO-T1
-Trabalho 1 TBO
-2,0
+Trabalho 1 - TBO
+2.0
 T
 29/04/2023
 3
@@ -56,21 +57,20 @@ INF45432
 6
 ProgOO-P1
 2000000001
-7,7
+7.7
 6
 ProgOO-P1
 2000000005
-9,9
+9.9
 6
 TBO-P1
 2000000005
-7,0
+7.0
 6
 TBO-T1
 2000000005
 2000000001
 0
-7,9
+7.9
 7
 0
-
