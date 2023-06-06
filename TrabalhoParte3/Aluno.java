@@ -19,4 +19,5 @@ public class Aluno implements Serializable {
         return notasProvas;
     }
 
+
 }

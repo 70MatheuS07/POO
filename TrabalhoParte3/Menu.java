@@ -2,6 +2,8 @@ import java.io.File;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
+
+
 public class Menu {
     public static void main(String[] args) throws Exception {
         Scanner scanner = new Scanner(System.in);
@@ -72,7 +74,12 @@ public class Menu {
                     break;
 
                 case 1:
+                try{
                     cursos.CadastrarCurso(scanner);
+                }
+                catch(Excecao.CodigosIguaisException e){
+                    
+                }
                     break;
 
                 case 2:
