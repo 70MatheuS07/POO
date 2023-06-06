@@ -8,8 +8,4 @@ public class Trabalho extends Avaliacao {
         super(disciplina, nome, peso, data);
         this.qtdGrupos = qtdGrupos;
     }
-
-    public int GetqtdGrupos() {
-        return this.qtdGrupos;
-    }
 }
