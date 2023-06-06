@@ -11,10 +11,6 @@ public class AlunoMap implements Serializable {
         return alunos;
     }
 
-    public void setAlunoMap(Map<Integer, Aluno> alunos) {
-        this.alunos = alunos;
-    }
-
     /**
      * Cadastra um aluno passado pelo terminal.
      * 

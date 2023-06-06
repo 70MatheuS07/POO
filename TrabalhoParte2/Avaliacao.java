@@ -18,31 +18,15 @@ public class Avaliacao implements Serializable {
         return disciplinaKey;
     }
 
-    public void setDisciplinaKey(String disciplina) {
-        this.disciplinaKey = disciplina;
-    }
-
     public String getNome() {
         return nome;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
     }
 
     public double getPeso() {
         return peso;
     }
 
-    public void setPeso(double peso) {
-        this.peso = peso;
-    }
-
-    public Date getData() {
+    public Date getData(){
         return data;
-    }
-
-    public void setData(Date data) {
-        this.data = data;
     }
 }

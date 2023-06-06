@@ -6,6 +6,12 @@ import java.util.Scanner;
 
 public class Relatorio {
 
+    /**
+     * Escolhe o relatório específico.
+     * @param scanner
+     * @param d
+     * @param a
+     */
     public void EscolheRelatorio(Scanner scanner, DisciplinaMap d, AvaliacaoMap a) {
         int num = 0;
         boolean valido = false;
@@ -42,6 +48,12 @@ public class Relatorio {
 
     }
 
+    /**
+     * Escolhe a pauta da disciplina.
+     * @param scanner
+     * @param d
+     * @param a
+     */
     public void PautaFinalDisciplina(Scanner scanner, DisciplinaMap d, AvaliacaoMap a) {
         System.out.print("Qual disciplina você quer a pauta: ");
         String id = Leitura.LehLine(scanner);
@@ -58,6 +70,14 @@ public class Relatorio {
         }
     }
 
+    /**
+     * Imprime notas das provas do aluno.
+     * @param id
+     * @param notas
+     * @param avaliacoes
+     * @param matricula
+     * @param nomeAluno
+     */
     public void ImprimeNotasProvasAluno(String id, Map<String, Double> notas, Map<String, Avaliacao> avaliacoes,
             int matricula, String nomeAluno) {
         for (Map.Entry<String, Double> entry : notas.entrySet()) {
@@ -91,6 +111,12 @@ public class Relatorio {
         }
     }
 
+    /**
+     * Calcula média parcial.
+     * @param notas
+     * @param avaliacoes
+     * @return
+     */
     public double CalculaMediaParcial(Map<String, Double> notas, Map<String, Avaliacao> avaliacoes) {
         double total = 0.0, pesoTotal = 0.0;
 
@@ -116,6 +142,12 @@ public class Relatorio {
         return total / pesoTotal;
     }
 
+    /**
+     * Devolve nota da prova final.
+     * @param notas
+     * @param avaliacoes
+     * @return
+     */
     public double RetornaNotaProvaFinal(Map<String, Double> notas, Map<String, Avaliacao> avaliacoes) {
         for (Map.Entry<String, Double> entry : notas.entrySet()) {
             String keyProva = entry.getKey();
@@ -134,6 +166,11 @@ public class Relatorio {
         return -1;
     }
 
+    /**
+     * Estatísticas por disciplina.
+     * @param d
+     * @param a
+     */
     public void EstatisticasDisciplina(DisciplinaMap d, AvaliacaoMap a) {
         Map<String, Disciplina> disciplinas = d.getDisciplinaMap();
 
@@ -154,6 +191,11 @@ public class Relatorio {
         }
     }
 
+    /**
+     * Calcula a média de alunos da disciplina.
+     * @param disciplina
+     * @param a
+     */
     public void CalculaMediaAlunosDisciplina(Disciplina disciplina, AvaliacaoMap a) {
         Map<Integer, Aluno> alunos = disciplina.getAlunoMap().getAlunoMap();
 
@@ -171,6 +213,12 @@ public class Relatorio {
         System.out.printf("percentual de alunos aprovados: %.2f%%\n", taxaAprovacao);
     }
 
+    /**
+     * Analiza e diferencia os alunos.
+     * @param aluno
+     * @param a
+     * @return
+     */
     public int DifereAlunos(Aluno aluno, AvaliacaoMap a) {
         double mediaFinal = 0;
         if (aluno instanceof AlunoGrad) {
@@ -245,6 +293,11 @@ public class Relatorio {
         return 0;
     }
 
+    /**
+     * Calcula a média das notas obtidas.
+     * @param a
+     * @param d
+     */
     public void EstatisticasAvaliacao(AvaliacaoMap a, DisciplinaMap d) {
         Map<String, Avaliacao> avaliacoes = a.getAvaliacaoMap();
 
@@ -268,6 +321,12 @@ public class Relatorio {
         }
     }
 
+    /**
+     * Calcula a media dos alunos nas avaliações.
+     * @param disciplina
+     * @param key
+     * @return
+     */
     public double CalculaMediaAlunosDisciplinaAvaliacao(Disciplina disciplina, String key) {
         Map<Integer, Aluno> alunos = disciplina.getAlunoMap().getAlunoMap();
 
@@ -288,6 +347,9 @@ public class Relatorio {
         return ((double) total / alunos.size());
     }
 
+    /**
+     * Imprime um menu com as opções de relatório.
+     */
     public void RelatorioMenu() {
         System.out.println("Opcoes de relatório:");
         System.out.println("1 - Pauta final de disciplina.");

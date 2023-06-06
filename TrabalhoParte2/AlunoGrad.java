@@ -5,17 +5,8 @@ public class AlunoGrad extends Aluno{
         super(nome, grad);
         this.curso=curso;
     }
-    public void setAluno(String nome, int curso) {
-        this.nome = nome;
-        this.curso = curso;
-    }
-
 
     public int getCurso() {
         return curso;
-    }
-
-    public void setCurso(int curso) {
-        this.curso = curso;
     }
 }

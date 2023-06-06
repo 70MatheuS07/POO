@@ -17,10 +17,6 @@ public class Disciplina implements Serializable {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     /**
      * Imprime os alunos de acordo com suas matrículas nas disciplinas.
      * 

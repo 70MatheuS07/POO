@@ -11,21 +11,12 @@ public class Aluno implements Serializable {
         this.nome = nome;
     }
 
-
     public String getNome() {
         return nome;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
     public Map<String, Double> getNotasAvaliacoes() {
         return notasProvas;
-    }
-
-    public void setNotasProvas(Map<String, Double> notasProvas) {
-        this.notasProvas = notasProvas;
     }
 
 }
