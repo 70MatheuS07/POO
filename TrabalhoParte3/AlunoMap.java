@@ -20,19 +20,14 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void CadastrarAluno(Scanner scanner) {
+    public void CadastrarAluno(Scanner scanner) throws Excecao{
         int matricula;
 
-        while (true) {
-            System.out.print("Digite sua matricula: ");
-            matricula = Leitura.LehInt(scanner);
+        System.out.print("Digite sua matricula: ");
+        matricula = Leitura.LehInt(scanner);
 
-            if (!alunos.containsKey(matricula)) {
-                break;
-            }
-
-            System.out.println("\nEssa matricula ja existe, tente outra.\n");
-
+        if (alunos.containsKey(matricula)) {
+            throw new Excecao.MatriculasIguaisException(matricula);
         }
 
         System.out.print("Digite seu nome: ");
@@ -69,9 +64,9 @@ public class AlunoMap implements Serializable {
     public void RegistraNotaAlunoAvaliacao(AvaliacaoMap avaliacoes, DisciplinaMap disciplinas, Scanner scanner) {
         System.out.print("Digite o codigo da avaliacao: ");
         String codigo = Leitura.LehLine(scanner);
-        //Pega codigo da avaliacao  a partir do mapa de avaliacoes
+        // Pega codigo da avaliacao a partir do mapa de avaliacoes
         Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(codigo);
-        //Pega o mapa de alunos da disciplina em que a avaliacao ocorreu
+        // Pega o mapa de alunos da disciplina em que a avaliacao ocorreu
         Disciplina disciplina = disciplinas.getDisciplinaMap().get(avaliacao.getDisciplinaKey());
         AlunoMap mapaAlunos = disciplina.getAlunoMap();
 
@@ -81,7 +76,7 @@ public class AlunoMap implements Serializable {
         if (avaliacao instanceof Prova) {
             System.out.print("Digite a matricula do aluno: ");
             matricula = Leitura.LehInt(scanner);
-            //confere se o aluno esta na no mapa de alunos da disciplina
+            // confere se o aluno esta na no mapa de alunos da disciplina
             if (mapaAlunos.alunos.containsKey(matricula) == false) {
                 System.out.println("Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
                 return;
@@ -95,15 +90,16 @@ public class AlunoMap implements Serializable {
             ArrayList<Integer> matriculas = new ArrayList<Integer>();
             int qtd = 0;
             System.out.print("Digite a matricula do aluno: ");
-            //loop para ler as matriculas dos alunos, armazenando em uma lista
+            // loop para ler as matriculas dos alunos, armazenando em uma lista
             while (true) {
                 matricula = Leitura.LehInt(scanner);
                 if (matricula == 0) {
                     break;
                 }
-                //confere se o aluno esta na no mapa de alunos da disciplina
+                // confere se o aluno esta na no mapa de alunos da disciplina
                 if (mapaAlunos.alunos.containsKey(matricula) == false) {
-                    System.out.println("Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
+                    System.out
+                            .println("Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
                     System.out.println("Tente novamente");
                     continue;
                 }

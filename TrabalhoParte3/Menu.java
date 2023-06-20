@@ -3,7 +3,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws Exception{
         Scanner scanner = new Scanner(System.in);
 
         Dados dados = null;
@@ -76,6 +76,7 @@ public class Menu {
                         cursos.CadastrarCurso(scanner);
                     } catch (Excecao e) {
                         System.out.println(e.getMessage());
+                        
                     }
                     break;
 
@@ -88,7 +89,11 @@ public class Menu {
                     break;
 
                 case 4:
+                try{
                     alunos.CadastrarAluno(scanner);
+                } catch(Excecao e){
+                    System.out.println(e.getMessage());
+                }
                     break;
 
                 case 5:

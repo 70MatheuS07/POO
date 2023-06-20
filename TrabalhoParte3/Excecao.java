@@ -16,15 +16,26 @@ public class Excecao extends Exception {
         
     }
 
-    public static class MatriculasIuaisException extends Excecao{
+    public static class MatriculasIguaisException extends Excecao{
         int matricula;
 
-        public MatriculasIuaisException(int matricula) {
+        public MatriculasIguaisException(int matricula) {
             super("Matrícula repetida para aluno: "+matricula+".");
             this.matricula = matricula;
 
         }
 
+    }
+
+    public static class PesoZeroNegativo extends Exception{
+        String codigo;
+        int peso;
+
+        public PesoZeroNegativo(String codigo, int peso){
+            super("Peso de avaliação inválido para "+ codigo+": "+ peso);
+            this.codigo=codigo;
+            this.peso=peso;
+        }
     }
 
     
