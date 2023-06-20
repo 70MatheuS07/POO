@@ -16,5 +16,16 @@ public class Excecao extends Exception {
         
     }
 
+    public static class MatriculasIuaisException extends Excecao{
+        int matricula;
+
+        public MatriculasIuaisException(int matricula) {
+            super("Matrícula repetida para aluno: "+matricula+".");
+            this.matricula = matricula;
+
+        }
+
+    }
+
     
 }
