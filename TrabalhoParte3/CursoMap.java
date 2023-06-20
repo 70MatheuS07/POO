@@ -17,17 +17,13 @@ public class CursoMap implements Serializable{
      */
     public void CadastrarCurso(Scanner scanner) throws Excecao {
         int codigo;
-        while (true) {
             System.out.print("Digite o codigo do curso: ");
             codigo = Leitura.LehInt(scanner);
 
-            if (!cursos.containsKey(codigo)) {
-                break;
+            if (cursos.containsKey(codigo)) {
+            throw new Excecao.CodigosIguaisException(codigo);
             }
 
-            throw new Excecao.CodigosIguaisException(codigo);
-
-        }
 
         System.out.print("Digite o nome do curso: ");
 
