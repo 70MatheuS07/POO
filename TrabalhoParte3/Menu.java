@@ -4,6 +4,7 @@ import java.util.Scanner;
 
 public class Menu {
     public static void main(String[] args) throws Exception{
+        try{
         Scanner scanner = new Scanner(System.in);
 
         Dados dados = null;
@@ -67,17 +68,15 @@ public class Menu {
                 }
             }
 
+
+            try{
             switch (numero) {
                 case 0:
                     break;
 
                 case 1:
-                    try {
-                        cursos.CadastrarCurso(scanner);
-                    } catch (Excecao e) {
-                        System.out.println(e.getMessage());
-                        
-                    }
+                    cursos.CadastrarCurso(scanner);
+
                     break;
 
                 case 2:
@@ -89,11 +88,8 @@ public class Menu {
                     break;
 
                 case 4:
-                try{
                     alunos.CadastrarAluno(scanner);
-                } catch(Excecao e){
-                    System.out.println(e.getMessage());
-                }
+
                     break;
 
                 case 5:
@@ -116,6 +112,10 @@ public class Menu {
                     System.out.println("Erro: o número deve estar entre 0 e 8.");
                     break;
             }
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+            throw new Excecao.FinalizaProgramaException();
+        }
 
             if (numero == 0) {
 
@@ -141,6 +141,9 @@ public class Menu {
         }
 
         scanner.close();
+        } catch (Excecao e){
+
+        }
     }
 
     /**

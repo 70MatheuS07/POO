@@ -35,13 +35,13 @@ public class AlunoMap implements Serializable {
 
         System.out.println("Digite G - Graduacao\nDigite P - Pos graduacao");
         String PG = Leitura.LehLine(scanner);
-        Aluno aluno;
+        Aluno aluno=null;
         if (PG.equals("G")) {
             System.out.print("Digite qual curso deseja fazer: ");
             int curso = Leitura.LehInt(scanner);
             aluno = new AlunoGrad(nome, "G", curso);
 
-        } else {
+        } else if(PG.equals("P")){
             System.out.print("Digite M - Mestrado\n D - Doutorado ");
             String MD = Leitura.LehLine(scanner);
             if (MD.equals("M"))
@@ -51,6 +51,9 @@ public class AlunoMap implements Serializable {
                 aluno = new AlunoPos(nome, "P", "Doutorado");
             }
 
+        }
+        else{
+            throw new Excecao.NemGNemPException(nome, PG);
         }
 
         alunos.put(matricula, aluno);

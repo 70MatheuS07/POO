@@ -21,7 +21,7 @@ public class AvaliacaoMap implements Serializable {
      * @param scanner
      * @throws ParseException
      */
-    public void CadastrarAvaliacao(DisciplinaMap disciplinas, Scanner scanner) throws ParseException {
+    public void CadastrarAvaliacao(DisciplinaMap disciplinas, Scanner scanner) throws Excecao, ParseException {
         String codigo;
 
         System.out.print("Digite o codigo da disciplina: ");
@@ -49,7 +49,9 @@ public class AvaliacaoMap implements Serializable {
 
             System.out.print("Digite o peso da avaliacao: ");
             double peso = Leitura.LehDouble(scanner);
-
+            if(peso<=0){
+                throw new Excecao.PesoZeroNegativo(codigo, peso);
+            }
             System.out.println("Qual o tipo de avaliacao:\n Digite P - Prova\n Digite T - Trabalho Pratico");
             String tipoAvaliacao = Leitura.LehLine(scanner);
 
@@ -60,6 +62,9 @@ public class AvaliacaoMap implements Serializable {
             } else if (tipoAvaliacao.equals("T")) {
                 System.out.print("Digite a data de entrega do trabalho no formato dd/mm/yyyy:");
                 data = formatData.parse(Leitura.LehLine(scanner));
+            }
+            else{
+                throw new Excecao.NemPNemTException(codigo, tipoAvaliacao);
             }
 
             Avaliacao avaliacao = null;
@@ -74,11 +79,13 @@ public class AvaliacaoMap implements Serializable {
                     Booltipo = true;
                 }
                 avaliacao = new Prova(disciplina, nome, peso, data, Booltipo);
-
             } else if (tipoAvaliacao.equals("T")) {
 
                 System.out.println("Digite numero maximo de alunos nesse trabalho pratico");
                 int tamMax = Leitura.LehInt(scanner);
+                if(tamMax<=0){
+                    throw new Excecao.TamMaxZeroNegativo(codigo, tamMax);
+                }
                 avaliacao = new Trabalho(disciplina, nome, peso, data, tamMax);
             }
 

@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class CursoMap implements Serializable{
+public class CursoMap implements Serializable {
     private Map<Integer, Curso> cursos = new HashMap<Integer, Curso>();
 
     public Map<Integer, Curso> getCursoMap() {
@@ -17,13 +17,12 @@ public class CursoMap implements Serializable{
      */
     public void CadastrarCurso(Scanner scanner) throws Excecao {
         int codigo;
-            System.out.print("Digite o codigo do curso: ");
-            codigo = Leitura.LehInt(scanner);
+        System.out.print("Digite o codigo do curso: ");
+        codigo = Leitura.LehInt(scanner);
 
-            if (cursos.containsKey(codigo)) {
+        if (cursos.containsKey(codigo)) {
             throw new Excecao.CodigosIguaisException(codigo);
-            }
-
+        }
 
         System.out.print("Digite o nome do curso: ");
 
