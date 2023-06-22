@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.PrintStream;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -112,10 +113,17 @@ public class Menu {
                     System.out.println("Erro: o número deve estar entre 0 e 8.");
                     break;
             }
+            
         }catch(Exception e){
+            File arquivoOut = new File("Output.txt");
+            PrintStream sout=System.out;
+            PrintStream ps=new PrintStream(arquivoOut);
+            System.setOut(ps);
             System.out.println(e.getMessage());
+            System.setOut(sout);
             throw new Excecao.FinalizaProgramaException();
         }
+
 
             if (numero == 0) {
 
