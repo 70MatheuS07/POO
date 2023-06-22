@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,45 +18,58 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void CadastrarAluno(Scanner scanner) {
-        int matricula;
+    public void CadastrarAlunos(String arquivo) throws Excecao {
 
-        while (true) {
-            System.out.print("Digite sua matricula: ");
-            matricula = Leitura.LehInt(scanner);
+        File disciplinaFile = new File(arquivo);
 
-            if (!alunos.containsKey(matricula)) {
-                break;
+        try {
+            Scanner scanner = new Scanner(disciplinaFile);
+
+            // Primeira linha é o cabeçalho.
+            String linha = Leitura.LehLine(scanner);
+            Aluno aluno = null;
+
+            while (scanner.hasNextLine()) {
+                linha = Leitura.LehLine(scanner);
+                String[] dados = linha.split(";");
+                int matricula = Integer.parseInt(dados[0]);
+                String nome = dados[1];
+                String[] disciplinas = dados[2].split(", ");
+                String tipo = dados[3];
+
+                if (tipo == "G") {
+                    int curso = Integer.parseInt(dados[3]);
+                    aluno = new AlunoGrad(nome, "G", curso);
+                }
+
+                else if (tipo == "P") {
+                    String curso = dados[3];
+                    if (curso.equals("M"))
+                        aluno = new AlunoPos(nome, "P", "Mestrado");
+
+                    else {
+                        aluno = new AlunoPos(nome, "P", "Doutorado");
+                    }
+                }
+
+                System.out.printf("%d %s ", matricula, nome);
+
+                for (String p : disciplinas) {
+                    System.out.printf("%s ", p);
+                }
+
+                System.out.printf("%s\n", tipo);
+
+                alunos.put(matricula, aluno);
             }
+        }
 
-            System.out.println("\nEssa matricula ja existe, tente outra.\n");
+        catch (FileNotFoundException e) {
+
+            throw new Excecao("Arquivo não encontrado");
 
         }
 
-        System.out.print("Digite seu nome: ");
-        String nome = Leitura.LehLine(scanner);
-
-        System.out.println("Digite G - Graduacao\nDigite P - Pos graduacao");
-        String PG = Leitura.LehLine(scanner);
-        Aluno aluno;
-        if (PG.equals("G")) {
-            System.out.print("Digite qual curso deseja fazer: ");
-            int curso = Leitura.LehInt(scanner);
-            aluno = new AlunoGrad(nome, "G", curso);
-
-        } else {
-            System.out.print("Digite M - Mestrado\n D - Doutorado ");
-            String MD = Leitura.LehLine(scanner);
-            if (MD.equals("M"))
-                aluno = new AlunoPos(nome, "P", "Mestrado");
-
-            else {
-                aluno = new AlunoPos(nome, "P", "Doutorado");
-            }
-
-        }
-
-        alunos.put(matricula, aluno);
     }
 
     /**
@@ -62,60 +77,80 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void RegistraNotaAlunoAvaliacao(AvaliacaoMap avaliacoes, DisciplinaMap disciplinas, Scanner scanner) {
-        System.out.print("Digite o codigo da avaliacao: ");
-        String codigo = Leitura.LehLine(scanner);
-        //Pega codigo da avaliacao  a partir do mapa de avaliacoes
-        Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(codigo);
-        //Pega o mapa de alunos da disciplina em que a avaliacao ocorreu
-        Disciplina disciplina = disciplinas.getDisciplinaMap().get(avaliacao.getDisciplinaKey());
-        AlunoMap mapaAlunos = disciplina.getAlunoMap();
+    public void RegistraNotaAlunoAvaliacao(AvaliacaoMap avaliacoes, DisciplinaMap disciplinas, String arquivo)
+            throws Excecao {
 
-        Aluno aluno = null;
-        int matricula = -1;
-        double nota = 0;
-        if (avaliacao instanceof Prova) {
-            System.out.print("Digite a matricula do aluno: ");
-            matricula = Leitura.LehInt(scanner);
-            //confere se o aluno esta na no mapa de alunos da disciplina
-            if (mapaAlunos.alunos.containsKey(matricula) == false) {
-                System.out.println("Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
-                return;
-            }
-            aluno = alunos.get(matricula);
-            System.out.print("Digite a nota da prova: ");
-            nota = Leitura.LehDouble(scanner);
-            aluno.getNotasAvaliacoes().put(codigo, nota);
+        File disciplinaFile = new File(arquivo);
 
-        } else {
-            ArrayList<Integer> matriculas = new ArrayList<Integer>();
-            int qtd = 0;
-            System.out.print("Digite a matricula do aluno: ");
-            //loop para ler as matriculas dos alunos, armazenando em uma lista
-            while (true) {
-                matricula = Leitura.LehInt(scanner);
-                if (matricula == 0) {
-                    break;
+        try {
+            Scanner scanner = new Scanner(disciplinaFile);
+
+            // Primeira linha é o cabeçalho.
+            String linha = Leitura.LehLine(scanner);
+            Aluno aluno = null;
+
+            while (scanner.hasNextLine()) {
+                linha = Leitura.LehLine(scanner);
+                String[] dados = linha.split(";");
+                String codigo = dados[0];
+
+                // Pega codigo da avaliacao a partir do mapa de avaliacoes
+                Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(codigo);
+                // Pega o mapa de alunos da disciplina em que a avaliacao ocorreu
+                Disciplina disciplina = disciplinas.getDisciplinaMap().get(avaliacao.getDisciplinaKey());
+                AlunoMap mapaAlunos = disciplina.getAlunoMap();
+
+                int matricula = -1;
+
+                String doubleString = dados[2];
+                doubleString = doubleString.replace(',', '.');
+                double nota = Double.parseDouble(doubleString);
+
+                if (avaliacao instanceof Prova) {
+                    matricula = Integer.parseInt(dados[1]);
+                    if (mapaAlunos.alunos.containsKey(matricula) == false) {
+                        System.out.println(
+                                "Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
+                        return;
+                    }
+                    aluno = alunos.get(matricula);
+                    System.out.print("Digite a nota da prova: ");
+                    aluno.getNotasAvaliacoes().put(codigo, nota);
+
+                } else {
+                    ArrayList<Integer> matriculas = new ArrayList<Integer>();
+                    int qtd = 0;
+                    // loop para ler as matriculas dos alunos, armazenando em uma lista
+                    String[] matriculasString = dados[1].split(", ");
+                    for (String s : matriculasString) {
+                        matricula = Integer.parseInt(s);
+
+                        // confere se o aluno esta na no mapa de alunos da disciplina
+                        if (mapaAlunos.alunos.containsKey(matricula) == false) {
+                            System.out
+                                    .println(
+                                            "Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
+                            System.out.println("Tente novamente");
+                            continue;
+                        }
+                        qtd++;
+                        matriculas.add(matricula);
+                    }
+                    int i = 0;
+                    while (i < qtd) {
+                        aluno = alunos.get(matriculas.get(i));
+                        aluno.getNotasAvaliacoes().put(codigo, nota);
+                        i++;
+                    }
                 }
-                //confere se o aluno esta na no mapa de alunos da disciplina
-                if (mapaAlunos.alunos.containsKey(matricula) == false) {
-                    System.out.println("Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
-                    System.out.println("Tente novamente");
-                    continue;
-                }
-                qtd++;
-                matriculas.add(matricula);
-                System.out.println("Se ja forneceu todos os alunos do grupo digite 0");
-                System.out.print("Se nao, digite a matricula do proximo aluno: ");
+
             }
-            int i = 0;
-            System.out.print("Digite a nota do trabalho: ");
-            nota = Leitura.LehDouble(scanner);
-            while (i < qtd) {
-                aluno = alunos.get(matriculas.get(i));
-                aluno.getNotasAvaliacoes().put(codigo, nota);
-                i++;
-            }
+        }
+
+        catch (FileNotFoundException e) {
+
+            throw new Excecao("Arquivo não encontrado");
+
         }
 
     }

@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,28 +17,33 @@ public class CursoMap implements Serializable{
      * 
      * @param scanner
      */
-    public void CadastrarCurso(Scanner scanner) throws Excecao {
-        int codigo;
-        while (true) {
-            System.out.print("Digite o codigo do curso: ");
-            codigo = Leitura.LehInt(scanner);
+    public void CadastrarCursos(String arquivo) throws Excecao {
+        File cursoFile = new File(arquivo);
 
-            if (!cursos.containsKey(codigo)) {
-                break;
+        try{
+            Scanner scanner = new Scanner(cursoFile);
+
+            // Primeira linha é o cabeçalho.
+            String linha = Leitura.LehLine(scanner);
+
+            while (scanner.hasNextLine()) {
+                linha = Leitura.LehLine(scanner);
+                String[] dados = linha.split(";");
+                int codigo = Integer.parseInt(dados[0]);
+                String nome = dados[1];
+
+                Curso curso = new Curso();
+
+                curso.setCurso(nome);
+                cursos.put(codigo, curso);
+
+                System.out.printf("%d %s\n",codigo, nome);
             }
-
-            throw new Excecao.CodigosIguaisException(codigo);
-
         }
 
-        System.out.print("Digite o nome do curso: ");
-
-        String nome = Leitura.LehLine(scanner);
-
-        Curso curso = new Curso();
-
-        curso.setCurso(nome);
-
-        cursos.put(codigo, curso);
+        catch (FileNotFoundException e) {
+            throw new Excecao("Arquivo não encontrado");
+        }
+    
     }
 }

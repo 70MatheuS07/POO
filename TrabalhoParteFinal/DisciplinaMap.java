@@ -1,3 +1,5 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -15,29 +17,35 @@ public class DisciplinaMap implements Serializable {
      * 
      * @param scanner
      */
-    public void CadastrarDisciplina(Scanner scanner) {
-        String codigo;
+    public void CadastrarDisciplinas(String arquivo) throws Excecao {
+        File disciplinaFile = new File(arquivo);
 
-        Disciplina disciplina = new Disciplina();
+        try {
+            Scanner scanner = new Scanner(disciplinaFile);
 
-        while (true) {
-            System.out.print("Digite o codigo da disciplina: ");
-            codigo = Leitura.LehLine(scanner);
+            // Primeira linha é o cabeçalho.
+            String linha = Leitura.LehLine(scanner);
 
-            if (!disciplinas.containsKey(codigo)) {
-                break;
+            while (scanner.hasNextLine()) {
+                linha = Leitura.LehLine(scanner);
+                String[] dados = linha.split(";");
+                String codigo = dados[0];
+                String nome = dados[1];
+
+                Disciplina disciplina = new Disciplina();
+
+                disciplina.setDisciplina(nome);
+                disciplinas.put(codigo, disciplina);
+
+                System.out.printf("%s %s\n", codigo, nome);
             }
-
-            System.out.println("\nEsse codigo ja existe, tente outro.\n");
         }
 
-        System.out.print("Digite o nome da disciplina: ");
+        catch (FileNotFoundException e) {
 
-        String nome = Leitura.LehLine(scanner);
+            throw new Excecao("Arquivo não encontrado");
 
-        disciplina.setDisciplina(nome);
-
-        disciplinas.put(codigo, disciplina);
+        }
     }
 
     /**

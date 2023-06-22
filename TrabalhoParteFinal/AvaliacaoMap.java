@@ -1,7 +1,10 @@
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Formatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
@@ -21,68 +24,52 @@ public class AvaliacaoMap implements Serializable {
      * @param scanner
      * @throws ParseException
      */
-    public void CadastrarAvaliacao(DisciplinaMap disciplinas, Scanner scanner) throws ParseException {
-        String codigo;
+    public void CadastrarAvaliacoes(DisciplinaMap disciplinas, String arquivo) throws Excecao, ParseException {
 
-        System.out.print("Digite o codigo da disciplina: ");
-        String disciplina = Leitura.LehLine(scanner);
+        File avaliacaoFile = new File(arquivo);
 
-        if (disciplina == null) {
-            System.out.println("Nao existe disciplinas para serem escolhidas");
-        } else {
-            SimpleDateFormat formatData = new SimpleDateFormat("dd/MM/yyyy");
+        try {
+            Scanner scanner = new Scanner(avaliacaoFile);
 
-            while (true) {
-                System.out.print("Digite o codigo da avaliacao: ");
-                codigo = Leitura.LehLine(scanner);
-
-                if (!avaliacoes.containsKey(codigo)) {
-                    break;
-                }
-
-                System.out.println("\nEsse codigo ja existe, tente outro.\n");
-
-            }
-
-            System.out.print("Digite o nome da avaliacao: ");
-            String nome = Leitura.LehLine(scanner);
-
-            System.out.print("Digite o peso da avaliacao: ");
-            double peso = Leitura.LehDouble(scanner);
-
-            System.out.println("Qual o tipo de avaliacao:\n Digite P - Prova\n Digite T - Trabalho Pratico");
-            String tipoAvaliacao = Leitura.LehLine(scanner);
-
-            Date data = null;
-            if (tipoAvaliacao.equals("P")) {
-                System.out.print("Digite a data da avaliacao no formato dd/mm/yyyy:");
-                data = formatData.parse(Leitura.LehLine(scanner));
-            } else if (tipoAvaliacao.equals("T")) {
-                System.out.print("Digite a data de entrega do trabalho no formato dd/mm/yyyy:");
-                data = formatData.parse(Leitura.LehLine(scanner));
-            }
+            // Primeira linha é o cabeçalho.
+            String linha = Leitura.LehLine(scanner);
 
             Avaliacao avaliacao = null;
-            boolean Booltipo;
 
-            if (tipoAvaliacao.equals("P")) {
-                System.out.println("Qual o tipo de prova:\nDigite p - Prova parcial\n Digite F - Prova final");
-                String tipoProva = Leitura.LehLine(scanner);
-                if (tipoProva.equals("P")) {
-                    Booltipo = false;
-                } else {
-                    Booltipo = true;
+            while (scanner.hasNextLine()) {
+                linha = Leitura.LehLine(scanner);
+                String[] dados = linha.split(";");
+
+                String disciplina = dados[0];
+                String codigo = dados[1];
+                String nome = dados[2];
+                double peso = Double.parseDouble(dados[3]);
+                String tipo = dados[4];
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                Date data = formatter.parse(dados[5]);
+
+                if (tipo.equals("P")) {
+                    avaliacao = new Prova(disciplina, nome, peso, data, false);
+
+                } else if (tipo.equals("F")) {
+                    avaliacao = new Prova(disciplina, nome, peso, data, true);
                 }
-                avaliacao = new Prova(disciplina, nome, peso, data, Booltipo);
 
-            } else if (tipoAvaliacao.equals("T")) {
+                else if (tipo.equals("T")) {
+                    int tamMax = Integer.parseInt(dados[6]);
+                    avaliacao = new Trabalho(disciplina, nome, peso, data, tamMax);
+                }
 
-                System.out.println("Digite numero maximo de alunos nesse trabalho pratico");
-                int tamMax = Leitura.LehInt(scanner);
-                avaliacao = new Trabalho(disciplina, nome, peso, data, tamMax);
+                System.out.printf("%s %s %s %f %s %s\n", disciplina, codigo, nome, peso, tipo, data);
+
+                avaliacoes.put(codigo, avaliacao);
             }
+        }
 
-            avaliacoes.put(codigo, avaliacao);
+        catch (FileNotFoundException e) {
+
+            throw new Excecao("Arquivo não encontrado");
+
         }
     }
 
