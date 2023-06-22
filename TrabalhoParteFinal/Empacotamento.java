@@ -24,7 +24,7 @@ public class Empacotamento {
   /**
    * Desserialização dos dados.
    * 
-   * @return
+   * @return dados
    */
   public static Dados LerArquivoBinario(String nomeArquivo) {
     Dados dados = null;
