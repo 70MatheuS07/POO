@@ -7,7 +7,6 @@ public class Excecao extends Exception {
         super(msg);
     }
 
-
     public static class FinalizaProgramaException extends Excecao {
         public FinalizaProgramaException() {
             super("");
@@ -16,8 +15,8 @@ public class Excecao extends Exception {
 
     public class ErroFormatacaoException extends Exception {
         public ErroFormatacaoException() {
-                super("Erro de formatação.");
-                }
+            super("Erro de formatação.");
+        }
     }
 
     public static class CodigosIguaisException extends Excecao {
@@ -42,17 +41,26 @@ public class Excecao extends Exception {
 
     }
 
-    public static class CodDisciplinaIndefinidoExcpetion extends Excecao{
-        Object objeto; //avaliacao ou aluno
+    public static class CodDisciplinaIndefinidoAlunoExcpetion extends Excecao {
+        int matricula; // avaliacao ou aluno
+        String codigo;
 
-        public CodDisciplinaIndefinidoExcpetion(Object objeto) {
-            if(objeto instanceof Aluno){
-                Aluno aluno=(Aluno)objeto;
-                super("código de didciplina não definido usado no aluno "+ aluno.getNome()+": " aluno.get)
-            }
+        public CodDisciplinaIndefinidoAlunoExcpetion(int matricula, String codigo) {
+            super("código de didciplina não definido usado no aluno " + matricula + ": " + codigo);
+            this.matricula = matricula;
+            this.codigo = codigo;
         }
+    }
 
+    public static class CodDisciplinaIndefinidoAvalExcpetion extends Excecao {
+        String codigoA; // avaliacao ou aluno
+        String codigoD;
 
+        public CodDisciplinaIndefinidoAvalExcpetion(String codigoA, String codigoD) {
+            super("código de didciplina não definido usado na avaliação " + codigoA + ": " + codigoD);
+            this.codigoA = codigoA;
+            this.codigoD = codigoD;
+        }
     }
 
     public static class PesoZeroNegativo extends Excecao {
@@ -74,6 +82,14 @@ public class Excecao extends Exception {
             super("Tipo de avaliação desconhecido para " + codigo + ": " + digitado + ".");
             this.codigo = codigo;
             this.Digitado = digitado;
+        }
+    }
+
+    public static class TamGrupoNaProvaException extends Excecao {
+        String codigo;
+        int tam;
+        public TamGrupoNaProvaException(String codigo, int tam) {
+            super("Tamanho máximo de grupo foi especificado a prova " + codigo +": " + tam);
         }
     }
 
@@ -99,6 +115,16 @@ public class Excecao extends Exception {
         }
     }
 
+    public static class CodCursoIndefinidoException extends Excecao{
+        int matricula;
+        int codigo;
+        public CodCursoIndefinidoException(int matricula, int codigo) {
+            super("Código de curso não definido usado no aluno " + matricula + ": " + codigo);
+            this.matricula = matricula;
+            this.codigo = codigo;
+        }
+    }
+
     public static class NemMNemDException extends Excecao {
         String matricula;
         String Digitado;
@@ -110,6 +136,8 @@ public class Excecao extends Exception {
         }
     }
 
-
+    public static class CodAvaliacaoIndefinidoException extends Excecao{
+        
+    }
 
 }
