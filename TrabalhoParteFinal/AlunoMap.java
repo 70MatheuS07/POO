@@ -37,12 +37,12 @@ public class AlunoMap implements Serializable {
                 String[] disciplinasCSV = dados[2].split(", ");
                 String tipo = dados[3];
 
-                if (tipo == "G") {
+                if (tipo.equals("G")) {
                     int curso = Integer.parseInt(dados[4]);
                     aluno = new AlunoGrad(nome, "G", curso);
                 }
 
-                else if (tipo == "P") {
+                else if (tipo.equals("P")) {
                     String curso = dados[4];
                     if (curso.equals("M"))
                         aluno = new AlunoPos(nome, "P", "Mestrado");
