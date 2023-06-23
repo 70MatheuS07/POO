@@ -15,12 +15,12 @@ public class Menu {
         DisciplinaMap disciplinas = null;
         AvaliacaoMap avaliacoes = null;
 
-        // boolean escreverDados = false;
-        // boolean lehDados = false;
+        boolean escreverDados = false;
+        boolean lehDados = false;
         boolean pulaSwitch = false;
 
         for (String p : args) {
-            
+
             //Incompleta ainda.
             if (p.equals("--write-only")) {
                 // O arquivo existe, então realizamos a desserialização
