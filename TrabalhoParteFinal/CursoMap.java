@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
-public class CursoMap implements Serializable{
+public class CursoMap implements Serializable {
     private Map<Integer, Curso> cursos = new HashMap<Integer, Curso>();
 
     public Map<Integer, Curso> getCursoMap() {
@@ -20,7 +20,7 @@ public class CursoMap implements Serializable{
     public void CadastrarCursos(String arquivo) throws Excecao {
         File cursoFile = new File(arquivo);
 
-        try{
+        try {
             Scanner scanner = new Scanner(cursoFile);
 
             // Primeira linha é o cabeçalho.
@@ -37,13 +37,22 @@ public class CursoMap implements Serializable{
                 curso.setCurso(nome);
                 cursos.put(codigo, curso);
 
-                System.out.printf("%d %s\n",codigo, nome);
+                System.out.printf("%d %s\n", codigo, nome);
             }
         }
 
         catch (FileNotFoundException e) {
             throw new Excecao("Arquivo não encontrado");
         }
-    
+
+    }
+
+    public void ImprimeCursosCSV() {
+        for (Map.Entry<Integer, Curso> entry : cursos.entrySet()) {
+            Integer key = entry.getKey();
+            Curso value = entry.getValue();
+            
+            System.out.printf("curso: %d %s\n", key, value.getNome());
+        }
     }
 }

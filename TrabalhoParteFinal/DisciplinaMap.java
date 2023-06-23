@@ -85,4 +85,20 @@ public class DisciplinaMap implements Serializable {
             System.out.println(); // adiciona uma linha em branco entre as disciplinas
         }
     }
+
+    public void ImprimeDisciplinaCSV() {
+        for (Map.Entry<String, Disciplina> entry : disciplinas.entrySet()) {
+            String key = entry.getKey();
+            Disciplina value = entry.getValue();
+
+            System.out.printf("disciplina: %s %s\n", key, value.getNome());
+
+            for (Map.Entry<Integer, Aluno> entry2 : value.getAlunoMap().getAlunoMap().entrySet()) {
+                int key2 = entry2.getKey();
+                Aluno value2 = entry2.getValue();
+
+                System.out.printf("aluno: %d %s\n", key2, value2.getNome());
+            }
+        }
+    }
 }

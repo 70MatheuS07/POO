@@ -18,7 +18,7 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void CadastrarAlunos(String arquivo) throws Excecao {
+    public void CadastrarAlunos(DisciplinaMap disciplinas, String arquivo) throws Excecao {
 
         File disciplinaFile = new File(arquivo);
 
@@ -34,16 +34,16 @@ public class AlunoMap implements Serializable {
                 String[] dados = linha.split(";");
                 int matricula = Integer.parseInt(dados[0]);
                 String nome = dados[1];
-                String[] disciplinas = dados[2].split(", ");
+                String[] disciplinasCSV = dados[2].split(", ");
                 String tipo = dados[3];
 
                 if (tipo == "G") {
-                    int curso = Integer.parseInt(dados[3]);
+                    int curso = Integer.parseInt(dados[4]);
                     aluno = new AlunoGrad(nome, "G", curso);
                 }
 
                 else if (tipo == "P") {
-                    String curso = dados[3];
+                    String curso = dados[4];
                     if (curso.equals("M"))
                         aluno = new AlunoPos(nome, "P", "Mestrado");
 
@@ -54,7 +54,12 @@ public class AlunoMap implements Serializable {
 
                 System.out.printf("%d %s ", matricula, nome);
 
-                for (String p : disciplinas) {
+                // Aparentemente coloca alunos nas disciplinas, porém na hora de imprimir o Map de alunos dentro da disciplina dá erro.
+                for (String p : disciplinasCSV) {
+                    Disciplina d = disciplinas.getDisciplinaMap().get(p);
+
+                    d.getAlunoMap().getAlunoMap().put(matricula, aluno);
+
                     System.out.printf("%s ", p);
                 }
 
@@ -108,6 +113,9 @@ public class AlunoMap implements Serializable {
 
                 if (avaliacao instanceof Prova) {
                     matricula = Integer.parseInt(dados[1]);
+
+                    System.out.printf("%d\n", matricula);
+
                     if (mapaAlunos.alunos.containsKey(matricula) == false) {
                         System.out.println(
                                 "Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");

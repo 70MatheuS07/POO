@@ -15,11 +15,13 @@ public class Menu {
         DisciplinaMap disciplinas = null;
         AvaliacaoMap avaliacoes = null;
 
-        boolean escreverDados = false;
-        boolean lehDados = false;
+        // boolean escreverDados = false;
+        // boolean lehDados = false;
         boolean pulaSwitch = false;
 
         for (String p : args) {
+            
+            //Incompleta ainda.
             if (p.equals("--write-only")) {
                 // O arquivo existe, então realizamos a desserialização
                 dados = Empacotamento.LerArquivoBinario("dados.dat");
@@ -58,6 +60,8 @@ public class Menu {
                 }
             }
 
+            cursos.ImprimeCursosCSV();
+
             for (i = 0; i < args.length; i++) {
                 if (args[i].equals("-d")) {
                     i++;
@@ -67,20 +71,24 @@ public class Menu {
                 }
             }
 
+            disciplinas.ImprimeDisciplinaCSV();
+
             for (i = 0; i < args.length; i++) {
                 if (args[i].equals("-a")) {
                     i++;
                     nomeArquivo = args[i];
-                    alunos.CadastrarAlunos(nomeArquivo);
+                    alunos.CadastrarAlunos(disciplinas, nomeArquivo);
                     break;
                 }
             }
+
+            disciplinas.ImprimeDisciplinaCSV();
 
             for (i = 0; i < args.length; i++) {
                 if (args[i].equals("-p")) {
                     i++;
                     nomeArquivo = args[i];
-                    avaliacoes.CadastrarAvaliacoes(disciplinas,nomeArquivo);
+                    avaliacoes.CadastrarAvaliacoes(disciplinas, nomeArquivo);
                     break;
                 }
             }
