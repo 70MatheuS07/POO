@@ -3,9 +3,10 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class Menu {
-    public static void main(String[] args) throws Exception {
-        Scanner scanner = new Scanner(System.in);
 
+    public static String dados = "dados.dat";
+
+    public static void main(String[] args) throws Exception {
         int i = 0;
         String nomeArquivo = null;
 
@@ -16,15 +17,14 @@ public class Menu {
         AvaliacaoMap avaliacoes = null;
 
         boolean escreverDados = false;
-        boolean lehDados = false;
         boolean pulaSwitch = false;
 
         for (String p : args) {
 
-            //Incompleta ainda.
+            // Incompleta ainda.
             if (p.equals("--write-only")) {
                 // O arquivo existe, então realizamos a desserialização
-                dados = Empacotamento.LerArquivoBinario("dados.dat");
+                dados = Empacotamento.LerArquivoBinario(Menu.dados);
                 if (dados != null) {
                     // A desserialização foi bem-sucedida, utilize os objetos desserializados
                     // conforme necessário
@@ -35,7 +35,6 @@ public class Menu {
                 } else {
                     System.out.println("Não foi possível realizar a desserialização do arquivo.");
                 }
-                lehDados = true;
                 pulaSwitch = true;
             }
 
@@ -46,6 +45,7 @@ public class Menu {
         }
 
         if (!pulaSwitch) {
+            dados = new Dados();
             cursos = new CursoMap();
             disciplinas = new DisciplinaMap();
             alunos = new AlunoMap();
@@ -103,35 +103,18 @@ public class Menu {
             }
         }
 
-    }
+        if (escreverDados) {
+            dados.setCursos(cursos);
+            dados.setDisciplinas(disciplinas);
+            dados.setAlunos(alunos);
+            dados.setAvaliacoes(avaliacoes);
 
-    /**
-     * Imprime o menu.
-     */
-    public static void ImprimeMenu() {
-        System.out.println("Opcoes:");
-        System.out.println("1 - Cadastrar curso.");
-        System.out.println("2 - Cadastrar disciplina.");
-        System.out.println("3 - Cadastrar avaliacao.");
-        System.out.println("4 - Cadastrar aluno(a).");
-        System.out.println("5 - Matricular aluno(a) em disciplina.");
-        System.out.println("6 - Registrar nota de aluno em prova.");
-        System.out.println("7 - Imprimir dados.");
-        System.out.println("8 - Imprimir relatório.");
-        System.out.println("0 - Sair do programa.");
-    }
+            Empacotamento.GravarArquivoBinario(Menu.dados, dados);
+        }
 
-    /**
-     * Imprime os dados.
-     * 
-     * @param disciplinas
-     * @param avaliacoes
-     * @param cursos
-     * @param alunos
-     */
-    public static void ImprimeDados(DisciplinaMap disciplinas, AvaliacaoMap avaliacoes, CursoMap cursos,
-            AlunoMap alunos) {
-        disciplinas.DisciplinasAlunosMatriculados(cursos);
-        avaliacoes.avaliacoesNotaRecebida(alunos, disciplinas);
+        else {
+            disciplinas.CriaPautaDisciplinas(alunos, avaliacoes);
+        }
+
     }
 }

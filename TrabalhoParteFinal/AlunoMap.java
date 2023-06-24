@@ -54,7 +54,8 @@ public class AlunoMap implements Serializable {
 
                 System.out.printf("%d %s ", matricula, nome);
 
-                // Aparentemente coloca alunos nas disciplinas, porém na hora de imprimir o Map de alunos dentro da disciplina dá erro.
+                // Aparentemente coloca alunos nas disciplinas, porém na hora de imprimir o Map
+                // de alunos dentro da disciplina dá erro.
                 for (String p : disciplinasCSV) {
                     Disciplina d = disciplinas.getDisciplinaMap().get(p);
 
@@ -114,15 +115,12 @@ public class AlunoMap implements Serializable {
                 if (avaliacao instanceof Prova) {
                     matricula = Integer.parseInt(dados[1]);
 
-                    System.out.printf("%d\n", matricula);
-
                     if (mapaAlunos.alunos.containsKey(matricula) == false) {
                         System.out.println(
                                 "Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
                         return;
                     }
                     aluno = alunos.get(matricula);
-                    System.out.print("Digite a nota da prova: ");
                     aluno.getNotasAvaliacoes().put(codigo, nota);
 
                 } else {
