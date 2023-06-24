@@ -125,28 +125,27 @@ public class AlunoMap implements Serializable {
 
                 } else {
                     ArrayList<Integer> matriculas = new ArrayList<Integer>();
-                    int qtd = 0;
+
                     // loop para ler as matriculas dos alunos, armazenando em uma lista
                     String[] matriculasString = dados[1].split(", ");
+
                     for (String s : matriculasString) {
                         matricula = Integer.parseInt(s);
 
                         // confere se o aluno esta na no mapa de alunos da disciplina
-                        if (mapaAlunos.alunos.containsKey(matricula) == false) {
-                            System.out
-                                    .println(
-                                            "Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
+                        if (!mapaAlunos.alunos.containsKey(matricula)) {
+                            System.out.println(
+                                    "Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
                             System.out.println("Tente novamente");
                             continue;
                         }
-                        qtd++;
+
                         matriculas.add(matricula);
                     }
-                    int i = 0;
-                    while (i < qtd) {
-                        aluno = alunos.get(matriculas.get(i));
-                        aluno.getNotasAvaliacoes().put(codigo, nota);
-                        i++;
+
+                    for (int m : matriculas) {
+                        Aluno aluno_aluno = alunos.get(m);
+                        aluno_aluno.getNotasAvaliacoes().put(codigo, nota);
                     }
                 }
 

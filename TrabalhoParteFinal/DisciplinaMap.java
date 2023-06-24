@@ -132,7 +132,15 @@ public class DisciplinaMap implements Serializable {
 
                     Map<String, Double> avaliacoes_aluno = value_a.getNotasAvaliacoes();
 
-                    for (Map.Entry<String, Double> entry_ava : avaliacoes_aluno.entrySet()) {
+                    List<Map.Entry<String, Double>> entries = new ArrayList<>(avaliacoes_aluno.entrySet());
+                    Collections.sort(entries, new Comparator<Map.Entry<String, Double>>() {
+                        @Override
+                        public int compare(Map.Entry<String, Double> a, Map.Entry<String, Double> b) {
+                            return a.getKey().compareTo(b.getKey());
+                        }
+                    });
+
+                    for (Map.Entry<String, Double> entry_ava : entries) {
                         String key_avaliacao_aluno = entry_ava.getKey();
                         double value_avaliacao_aluno = entry_ava.getValue();
 
@@ -177,12 +185,17 @@ public class DisciplinaMap implements Serializable {
                     df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.GERMAN));
                     String formattedTotal = null;
 
-                    for (Map.Entry<String, Double> avaliacao_aluno : avaliacoesAluno.entrySet()) {
+                    List<Map.Entry<String, Double>> entries2 = new ArrayList<>(avaliacoesAluno.entrySet());
+                    Collections.sort(entries2, new Comparator<Map.Entry<String, Double>>() {
+                        @Override
+                        public int compare(Map.Entry<String, Double> a, Map.Entry<String, Double> b) {
+                            return a.getKey().compareTo(b.getKey());
+                        }
+                    });
+
+                    for (Map.Entry<String, Double> avaliacao_aluno : entries2) {
                         String key_avaliacao_aluno = avaliacao_aluno.getKey();
                         double value_avaliacao_aluno = avaliacao_aluno.getValue();
-
-                        System.out.println(key_avaliacao_aluno);
-                        System.out.println(key_d);
 
                         Avaliacao aa = avaliacoes.getAvaliacaoMap().get(key_avaliacao_aluno);
 
