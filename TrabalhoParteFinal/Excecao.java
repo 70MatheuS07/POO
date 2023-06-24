@@ -1,14 +1,19 @@
 import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Map;
 import java.util.Scanner;
+
 
 public class Excecao extends Exception {
     public Excecao(String msg) {
 
         super(msg);
     }
+
+ 
 
     public static class FinalizaProgramaException extends Excecao {
         public FinalizaProgramaException() {
@@ -108,10 +113,10 @@ public class Excecao extends Exception {
     }
 
     public static class NemGNemPException extends Excecao {
-        String matricula;
+        int matricula;
         String Digitado;
 
-        public NemGNemPException(String matricula, String digitado) {
+        public NemGNemPException(int matricula, String digitado) {
             super("Tipo de aluno desconhecido para " + matricula + ": " + digitado + ".");
             this.matricula = matricula;
             this.Digitado = digitado;

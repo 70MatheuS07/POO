@@ -30,6 +30,11 @@ public class CursoMap implements Serializable {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
                 int codigo = Integer.parseInt(dados[0]);
+
+                if(cursos.containsKey(codigo)) {
+                    throw new Excecao.CodigosIguaisException(codigo); 
+                }
+                
                 String nome = dados[1];
 
                 Curso curso = new Curso();

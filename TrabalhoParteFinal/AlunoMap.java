@@ -18,7 +18,7 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void CadastrarAlunos(DisciplinaMap disciplinas, String arquivo) throws Excecao {
+    public void CadastrarAlunos(CursoMap cursos,DisciplinaMap disciplinas, String arquivo) throws Excecao {
 
         File disciplinaFile = new File(arquivo);
 
@@ -33,12 +33,25 @@ public class AlunoMap implements Serializable {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
                 int matricula = Integer.parseInt(dados[0]);
+
+                if(alunos.containsKey(matricula)){
+                    throw new Excecao.MatriculasIguaisException(matricula);
+                }
+
                 String nome = dados[1];
                 String[] disciplinasCSV = dados[2].split(", ");
+                for(String disciplina:disciplinasCSV){
+                    if (!(disciplinas.getDisciplinaMap().containsKey(disciplina))){
+                        throw new Excecao.CodDisciplinaIndefinidoAlunoExcpetion(matricula, disciplina);
+                    }
+                }
                 String tipo = dados[3];
 
                 if (tipo.equals("G")) {
                     int curso = Integer.parseInt(dados[4]);
+                    if (!(cursos.getCursoMap().containsKey(curso))){
+                        throw new Excecao.CodCursoIndefinidoException(matricula, curso);
+                    }
                     aluno = new AlunoGrad(nome, "G", curso);
                 }
 
@@ -47,9 +60,15 @@ public class AlunoMap implements Serializable {
                     if (curso.equals("M"))
                         aluno = new AlunoPos(nome, "P", "Mestrado");
 
-                    else {
+                    else if (curso.equals("D")){
                         aluno = new AlunoPos(nome, "P", "Doutorado");
                     }
+                    else{
+                        throw new Excecao.NemMNemDException(matricula, curso);
+                    }
+                }
+                else{
+                    throw new Excecao.NemGNemPException(matricula, tipo);
                 }
 
                 System.out.printf("%d %s ", matricula, nome);

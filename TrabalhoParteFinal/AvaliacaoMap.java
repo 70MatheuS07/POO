@@ -42,11 +42,28 @@ public class AvaliacaoMap implements Serializable {
 
                 String disciplina = dados[0];
                 String codigo = dados[1];
+
+                if(!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
+                    throw new Excecao.CodDisciplinaIndefinidoAvalExcpetion(codigo,disciplina);
+                }
+
                 String nome = dados[2];
                 double peso = Double.parseDouble(dados[3]);
+
+                if(peso<=0){
+                   throw new Excecao.PesoZeroNegativo(codigo, peso);
+                }
+
                 String tipo = dados[4];
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 Date data = formatter.parse(dados[5]);
+
+                int tamMax;
+
+                if((tipo.equals("P") || tipo.equals("F")&& dados.length>5)){
+                    tamMax = Integer.parseInt(dados[6]);
+                    throw new Excecao.TamGrupoNaProvaException(codigo, tamMax);
+                }
 
                 if (tipo.equals("P")) {
                     avaliacao = new Prova(disciplina, nome, peso, data, false);
@@ -56,8 +73,14 @@ public class AvaliacaoMap implements Serializable {
                 }
 
                 else if (tipo.equals("T")) {
-                    int tamMax = Integer.parseInt(dados[6]);
+                    tamMax = Integer.parseInt(dados[6]);
+                    if(tamMax<=0){
+                        throw new Excecao.TamMaxZeroNegativo(codigo, tamMax);
+                    }
                     avaliacao = new Trabalho(disciplina, nome, peso, data, tamMax);
+                }
+                else{
+                    throw new Excecao.NemPNemTException(codigo, tipo);
                 }
 
                 System.out.printf("%s %s %s %f %s %s\n", disciplina, codigo, nome, peso, tipo, data);

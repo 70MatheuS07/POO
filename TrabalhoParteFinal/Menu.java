@@ -1,4 +1,7 @@
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -18,7 +21,7 @@ public class Menu {
         boolean escreverDados = false;
         boolean lehDados = false;
         boolean pulaSwitch = false;
-
+        try{
         for (String p : args) {
 
             //Incompleta ainda.
@@ -77,7 +80,7 @@ public class Menu {
                 if (args[i].equals("-a")) {
                     i++;
                     nomeArquivo = args[i];
-                    alunos.CadastrarAlunos(disciplinas, nomeArquivo);
+                    alunos.CadastrarAlunos(cursos,disciplinas, nomeArquivo);
                     break;
                 }
             }
@@ -102,8 +105,16 @@ public class Menu {
                 }
             }
         }
-
     }
+    catch(Exception e){
+    try (FileWriter writer = new FileWriter("Output.txt");
+         PrintWriter printWriter = new PrintWriter(writer)) {
+        e.printStackTrace(printWriter);
+    } catch (IOException ioException) {
+        ioException.printStackTrace();
+    }
+    }
+ }
 
     /**
      * Imprime o menu.
