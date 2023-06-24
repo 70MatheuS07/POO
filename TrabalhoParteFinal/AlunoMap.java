@@ -127,7 +127,8 @@ public class AlunoMap implements Serializable {
                     ArrayList<Integer> matriculas = new ArrayList<Integer>();
 
                     // loop para ler as matriculas dos alunos, armazenando em uma lista
-                    String[] matriculasString = dados[1].split(", ");
+                    String[] matriculasString = new String[10];
+                    matriculasString = dados[1].split(", ");
 
                     for (String s : matriculasString) {
                         matricula = Integer.parseInt(s);

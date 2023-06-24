@@ -199,23 +199,25 @@ public class DisciplinaMap implements Serializable {
 
                         Avaliacao aa = avaliacoes.getAvaliacaoMap().get(key_avaliacao_aluno);
 
-                        if (aa instanceof Prova) {
-                            if (!((Prova) aa).getTipoProva()) {
+                        if (aa.getDisciplinaKey().equals(key_d)) {
+                            if (aa instanceof Prova) {
+                                if (!((Prova) aa).getTipoProva()) {
+                                    formattedTotal = df.format(value_avaliacao_aluno);
+                                    writer.write(formattedTotal + ";");
+                                    total += value_avaliacao_aluno * aa.getPeso();
+                                    qtd_prov_trab += aa.getPeso();
+                                }
+
+                                else {
+                                    provaFinal = value_avaliacao_aluno;
+                                }
+
+                            } else {
                                 formattedTotal = df.format(value_avaliacao_aluno);
                                 writer.write(formattedTotal + ";");
                                 total += value_avaliacao_aluno * aa.getPeso();
                                 qtd_prov_trab += aa.getPeso();
                             }
-
-                            else {
-                                provaFinal = value_avaliacao_aluno;
-                            }
-
-                        } else {
-                            formattedTotal = df.format(value_avaliacao_aluno);
-                            writer.write(formattedTotal + ";");
-                            total += value_avaliacao_aluno * aa.getPeso();
-                            qtd_prov_trab += aa.getPeso();
                         }
                     }
 
@@ -242,6 +244,15 @@ public class DisciplinaMap implements Serializable {
                 }
                 writer.close();
             }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes) {
+        try {
+            FileWriter writer = new FileWriter("1-pauta-.csv");
+
         } catch (IOException e) {
             e.printStackTrace();
         }
