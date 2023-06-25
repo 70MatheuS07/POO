@@ -127,7 +127,6 @@ public class DisciplinaMap implements Serializable {
                 Map<Integer, Aluno> aluno_map = value_d.getAlunoMap().getAlunoMap();
 
                 for (Map.Entry<Integer, Aluno> entry_aluno : aluno_map.entrySet()) {
-                    int key_a = entry_aluno.getKey();
                     Aluno value_a = entry_aluno.getValue();
 
                     Map<String, Double> avaliacoes_aluno = value_a.getNotasAvaliacoes();
@@ -142,7 +141,6 @@ public class DisciplinaMap implements Serializable {
 
                     for (Map.Entry<String, Double> entry_ava : entries) {
                         String key_avaliacao_aluno = entry_ava.getKey();
-                        double value_avaliacao_aluno = entry_ava.getValue();
 
                         Avaliacao aa = avaliacoes.getAvaliacaoMap().get(key_avaliacao_aluno);
 
@@ -263,7 +261,6 @@ public class DisciplinaMap implements Serializable {
                 Map<String, Integer> alunosAprovados = new HashMap<String, Integer>();
 
                 for (Map.Entry<Integer, Aluno> a : value_d.getAlunoMap().getAlunoMap().entrySet()) {
-                    int key_a = a.getKey();
                     Aluno value_a = a.getValue();
                     double total_notas = 0.0;
                     int qtd_notas = 0;

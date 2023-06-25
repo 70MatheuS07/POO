@@ -11,7 +11,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
-import java.util.Formatter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
@@ -135,10 +134,8 @@ public class AvaliacaoMap implements Serializable {
 
             for (Map.Entry<String, Avaliacao> a : entries) {
                 String key_a = a.getKey();
-                Avaliacao value_a = a.getValue();
 
                 for (Map.Entry<Integer, Aluno> aluno : alunos.getAlunoMap().entrySet()) {
-                    Integer key_aluno = aluno.getKey();
                     Aluno value_aluno = aluno.getValue();
 
                     for (Map.Entry<String, Double> na : value_aluno.getNotasAvaliacoes().entrySet()) {
