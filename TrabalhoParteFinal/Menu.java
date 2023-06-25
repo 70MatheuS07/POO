@@ -1,7 +1,3 @@
-import java.io.File;
-import java.util.InputMismatchException;
-import java.util.Scanner;
-
 public class Menu {
 
     public static String dados = "dados.dat";

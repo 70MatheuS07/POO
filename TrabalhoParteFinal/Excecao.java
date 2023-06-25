@@ -1,8 +1,4 @@
-import java.io.File;
 import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Map;
-import java.util.Scanner;
 
 public class Excecao extends Exception {
     public Excecao(String msg) {
