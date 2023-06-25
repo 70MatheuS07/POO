@@ -115,6 +115,7 @@ public class Menu {
         else {
             disciplinas.CriaPautaDisciplinas(alunos, avaliacoes);
             disciplinas.CriaDisciplinasCSV(alunos, avaliacoes, cursos);
+            avaliacoes.CriaAvaliacoesCSV(disciplinas, alunos);
         }
 
     }
