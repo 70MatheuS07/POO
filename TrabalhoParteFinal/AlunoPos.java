@@ -1,6 +1,6 @@
 public class AlunoPos extends Aluno {
-    public static final String MESTRADO = "mestrado";
-    public static final String DOUTORADO = "doutorado";
+    public static final String MESTRADO = "Mestrado";
+    public static final String DOUTORADO = "Doutorado";
     private String nivel;
 
     public AlunoPos(String nome ,String grad,String nivel){

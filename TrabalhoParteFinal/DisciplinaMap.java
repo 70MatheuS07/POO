@@ -164,6 +164,7 @@ public class DisciplinaMap implements Serializable {
                 // Adicione valores ao mapa
                 List<Map.Entry<Integer, Aluno>> entries = new ArrayList<>(aluno_map.entrySet());
                 Collections.sort(entries, new Comparator<Map.Entry<Integer, Aluno>>() {
+
                     @Override
                     public int compare(Map.Entry<Integer, Aluno> a, Map.Entry<Integer, Aluno> b) {
                         return a.getValue().getNome().compareTo(b.getValue().getNome());
@@ -249,9 +250,222 @@ public class DisciplinaMap implements Serializable {
         }
     }
 
-    public void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes) {
+    public void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos) {
         try {
-            FileWriter writer = new FileWriter("1-pauta-.csv");
+            FileWriter writer = new FileWriter("2-disciplinas.csv");
+
+            for (Map.Entry<String, Disciplina> d : disciplinas.entrySet()) {
+                String key_d = d.getKey();
+                Disciplina value_d = d.getValue();
+
+                Map<String, Integer> alunosGeral = new HashMap<String, Integer>();
+                Map<String, Double> mediaAlunos = new HashMap<String, Double>();
+                Map<String, Integer> alunosAprovados = new HashMap<String, Integer>();
+
+                for (Map.Entry<Integer, Aluno> a : value_d.getAlunoMap().getAlunoMap().entrySet()) {
+                    int key_a = a.getKey();
+                    Aluno value_a = a.getValue();
+                    double total_notas = 0.0;
+                    int qtd_notas = 0;
+                    double total_final = 0.0;
+                    double prova_final = 0.0;
+
+                    if (value_a instanceof AlunoGrad) {
+                        AlunoGrad aluno_grad = (AlunoGrad) value_a;
+
+                        Curso curso = cursos.getCursoMap().get(aluno_grad.getCurso());
+
+                        if (!alunosGeral.containsKey(curso.getNome())) {
+                            alunosGeral.put(curso.getNome(), 1);
+                            mediaAlunos.put(curso.getNome(), 0.0);
+                            alunosAprovados.put(curso.getNome(), 0);
+                        } else {
+                            int currentValue = alunosGeral.get(curso.getNome());
+                            alunosGeral.put(curso.getNome(), currentValue + 1);
+                        }
+
+                        // Preciso saber se ele foi aprovado.
+                        for (Map.Entry<String, Double> np : aluno_grad.notasProvas.entrySet()) {
+                            String key_np = np.getKey();
+                            double value_np = np.getValue();
+
+                            Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(key_np);
+
+                            if (avaliacao.getDisciplinaKey().equals(key_d)) {
+                                if (avaliacao instanceof Prova) {
+                                    if (!((Prova) avaliacao).getTipoProva()) {
+                                        total_notas += value_np * avaliacao.getPeso();
+                                        qtd_notas += avaliacao.getPeso();
+                                    }
+
+                                    else {
+                                        prova_final = value_np;
+                                    }
+
+                                } else {
+                                    total_notas += value_np * avaliacao.getPeso();
+                                    qtd_notas += avaliacao.getPeso();
+                                }
+                            }
+                        }
+
+                        total_final = ((double) (total_notas / qtd_notas));
+
+                        if (total_final >= 7.0) {
+                            int currentValueAprovados = alunosAprovados.get(curso.getNome());
+                            alunosAprovados.put(curso.getNome(), currentValueAprovados + 1);
+                        } else {
+                            total_final = ((double) ((total_final + prova_final) / 2));
+
+                            if (total_final >= 5.0) {
+                                int currentValueAprovados = alunosAprovados.get(curso.getNome());
+                                alunosAprovados.put(curso.getNome(), currentValueAprovados + 1);
+                            }
+
+                        }
+
+                        double currentValueDouble = mediaAlunos.get(curso.getNome());
+                        mediaAlunos.put(curso.getNome(), currentValueDouble + total_final);
+
+                    } else {
+                        AlunoPos aluno_pos = (AlunoPos) value_a;
+
+                        if (aluno_pos.getNivel().equals(AlunoPos.MESTRADO)) {
+                            if (!alunosGeral.containsKey(AlunoPos.MESTRADO)) {
+                                alunosGeral.put(AlunoPos.MESTRADO, 1);
+                                mediaAlunos.put(AlunoPos.MESTRADO, 0.0);
+                                alunosAprovados.put(AlunoPos.MESTRADO, 0);
+                            } else {
+                                int currentValue = alunosGeral.get(AlunoPos.MESTRADO);
+                                alunosGeral.put(AlunoPos.MESTRADO, currentValue + 1);
+                            }
+
+                            // Preciso saber se ele foi aprovado.
+                            for (Map.Entry<String, Double> np : aluno_pos.getNotasAvaliacoes().entrySet()) {
+                                String key_np = np.getKey();
+                                double value_np = np.getValue();
+
+                                Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(key_np);
+
+                                if (avaliacao.getDisciplinaKey().equals(key_d)) {
+                                    if (avaliacao instanceof Prova) {
+                                        if (!((Prova) avaliacao).getTipoProva()) {
+                                            total_notas += value_np * avaliacao.getPeso();
+                                            qtd_notas += avaliacao.getPeso();
+                                        }
+
+                                        else {
+                                            prova_final = value_np;
+                                        }
+
+                                    } else {
+                                        total_notas += value_np * avaliacao.getPeso();
+                                        qtd_notas += avaliacao.getPeso();
+                                    }
+                                }
+                            }
+
+                            total_final = ((double) (total_notas / qtd_notas));
+
+                            if (total_final >= 7.0) {
+                                int currentValueAprovados = alunosAprovados.get(AlunoPos.MESTRADO);
+                                alunosAprovados.put(AlunoPos.MESTRADO, currentValueAprovados + 1);
+                            } else {
+                                total_final = ((double) ((total_final + prova_final) / 2));
+
+                                if (total_final >= 5.0) {
+                                    int currentValueAprovados = alunosAprovados.get(AlunoPos.MESTRADO);
+                                    alunosAprovados.put(AlunoPos.MESTRADO, currentValueAprovados + 1);
+                                }
+
+                            }
+
+                            double currentValueDouble = mediaAlunos.get(AlunoPos.MESTRADO);
+                            mediaAlunos.put(AlunoPos.MESTRADO, currentValueDouble + total_final);
+
+                        }
+
+                        else {
+                            if (!alunosGeral.containsKey(AlunoPos.DOUTORADO)) {
+                                alunosGeral.put(AlunoPos.DOUTORADO, 1);
+                                mediaAlunos.put(AlunoPos.DOUTORADO, 0.0);
+                                alunosAprovados.put(AlunoPos.DOUTORADO, 0);
+                            } else {
+                                int currentValue = alunosGeral.get(AlunoPos.DOUTORADO);
+                                alunosGeral.put(AlunoPos.DOUTORADO, currentValue + 1);
+                            }
+
+                            // Preciso saber se ele foi aprovado.
+                            for (Map.Entry<String, Double> np : aluno_pos.getNotasAvaliacoes().entrySet()) {
+                                String key_np = np.getKey();
+                                double value_np = np.getValue();
+
+                                Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(key_np);
+
+                                if (avaliacao.getDisciplinaKey().equals(key_d)) {
+                                    if (avaliacao instanceof Prova) {
+                                        if (!((Prova) avaliacao).getTipoProva()) {
+                                            total_notas += value_np * avaliacao.getPeso();
+                                            qtd_notas += avaliacao.getPeso();
+                                        }
+
+                                        else {
+                                            prova_final = value_np;
+                                        }
+
+                                    } else {
+                                        total_notas += value_np * avaliacao.getPeso();
+                                        qtd_notas += avaliacao.getPeso();
+                                    }
+                                }
+                            }
+
+                            total_final = ((double) (total_notas / qtd_notas));
+
+                            if (total_final >= 7.0) {
+                                int currentValueAprovados = alunosAprovados.get(AlunoPos.DOUTORADO);
+                                alunosAprovados.put(AlunoPos.DOUTORADO, currentValueAprovados + 1);
+                            } else {
+                                total_final = ((double) ((total_final + prova_final) / 2));
+
+                                if (total_final >= 5.0) {
+                                    int currentValueAprovados = alunosAprovados.get(AlunoPos.DOUTORADO);
+                                    alunosAprovados.put(AlunoPos.DOUTORADO, currentValueAprovados + 1);
+                                }
+
+                            }
+
+                            double currentValueDouble = mediaAlunos.get(AlunoPos.DOUTORADO);
+                            mediaAlunos.put(AlunoPos.DOUTORADO, currentValueDouble + total_final);
+
+                        }
+
+                    }
+
+                }
+
+                for (Map.Entry<String, Integer> aluno_geral : alunosGeral.entrySet()) {
+                    String key_ag = aluno_geral.getKey();
+                    int value_ag = aluno_geral.getValue();
+
+                    writer.write(key_d + ";" + value_d.getNome() + ";" + key_ag + ";");
+
+                    double total = mediaAlunos.get(key_ag);
+                    double media = ((double) (total / value_ag));
+                    double aprovados = (((double) alunosAprovados.get(key_ag) / value_ag));
+                    DecimalFormat df = new DecimalFormat("0.00%");
+                    df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.GERMAN));
+                    String formattedAprovados = df.format(aprovados);
+
+                    DecimalFormat df_media = new DecimalFormat("0.00");
+                    df_media.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.GERMAN));
+                    String formattedMedia = df_media.format(media);
+
+                    writer.write(formattedMedia + ";" + formattedAprovados + "\n");
+                }
+            }
+
+            writer.close();
 
         } catch (IOException e) {
             e.printStackTrace();
