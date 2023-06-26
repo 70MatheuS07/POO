@@ -50,15 +50,15 @@ public class AvaliacaoMap implements Serializable {
                 String disciplina = dados[0];
                 String codigo = dados[1];
 
-                if(!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
-                    throw new Excecao.CodDisciplinaIndefinidoAvalExcpetion(codigo,disciplina);
+                if (!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
+                    throw new Excecao.CodDisciplinaIndefinidoAvalExcpetion(codigo, disciplina);
                 }
 
                 String nome = dados[2];
                 double peso = Double.parseDouble(dados[3]);
 
-                if(peso<=0){
-                   throw new Excecao.PesoZeroNegativo(codigo, peso);
+                if (peso <= 0) {
+                    throw new Excecao.PesoZeroNegativo(codigo, peso);
                 }
 
                 String tipo = dados[4];
@@ -66,7 +66,7 @@ public class AvaliacaoMap implements Serializable {
                 Date data = formatter.parse(dados[5]);
 
                 int tamMax;
-                if((tipo.equals("P") || tipo.equals("F"))&& dados.length>6){
+                if ((tipo.equals("P") || tipo.equals("F")) && dados.length > 6) {
                     tamMax = Integer.parseInt(dados[6]);
                     throw new Excecao.TamGrupoNaProvaException(codigo, tamMax);
                 }
@@ -80,30 +80,29 @@ public class AvaliacaoMap implements Serializable {
 
                 else if (tipo.equals("T")) {
                     tamMax = Integer.parseInt(dados[6]);
-                    if(tamMax<=0){
+                    if (tamMax <= 0) {
                         throw new Excecao.TamMaxZeroNegativo(codigo, tamMax);
                     }
                     avaliacao = new Trabalho(disciplina, nome, peso, data, tamMax);
-                }
-                else{
+                } else {
                     throw new Excecao.NemPNemTException(codigo, tipo);
                 }
 
                 avaliacoes.put(codigo, avaliacao);
             }
-            //confere se há alguma disciplina sem avaliações cadastrada
-            for(Map.Entry<String, Disciplina> entry : disciplinas.getDisciplinaMap().entrySet()){
-                boolean bool=false;
-                String CodD= entry.getKey();
-                for(Map.Entry<String, Avaliacao> entry2 : avaliacoes.entrySet()){
-                    Avaliacao avaliacaoCompare=entry2.getValue();
-                    String CodDCompare= avaliacaoCompare.getDisciplinaKey();
-                    if(CodDCompare.equals(CodD)){
-                        bool=true;
+            // confere se há alguma disciplina sem avaliações cadastrada
+            for (Map.Entry<String, Disciplina> entry : disciplinas.getDisciplinaMap().entrySet()) {
+                boolean bool = false;
+                String CodD = entry.getKey();
+                for (Map.Entry<String, Avaliacao> entry2 : avaliacoes.entrySet()) {
+                    Avaliacao avaliacaoCompare = entry2.getValue();
+                    String CodDCompare = avaliacaoCompare.getDisciplinaKey();
+                    if (CodDCompare.equals(CodD)) {
+                        bool = true;
                         break;
                     }
                 }
-                if(!bool){
+                if (!bool) {
                     throw new Excecao.DisciplinaSemAvaliacaoException(CodD);
                 }
             }
@@ -145,7 +144,7 @@ public class AvaliacaoMap implements Serializable {
 
     }
 
-    public void CriaAvaliacoesCSV(DisciplinaMap disciplinas, AlunoMap alunos) throws Excecao{
+    public void CriaAvaliacoesCSV(DisciplinaMap disciplinas, AlunoMap alunos) throws Excecao {
 
         try {
             List<Map.Entry<String, Avaliacao>> entries = new ArrayList<>(avaliacoes.entrySet());
@@ -216,6 +215,39 @@ public class AvaliacaoMap implements Serializable {
                 }
             }
 
+            File disciplinaFile = new File("notas.csv");
+
+            Map<String, Integer> qtdNotasIO = new HashMap<String, Integer>();
+            Map<String, Double> totalNotasIO = new HashMap<String, Double>();
+
+            Scanner scanner = new Scanner(disciplinaFile);
+
+            // Primeira linha é o cabeçalho.
+            String linha = Leitura.LehLine(scanner);
+
+            while (scanner.hasNextLine()) {
+                linha = Leitura.LehLine(scanner);
+                String[] dados = linha.split(";");
+                String codigo = dados[0];
+
+                String doubleString = dados[2];
+                doubleString = doubleString.replace(',', '.');
+                double nota = Double.parseDouble(doubleString);
+
+                if (!totalNotasIO.containsKey(codigo)) {
+                    qtdNotasIO.put(codigo, 1);
+                    totalNotasIO.put(codigo, nota);
+
+                } else {
+                    int currentValueInteger = qtdNotasIO.get(codigo);
+                    qtdNotasIO.put(codigo, currentValueInteger + 1);
+
+                    double currentValueDouble = totalNotasIO.get(codigo);
+                    totalNotasIO.put(codigo, currentValueDouble + nota);
+                }
+
+            }
+
             List<Map.Entry<String, Double>> entries2 = new ArrayList<>(totalNotas.entrySet());
             Collections.sort(entries2, new Comparator<Map.Entry<String, Double>>() {
                 @Override
@@ -231,30 +263,32 @@ public class AvaliacaoMap implements Serializable {
 
             for (Map.Entry<String, Double> entry : entries2) {
                 String key_entry = entry.getKey();
-                double value_entry = entry.getValue();
 
-                String codigo = key_entry;
-                double media = ((double) value_entry / qtdNotas.get(key_entry));
+                if (totalNotasIO.containsKey(key_entry)) {
 
-                DecimalFormat df_media = new DecimalFormat("0.00");
-                df_media.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.GERMAN));
-                String formattedMedia = df_media.format(media);
+                    String codigo = key_entry;
+                    double media = ((double) totalNotasIO.get(key_entry) / qtdNotasIO.get(key_entry));
 
-                Avaliacao avaliacao = avaliacoes.get(key_entry);
+                    DecimalFormat df_media = new DecimalFormat("0.00");
+                    df_media.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.GERMAN));
+                    String formattedMedia = df_media.format(media);
 
-                String disciplinaAvaliacao = avaliacao.getDisciplinaKey();
-                String nomeAvaliacao = avaliacao.getNome();
+                    Avaliacao avaliacao = avaliacoes.get(key_entry);
 
-                Date dataAvaliacao = avaliacao.getData();
+                    String disciplinaAvaliacao = avaliacao.getDisciplinaKey();
+                    String nomeAvaliacao = avaliacao.getNome();
 
-                SimpleDateFormat sdff = new SimpleDateFormat("dd/MM/yyyy");
-                String dia = sdff.format(dataAvaliacao);
+                    Date dataAvaliacao = avaliacao.getData();
 
-                writer.write(disciplinaAvaliacao + ";");
-                writer.write(codigo + ";");
-                writer.write(nomeAvaliacao + ";");
-                writer.write(dia + ";");
-                writer.write(formattedMedia + "\n");
+                    SimpleDateFormat sdff = new SimpleDateFormat("dd/MM/yyyy");
+                    String dia = sdff.format(dataAvaliacao);
+
+                    writer.write(disciplinaAvaliacao + ";");
+                    writer.write(codigo + ";");
+                    writer.write(nomeAvaliacao + ";");
+                    writer.write(dia + ";");
+                    writer.write(formattedMedia + "\n");
+                }
 
             }
 
