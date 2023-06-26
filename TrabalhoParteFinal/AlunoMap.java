@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -68,19 +67,13 @@ public class AlunoMap implements Serializable {
                     throw new Excecao.NemGNemPException(matricula, tipo);
                 }
 
-                System.out.printf("%d %s ", matricula, nome);
-
                 // Aparentemente coloca alunos nas disciplinas, porém na hora de imprimir o Map
                 // de alunos dentro da disciplina dá erro.
                 for (String p : disciplinasCSV) {
                     Disciplina d = disciplinas.getDisciplinaMap().get(p);
 
                     d.getAlunoMap().getAlunoMap().put(matricula, aluno);
-
-                    System.out.printf("%s ", p);
                 }
-
-                System.out.printf("%s\n", tipo);
 
                 alunos.put(matricula, aluno);
             }

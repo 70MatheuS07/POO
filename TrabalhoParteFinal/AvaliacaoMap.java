@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
@@ -90,8 +89,6 @@ public class AvaliacaoMap implements Serializable {
                     throw new Excecao.NemPNemTException(codigo, tipo);
                 }
 
-                System.out.printf("%s %s %s %f %s %s\n", disciplina, codigo, nome, peso, tipo, data);
-
                 avaliacoes.put(codigo, avaliacao);
             }
             //confere se há alguma disciplina sem avaliações cadastrada
@@ -179,8 +176,6 @@ public class AvaliacaoMap implements Serializable {
                     for (Map.Entry<String, Double> na : value_aluno.getNotasAvaliacoes().entrySet()) {
                         String key_NA = na.getKey();
                         Double value_NA = na.getValue();
-
-                        System.out.println(key_a + " " + key_NA);
 
                         if (key_a.equals(key_NA)) {
                             Avaliacao avaliacao = avaliacoes.get(key_NA);

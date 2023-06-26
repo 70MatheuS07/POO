@@ -59,8 +59,6 @@ public class Menu {
                 }
             }
 
-            cursos.ImprimeCursosCSV();
-
             for (i = 0; i < args.length; i++) {
                 if (args[i].equals("-d")) {
                     i++;
@@ -70,8 +68,6 @@ public class Menu {
                 }
             }
 
-            disciplinas.ImprimeDisciplinaCSV();
-
             for (i = 0; i < args.length; i++) {
                 if (args[i].equals("-a")) {
                     i++;
@@ -80,8 +76,6 @@ public class Menu {
                     break;
                 }
             }
-
-            disciplinas.ImprimeDisciplinaCSV();
 
             for (i = 0; i < args.length; i++) {
                 if (args[i].equals("-p")) {

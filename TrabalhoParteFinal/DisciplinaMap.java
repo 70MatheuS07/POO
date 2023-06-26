@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Serializable;
@@ -45,8 +44,6 @@ public class DisciplinaMap implements Serializable {
 
                 disciplina.setDisciplina(nome);
                 disciplinas.put(codigo, disciplina);
-
-                System.out.printf("%s %s\n", codigo, nome);
             }
         }
 
