@@ -50,11 +50,27 @@ public class AvaliacaoMap implements Serializable {
 
                 String disciplina = dados[0];
                 String codigo = dados[1];
+
+                if(!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
+                    throw new Excecao.CodDisciplinaIndefinidoAvalExcpetion(codigo,disciplina);
+                }
+
                 String nome = dados[2];
                 double peso = Double.parseDouble(dados[3]);
+
+                if(peso<=0){
+                   throw new Excecao.PesoZeroNegativo(codigo, peso);
+                }
+
                 String tipo = dados[4];
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 Date data = formatter.parse(dados[5]);
+
+                int tamMax;
+                if((tipo.equals("P") || tipo.equals("F"))&& dados.length>6){
+                    tamMax = Integer.parseInt(dados[6]);
+                    throw new Excecao.TamGrupoNaProvaException(codigo, tamMax);
+                }
 
                 if (tipo.equals("P")) {
                     avaliacao = new Prova(disciplina, nome, peso, data, false);
@@ -64,19 +80,41 @@ public class AvaliacaoMap implements Serializable {
                 }
 
                 else if (tipo.equals("T")) {
-                    int tamMax = Integer.parseInt(dados[6]);
+                    tamMax = Integer.parseInt(dados[6]);
+                    if(tamMax<=0){
+                        throw new Excecao.TamMaxZeroNegativo(codigo, tamMax);
+                    }
                     avaliacao = new Trabalho(disciplina, nome, peso, data, tamMax);
+                }
+                else{
+                    throw new Excecao.NemPNemTException(codigo, tipo);
                 }
 
                 System.out.printf("%s %s %s %f %s %s\n", disciplina, codigo, nome, peso, tipo, data);
 
                 avaliacoes.put(codigo, avaliacao);
             }
+            //confere se há alguma disciplina sem avaliações cadastrada
+            for(Map.Entry<String, Disciplina> entry : disciplinas.getDisciplinaMap().entrySet()){
+                boolean bool=false;
+                String CodD= entry.getKey();
+                for(Map.Entry<String, Avaliacao> entry2 : avaliacoes.entrySet()){
+                    Avaliacao avaliacaoCompare=entry2.getValue();
+                    String CodDCompare= avaliacaoCompare.getDisciplinaKey();
+                    if(CodDCompare.equals(CodD)){
+                        bool=true;
+                        break;
+                    }
+                }
+                if(!bool){
+                    throw new Excecao.DisciplinaSemAvaliacaoException(CodD);
+                }
+            }
         }
 
-        catch (FileNotFoundException e) {
+        catch (IOException e) {
 
-            throw new Excecao("Arquivo não encontrado");
+            throw new Excecao.ErroDeIO();
 
         }
     }
@@ -110,7 +148,7 @@ public class AvaliacaoMap implements Serializable {
 
     }
 
-    public void CriaAvaliacoesCSV(DisciplinaMap disciplinas, AlunoMap alunos) {
+    public void CriaAvaliacoesCSV(DisciplinaMap disciplinas, AlunoMap alunos) throws Excecao{
 
         try {
             List<Map.Entry<String, Avaliacao>> entries = new ArrayList<>(avaliacoes.entrySet());
@@ -228,7 +266,7 @@ public class AvaliacaoMap implements Serializable {
             writer.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Excecao.ErroDeIO();
         }
 
     }

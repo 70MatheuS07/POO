@@ -104,10 +104,10 @@ public class Excecao extends Exception {
     }
 
     public static class NemGNemPException extends Excecao {
-        String matricula;
+        int matricula;
         String Digitado;
 
-        public NemGNemPException(String matricula, String digitado) {
+        public NemGNemPException(int matricula, String digitado) {
             super("Tipo de aluno desconhecido para " + matricula + ": " + digitado + ".");
             this.matricula = matricula;
             this.Digitado = digitado;
@@ -165,8 +165,8 @@ public class Excecao extends Exception {
     public static class NotaInvalidaAvaliacaoException extends Excecao{
         ArrayList<Integer> M;
         String codigo;
-        int nota;
-        public NotaInvalidaAvaliacaoException(ArrayList<Integer> matriculas, String codigo, int nota){
+        double nota;
+        public NotaInvalidaAvaliacaoException(ArrayList<Integer> matriculas, String codigo, double nota){
             super("Nota inválida para avaliação "+ codigo + "do(s) aluno(s)");
             for(int i=0;i<matriculas.size();i++){
                 System.out.println(matriculas.get(i));
@@ -203,10 +203,10 @@ public class Excecao extends Exception {
             super("O aluno "+ matricula + "foi registrado em mais de um grupo para a avaliação "+codigo+".");
         }
     } 
-
-    public static class IOException extends Excecao {
-        public IOException() {
-            super("Erro de I/O.");
+    public static class ErroDeIO extends Excecao{
+        public ErroDeIO(){
+            super("Erro de IO");
         }
     }
+
 }

@@ -50,9 +50,9 @@ public class DisciplinaMap implements Serializable {
             }
         }
 
-        catch (FileNotFoundException e) {
+        catch (IOException e) {
 
-            throw new Excecao("Arquivo não encontrado");
+            throw new Excecao("Erro de I/O");
 
         }
     }
@@ -111,7 +111,7 @@ public class DisciplinaMap implements Serializable {
         }
     }
 
-    public void CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoes) {
+    public void CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoes) throws Excecao {
         try {
             double total = 0.0;
             int qtd_prov_trab = 0;
@@ -243,12 +243,13 @@ public class DisciplinaMap implements Serializable {
                 }
                 writer.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } 
+        catch (IOException e) {
+        throw new Excecao.ErroDeIO();
         }
     }
 
-    public void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos) {
+    public void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos) throws Excecao {
         try {
             FileWriter writer = new FileWriter("2-disciplinas.csv");
 
@@ -465,7 +466,7 @@ public class DisciplinaMap implements Serializable {
             writer.close();
 
         } catch (IOException e) {
-            e.printStackTrace();
+            throw new Excecao.ErroDeIO();
         }
     }
 }

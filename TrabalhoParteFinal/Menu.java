@@ -1,3 +1,5 @@
+import java.text.ParseException;
+
 public class Menu {
 
     public static String dados = "dados.dat";
@@ -39,6 +41,7 @@ public class Menu {
                 pulaSwitch = false;
             }
         }
+        try{
 
         if (!pulaSwitch) {
             dados = new Dados();
@@ -73,7 +76,7 @@ public class Menu {
                 if (args[i].equals("-a")) {
                     i++;
                     nomeArquivo = args[i];
-                    alunos.CadastrarAlunos(disciplinas, nomeArquivo);
+                    alunos.CadastrarAlunos(cursos, disciplinas, nomeArquivo);
                     break;
                 }
             }
@@ -113,6 +116,16 @@ public class Menu {
             disciplinas.CriaDisciplinasCSV(alunos, avaliacoes, cursos);
             avaliacoes.CriaAvaliacoesCSV(disciplinas, alunos);
         }
+    }
+    catch (Excecao e){
+    System.out.println(e.getMessage());
+    }
+    catch(NumberFormatException n){
+        System.out.println("Erro de Formatação");
+    }
+    catch (ParseException p){
+        System.out.println("Erro de Formatação");
+    }
 
     }
 }

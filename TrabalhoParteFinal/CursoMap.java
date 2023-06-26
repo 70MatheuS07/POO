@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
@@ -30,6 +31,9 @@ public class CursoMap implements Serializable {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
                 int codigo = Integer.parseInt(dados[0]);
+                if(cursos.containsKey(codigo)){
+                    throw new Excecao.CodigosIguaisException(codigo);
+                }
                 String nome = dados[1];
 
                 Curso curso = new Curso();
@@ -41,8 +45,8 @@ public class CursoMap implements Serializable {
             }
         }
 
-        catch (FileNotFoundException e) {
-            throw new Excecao("Arquivo não encontrado");
+        catch (IOException e) {
+            throw new Excecao("Erro de I/O.");
         }
 
     }

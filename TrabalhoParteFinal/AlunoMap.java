@@ -1,5 +1,6 @@
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ public class AlunoMap implements Serializable {
      * 
      * @param scanner
      */
-    public void CadastrarAlunos(DisciplinaMap disciplinas, String arquivo) throws Excecao {
+    public void CadastrarAlunos(CursoMap cursos, DisciplinaMap disciplinas, String arquivo) throws Excecao {
 
         File disciplinaFile = new File(arquivo);
 
@@ -33,12 +34,23 @@ public class AlunoMap implements Serializable {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
                 int matricula = Integer.parseInt(dados[0]);
+                if (alunos.containsKey(matricula)) {
+                    throw new Excecao.MatriculasIguaisException(matricula);
+                }
                 String nome = dados[1];
                 String[] disciplinasCSV = dados[2].split(", ");
+                for (String disciplina : disciplinasCSV) {
+                    if (!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
+                        throw new Excecao.CodDisciplinaIndefinidoAlunoExcpetion(matricula, disciplina);
+                    }
+                }
                 String tipo = dados[3];
 
                 if (tipo.equals("G")) {
                     int curso = Integer.parseInt(dados[4]);
+                    if (!(cursos.getCursoMap().containsKey(curso))) {
+                        throw new Excecao.CodCursoIndefinidoException(matricula, curso);
+                    }
                     aluno = new AlunoGrad(nome, "G", curso);
                 }
 
@@ -47,9 +59,13 @@ public class AlunoMap implements Serializable {
                     if (curso.equals("M"))
                         aluno = new AlunoPos(nome, "P", "Mestrado");
 
-                    else {
+                    else if (curso.equals("D")) {
                         aluno = new AlunoPos(nome, "P", "Doutorado");
+                    } else {
+                        throw new Excecao.NemMNemDException(matricula, curso);
                     }
+                } else {
+                    throw new Excecao.NemGNemPException(matricula, tipo);
                 }
 
                 System.out.printf("%d %s ", matricula, nome);
@@ -70,9 +86,9 @@ public class AlunoMap implements Serializable {
             }
         }
 
-        catch (FileNotFoundException e) {
+        catch (IOException e) {
 
-            throw new Excecao("Arquivo não encontrado");
+            throw new Excecao("Erro de I/O");
 
         }
 
@@ -100,6 +116,20 @@ public class AlunoMap implements Serializable {
                 String[] dados = linha.split(";");
                 String codigo = dados[0];
 
+                // Tratamento da excecao codigo de avaliacao inexistente em sua planilha
+                if (!avaliacoes.getAvaliacaoMap().containsKey(codigo)) {
+                    int matriculaErro = -1;
+                    ArrayList<Integer> MatriculasErro = new ArrayList<Integer>();
+                    String[] matriculasStringErro = new String[10];
+                    matriculasStringErro = dados[1].split(", ");
+
+                    for (String s : matriculasStringErro) {
+                        matriculaErro = Integer.parseInt(s);
+                        MatriculasErro.add(matriculaErro);
+                    }
+                    throw new Excecao.CodAvaliacaoIndefinidoException(MatriculasErro, codigo);
+
+                }
                 // Pega codigo da avaliacao a partir do mapa de avaliacoes
                 Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(codigo);
                 // Pega o mapa de alunos da disciplina em que a avaliacao ocorreu
@@ -111,14 +141,31 @@ public class AlunoMap implements Serializable {
                 String doubleString = dados[2];
                 doubleString = doubleString.replace(',', '.');
                 double nota = Double.parseDouble(doubleString);
+                if (nota < 0 || nota > 10) {
+                    int matriculaErroN = -1;
+                    ArrayList<Integer> MatriculasErroN = new ArrayList<Integer>();
+                    String[] matriculasStringErroN = new String[10];
+                    matriculasStringErroN = dados[1].split(", ");
+
+                    for (String s : matriculasStringErroN) {
+                        matriculaErroN = Integer.parseInt(s);
+                        MatriculasErroN.add(matriculaErroN);
+                    }
+                    throw new Excecao.NotaInvalidaAvaliacaoException(MatriculasErroN, codigo, nota);
+                }
 
                 if (avaliacao instanceof Prova) {
                     matricula = Integer.parseInt(dados[1]);
 
-                    if (mapaAlunos.alunos.containsKey(matricula) == false) {
-                        System.out.println(
-                                "Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
-                        return;
+                    if (alunos.containsKey(matricula) == false) {
+                        throw new Excecao.MatriculaIndefinidaException(codigo, matricula);
+                    }
+                    if (!mapaAlunos.alunos.containsKey(matricula)) {
+                        throw new Excecao.AlunoNaoMatriculadoException(matricula, codigo, avaliacao.getDisciplinaKey());
+                    }
+
+                    if(alunos.get(matricula).notasProvas.containsKey(codigo)){
+
                     }
                     aluno = alunos.get(matricula);
                     aluno.getNotasAvaliacoes().put(codigo, nota);
@@ -134,11 +181,12 @@ public class AlunoMap implements Serializable {
                         matricula = Integer.parseInt(s);
 
                         // confere se o aluno esta na no mapa de alunos da disciplina
+                        if (!alunos.containsKey(matricula)) {
+                            throw new Excecao.MatriculaIndefinidaException(codigo, matricula);
+                        }
                         if (!mapaAlunos.alunos.containsKey(matricula)) {
-                            System.out.println(
-                                    "Voce colocou um aluno que nao esta matriculado na disciplina ou que nao existe");
-                            System.out.println("Tente novamente");
-                            continue;
+                            throw new Excecao.AlunoNaoMatriculadoException(matricula, codigo,
+                                    avaliacao.getDisciplinaKey());
                         }
 
                         matriculas.add(matricula);
@@ -153,9 +201,9 @@ public class AlunoMap implements Serializable {
             }
         }
 
-        catch (FileNotFoundException e) {
+        catch (IOException e) {
 
-            throw new Excecao("Arquivo não encontrado");
+            throw new Excecao("Erro de I/O");
 
         }
 
