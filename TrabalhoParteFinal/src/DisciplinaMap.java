@@ -253,7 +253,7 @@ public class DisciplinaMap implements Serializable {
     public void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos) throws Excecao {
         try {
             FileWriter writer = new FileWriter("2-disciplinas.csv");
-
+            writer.write("Código;Disciplina;Curso;Média;% Aprovados\n");
             for (Map.Entry<String, Disciplina> d : disciplinas.entrySet()) {
                 String key_d = d.getKey();
                 Disciplina value_d = d.getValue();

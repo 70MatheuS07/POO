@@ -62,7 +62,7 @@ public class AvaliacaoMap implements Serializable {
                     throw new Excecao.PesoZeroNegativo(codigo, peso);
                 }
 
-                String tipo = dados[4];
+                String tipo = dados[4].trim();
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 Date data = formatter.parse(dados[5]);
 

@@ -204,7 +204,7 @@ public class Excecao extends Exception {
         String codigo;
 
         public NotaDuplicada(int matricula, String codigo) {
-            super("O aluno " + matricula + "foi registrado em mais de um grupo para a avaliação " + codigo + ".\n");
+            super("O aluno " + matricula + " foi registrado em mais de um grupo para a avaliação " + codigo + ".\n");
             this.matricula = matricula;
             this.codigo = codigo;
         }

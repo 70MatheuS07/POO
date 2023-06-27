@@ -165,7 +165,7 @@ public class AlunoMap implements Serializable {
                     }
 
                     if (alunos.get(matricula).notasProvas.containsKey(codigo)) {
-
+                        throw new Excecao.NotaDuplicada(matricula, codigo);
                     }
                     aluno = alunos.get(matricula);
                     aluno.getNotasAvaliacoes().put(codigo, nota);
@@ -188,6 +188,9 @@ public class AlunoMap implements Serializable {
                             throw new Excecao.AlunoNaoMatriculadoException(matricula, codigo,
                                     avaliacao.getDisciplinaKey());
                         }
+                        if (alunos.get(matricula).notasProvas.containsKey(codigo)) {
+                            throw new Excecao.NotaDuplicada(matricula, codigo);
+                    }
 
                         matriculas.add(matricula);
                     }
