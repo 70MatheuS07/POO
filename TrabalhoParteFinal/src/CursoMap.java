@@ -49,6 +49,9 @@ public class CursoMap implements Serializable {
 
     }
 
+    /**
+     * Impressao apenas para debugg
+     */
     public void ImprimeCursosCSV() {
         for (Map.Entry<Integer, Curso> entry : cursos.entrySet()) {
             Integer key = entry.getKey();

@@ -145,6 +145,12 @@ public class AvaliacaoMap implements Serializable {
 
     }
 
+    /**
+     * Cria o arquivo avaliacoes.csv
+     * @param disciplinas
+     * @param alunos
+     * @throws Excecao
+     */
     public void CriaAvaliacoesCSV(DisciplinaMap disciplinas, AlunoMap alunos) throws Excecao {
 
         try {

@@ -93,6 +93,9 @@ public class DisciplinaMap implements Serializable {
         }
     }
 
+    /**
+     * Imprime para debuggar.
+     */
     public void ImprimeDisciplinaCSV() {
         for (Map.Entry<String, Disciplina> entry : disciplinas.entrySet()) {
             String key = entry.getKey();
