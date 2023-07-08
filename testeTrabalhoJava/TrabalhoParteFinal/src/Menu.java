@@ -1,4 +1,5 @@
 package src;
+
 import java.text.ParseException;
 
 public class Menu {
@@ -42,85 +43,73 @@ public class Menu {
                 pulaSwitch = false;
             }
         }
-        try{
+        try {
 
-        if (!pulaSwitch) {
-            dados = new Dados();
-            cursos = new CursoMap();
-            disciplinas = new DisciplinaMap();
-            alunos = new AlunoMap();
-            avaliacoes = new AvaliacaoMap();
+            if (!pulaSwitch) {
+                dados = new Dados();
+                cursos = new CursoMap();
+                disciplinas = new DisciplinaMap();
+                alunos = new AlunoMap();
+                avaliacoes = new AvaliacaoMap();
 
-            for (i = 0; i < args.length; i++) {
-                if (args[i].equals("-c")) {
-                    i++;
-                    nomeArquivo = args[i];
-                    cursos.CadastrarCursos(nomeArquivo);
-                    break;
+                for (i = 0; i < args.length; i++) {
+                    if (args[i].equals("-c")) {
+                        i++;
+                        nomeArquivo = args[i];
+                        cursos.CadastrarCursos(nomeArquivo);
+                    }
+
+                    else if (args[i].equals("-d")) {
+                        i++;
+                        nomeArquivo = args[i];
+                        disciplinas.CadastrarDisciplinas(nomeArquivo);
+
+                    }
+
+                    else if (args[i].equals("-a")) {
+                        i++;
+                        nomeArquivo = args[i];
+                        alunos.CadastrarAlunos(cursos, disciplinas, nomeArquivo);
+
+                    }
+
+                    else if (args[i].equals("-p")) {
+                        i++;
+                        nomeArquivo = args[i];
+                        avaliacoes.CadastrarAvaliacoes(disciplinas, nomeArquivo);
+
+                    }
+
+                    else if (args[i].equals("-n")) {
+                        i++;
+                        nomeArquivo = args[i];
+                        alunos.RegistraNotaAlunoAvaliacao(avaliacoes, disciplinas, nomeArquivo);
+
+                    }
                 }
             }
 
-            for (i = 0; i < args.length; i++) {
-                if (args[i].equals("-d")) {
-                    i++;
-                    nomeArquivo = args[i];
-                    disciplinas.CadastrarDisciplinas(nomeArquivo);
-                    break;
-                }
+            if (escreverDados) {
+                dados.setCursos(cursos);
+                dados.setDisciplinas(disciplinas);
+                dados.setAlunos(alunos);
+                dados.setAvaliacoes(avaliacoes);
+
+                Empacotamento.GravarArquivoBinario(Menu.dados, dados);
             }
 
-            for (i = 0; i < args.length; i++) {
-                if (args[i].equals("-a")) {
-                    i++;
-                    nomeArquivo = args[i];
-                    alunos.CadastrarAlunos(cursos, disciplinas, nomeArquivo);
-                    break;
-                }
+            else {
+                disciplinas.CriaPautaDisciplinas(alunos, avaliacoes);
+                disciplinas.CriaDisciplinasCSV(alunos, avaliacoes, cursos);
+                avaliacoes.CriaAvaliacoesCSV(disciplinas, alunos);
             }
-
-            for (i = 0; i < args.length; i++) {
-                if (args[i].equals("-p")) {
-                    i++;
-                    nomeArquivo = args[i];
-                    avaliacoes.CadastrarAvaliacoes(disciplinas, nomeArquivo);
-                    break;
-                }
-            }
-
-            for (i = 0; i < args.length; i++) {
-                if (args[i].equals("-n")) {
-                    i++;
-                    nomeArquivo = args[i];
-                    alunos.RegistraNotaAlunoAvaliacao(avaliacoes, disciplinas, nomeArquivo);
-                    break;
-                }
-            }
+        } catch (Excecao e) {
+            System.out.println(e.getMessage());
+        } catch (NumberFormatException n) {
+            System.out.println("Erro de formatação.\n");
+        } catch (ParseException p) {
+            System.out.println("Erro de formatação.\n");
         }
-
-        if (escreverDados) {
-            dados.setCursos(cursos);
-            dados.setDisciplinas(disciplinas);
-            dados.setAlunos(alunos);
-            dados.setAvaliacoes(avaliacoes);
-
-            Empacotamento.GravarArquivoBinario(Menu.dados, dados);
-        }
-
-        else {
-            disciplinas.CriaPautaDisciplinas(alunos, avaliacoes);
-            disciplinas.CriaDisciplinasCSV(alunos, avaliacoes, cursos);
-            avaliacoes.CriaAvaliacoesCSV(disciplinas, alunos);
-        }
-    }
-    catch (Excecao e){
-    System.out.println(e.getMessage());
-    }
-    catch(NumberFormatException n){
-        System.out.println("Erro de formatação.\n");
-    }
-    catch (ParseException p){
-        System.out.println("Erro de formatação.\n");
-    }
 
     }
 }

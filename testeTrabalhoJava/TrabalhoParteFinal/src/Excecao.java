@@ -45,7 +45,7 @@ public class Excecao extends Exception {
         String codigo;
 
         public CodDisciplinaIndefinidoAlunoExcpetion(int matricula, String codigo) {
-            super("Código de didciplina não definido usado no aluno " + matricula + ": " + codigo + "\n");
+            super("Código de disciplina não definido usado no aluno " + matricula + ": " + codigo + ".\n");
             this.matricula = matricula;
             this.codigo = codigo;
         }
@@ -56,7 +56,7 @@ public class Excecao extends Exception {
         String codigoD;
 
         public CodDisciplinaIndefinidoAvalExcpetion(String codigoA, String codigoD) {
-            super("Código de didciplina não definido usado na avaliação " + codigoA + ": " + codigoD + "\n");
+            super("Código de disciplina não definido usado na avaliação " + codigoA + ": " + codigoD + ".\n");
             this.codigoA = codigoA;
             this.codigoD = codigoD;
         }
