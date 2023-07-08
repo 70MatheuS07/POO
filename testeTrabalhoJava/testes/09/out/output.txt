@@ -1,0 +1,1 @@
+Tamanho máximo de grupo especificado para a prova PAC-PF: 2.

@@ -1,0 +1,12 @@
+Disciplina;Código;Nome;Peso;Tipo;Data;Tamanho Máximo Grupo
+HER4321;DEF7-P1;Prova Parcial 01;1;P;01/04/2016
+HER4321;DEF7-T1;Trabalho Prático Lutar;1;T;07/05/2016;3
+HER4321;DEF7-T2;Trabalho Prático Golpear;2;T;10/06/2016;2
+HER1122;TNINJA-T1;Trabalho Prático Bater;1;T;15/03/2016;2
+HER1122;TNINJA-T2;Trabalho Prático Apanhar;2;T;29/09/2016;2
+HER1234;EF-P1;Prova Parcial 01;1;P;16/06/2016
+HER1234;EF-T1;Trabalho Prático Fugir;1;T;17/07/2016;2
+HER1234;EF-T2;Trabalho Prático Correr;1;T;18/08/2016;3
+HER4321;DEF7-PF;Prova Final;1;F;01/12/2016
+HER1122;TNINJA-PF;Prova Final;1;F;02/12/2016
+HER1234;EF-PF;Prova Final;1;F;03/12/2016

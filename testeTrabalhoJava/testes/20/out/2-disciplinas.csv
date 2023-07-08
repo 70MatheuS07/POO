@@ -1,0 +1,14 @@
+Código;Disciplina;Curso;Média;% Aprovados
+BIO1;Botânica;Farmácia;8,40;100,0%
+BIO1;Botânica;Mestrado;8,15;100,0%
+BIO1;Botânica;Biologia;7,67;100,0%
+BIO2;Genética;Farmácia;6,86;50,0%
+BIO2;Genética;Mestrado;5,81;100,0%
+BIO2;Genética;Doutorado;4,17;0,0%
+BIO2;Genética;Química;3,35;0,0%
+QUI1;Estequiometria;Mestrado;9,17;100,0%
+QUI1;Estequiometria;Biologia;7,50;100,0%
+QUI1;Estequiometria;Farmácia;6,00;100,0%
+QUI2;Ácidos;Doutorado;7,25;100,0%
+QUI2;Ácidos;Farmácia;5,75;50,0%
+QUI2;Ácidos;Mestrado;5,75;100,0%

@@ -1,0 +1,9 @@
+Disciplina;Código;Nome;Peso;Tipo;Data;Tamanho Máximo Grupo
+FIL00;P1P;Prova;1;P;17/05/2016
+FIL00;T1P;Trabalho;1;T;20/06/2016;3
+MIC01;T2C;Trabalho;2;T;14/06/2016;5
+MIC01;P2C;Prova;3;P;02/04/2016
+TRI10;T1A;Trabalho;1;T;01/07/2016;5
+FIL00;FimP;Final;1;F;02/07/2016
+MIC01;FimC;Final;1;F;28/06/2016
+TRI10;FimA;Final;1;F;06/07/2016
