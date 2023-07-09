@@ -1,27 +1,8 @@
-#include <iostream>
-#include <string>
-#include <unordered_map>
+#include "AlunoGrad.hpp"
 
-class Aluno
-{
-protected:
-    std::string nome;
-    std::string Grad;
-    std::unordered_map<std::string, double> notasProvas;
+AlunoGrad::AlunoGrad(const std::string& nome, const std::string& grad, int curso)
+    : Aluno(nome, grad), curso(curso) {}
 
-public:
-    Aluno(const std::string &nome, const std::string &Grad)
-        : nome(nome), Grad(Grad)
-    {
-    }
-
-    std::string getNome() const
-    {
-        return nome;
-    }
-
-    std::unordered_map<std::string, double> getNotasAvaliacoes() const
-    {
-        return notasProvas;
-    }
-};
+int AlunoGrad::getCurso() const {
+    return curso;
+}

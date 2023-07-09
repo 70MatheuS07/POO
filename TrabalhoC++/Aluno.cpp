@@ -1,27 +1,14 @@
-#include <iostream>
-#include <string>
-#include <map>
+#include "Aluno.hpp"
 
-class Aluno
+Aluno::Aluno(const std::string &nome, const std::string &grad)
+    : nome(nome), grad(grad) {}
+
+std::string Aluno::getNome() const
 {
-private:
-    std::string nome;
-    std::string Grad;
-    std::map<std::string, double> notasProvas;
+    return nome;
+}
 
-public:
-    Aluno(const std::string &nome, const std::string &Grad)
-        : nome(nome), Grad(Grad)
-    {
-    }
-
-    std::string getNome() const
-    {
-        return nome;
-    }
-
-    std::map<std::string, double> getNotasAvaliacoes() const
-    {
-        return notasProvas;
-    }
-};
+std::unordered_map<std::string, double> Aluno::getNotasAvaliacoes() const
+{
+    return notasProvas;
+}
