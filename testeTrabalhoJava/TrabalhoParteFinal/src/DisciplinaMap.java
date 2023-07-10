@@ -47,6 +47,8 @@ public class DisciplinaMap implements Serializable {
                 disciplina.setDisciplina(nome);
                 disciplinas.put(codigo, disciplina);
             }
+
+            scanner.close();
         }
 
         catch (IOException e) {
@@ -128,6 +130,7 @@ public class DisciplinaMap implements Serializable {
 
                 Map<Integer, Aluno> aluno_map = value_d.getAlunoMap().getAlunoMap();
 
+                //Esse for é para imprimir todas as chaves de avaliação corretas
                 for (Map.Entry<Integer, Aluno> entry_aluno : aluno_map.entrySet()) {
                     Aluno value_a = entry_aluno.getValue();
 

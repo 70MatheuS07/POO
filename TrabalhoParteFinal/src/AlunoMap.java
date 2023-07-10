@@ -88,6 +88,8 @@ public class AlunoMap implements Serializable {
 
                 alunos.put(matricula, aluno);
             }
+
+            scanner.close();
         }
 
         catch (IOException e) {
@@ -212,6 +214,8 @@ public class AlunoMap implements Serializable {
                 }
 
             }
+
+            scanner.close();
         }
 
         catch (IOException e) {

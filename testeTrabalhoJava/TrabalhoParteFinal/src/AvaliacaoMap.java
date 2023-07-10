@@ -107,6 +107,8 @@ public class AvaliacaoMap implements Serializable {
                     throw new Excecao.DisciplinaSemAvaliacaoException(CodD);
                 }
             }
+
+            scanner.close();
         }
 
         catch (IOException e) {
@@ -300,6 +302,7 @@ public class AvaliacaoMap implements Serializable {
             }
 
             writer.close();
+            scanner.close();
 
         } catch (IOException e) {
             throw new Excecao.ErroDeIO();

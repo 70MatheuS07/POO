@@ -41,6 +41,8 @@ public class CursoMap implements Serializable {
                 curso.setCurso(nome);
                 cursos.put(codigo, curso);
             }
+
+            scanner.close();
         }
 
         catch (IOException e) {

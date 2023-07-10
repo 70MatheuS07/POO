@@ -47,6 +47,8 @@ public class DisciplinaMap implements Serializable {
                 disciplina.setDisciplina(nome);
                 disciplinas.put(codigo, disciplina);
             }
+
+            scanner.close();
         }
 
         catch (IOException e) {

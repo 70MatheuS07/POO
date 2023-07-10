@@ -43,10 +43,12 @@ public class AlunoMap implements Serializable {
                 }
                 String nome = dados[1].trim();
                 String[] disciplinasCSV = dados[2].split(",");
+
                 // desconsidera espacoes em branco
                 for (int i = 0; i < disciplinasCSV.length; i++) {
                     disciplinasCSV[i] = disciplinasCSV[i].trim();
                 }
+                
                 for (String disciplina : disciplinasCSV) {
                     if (!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
                         throw new Excecao.CodDisciplinaIndefinidoAlunoExcpetion(matricula, disciplina);
@@ -86,6 +88,8 @@ public class AlunoMap implements Serializable {
 
                 alunos.put(matricula, aluno);
             }
+
+            scanner.close();
         }
 
         catch (IOException e) {
@@ -210,6 +214,8 @@ public class AlunoMap implements Serializable {
                 }
 
             }
+
+            scanner.close();
         }
 
         catch (IOException e) {
