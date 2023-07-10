@@ -247,7 +247,7 @@ public class Relatorio {
         else {
             AlunoPos alunoPos = (AlunoPos) aluno;
 
-            if (alunoPos.getNivel() == "mestrado") {
+            if (alunoPos.getNivel().equals("mestrado")) {
                 String curso = alunoPos.getNivel();
 
                 Map<String, Double> notas = alunoPos.getNotasAvaliacoes();

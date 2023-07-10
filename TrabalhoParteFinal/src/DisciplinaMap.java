@@ -1,4 +1,5 @@
 package src;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -38,8 +39,8 @@ public class DisciplinaMap implements Serializable {
             while (scanner.hasNextLine()) {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
-                String codigo = dados[0];
-                String nome = dados[1];
+                String codigo = dados[0].trim();
+                String nome = dados[1].trim();
 
                 Disciplina disciplina = new Disciplina();
 
@@ -127,6 +128,7 @@ public class DisciplinaMap implements Serializable {
 
                 Map<Integer, Aluno> aluno_map = value_d.getAlunoMap().getAlunoMap();
 
+                //Esse for é para imprimir todas as chaves de avaliação corretas
                 for (Map.Entry<Integer, Aluno> entry_aluno : aluno_map.entrySet()) {
                     Aluno value_a = entry_aluno.getValue();
 
@@ -145,13 +147,16 @@ public class DisciplinaMap implements Serializable {
 
                         Avaliacao aa = avaliacoes.getAvaliacaoMap().get(key_avaliacao_aluno);
 
-                        if (aa instanceof Prova) {
-                            if (!((Prova) aa).getTipoProva()) {
+                        if (aa.getDisciplinaKey().equals(key_d)) {
+                            if (aa instanceof Prova) {
+                                if (!((Prova) aa).getTipoProva()) {
+                                    writer.write(key_avaliacao_aluno + ";");
+                                }
+
+                            } else {
                                 writer.write(key_avaliacao_aluno + ";");
                             }
 
-                        } else {
-                            writer.write(key_avaliacao_aluno + ";");
                         }
                     }
 
@@ -244,9 +249,8 @@ public class DisciplinaMap implements Serializable {
                 }
                 writer.close();
             }
-        } 
-        catch (IOException e) {
-        throw new Excecao.ErroDeIO();
+        } catch (IOException e) {
+            throw new Excecao.ErroDeIO();
         }
     }
 
@@ -452,7 +456,7 @@ public class DisciplinaMap implements Serializable {
                     double total = mediaAlunos.get(key_ag);
                     double media = ((double) (total / value_ag));
                     double aprovados = (((double) alunosAprovados.get(key_ag) / value_ag));
-                    DecimalFormat df = new DecimalFormat("0.00%");
+                    DecimalFormat df = new DecimalFormat("0.0%");
                     df.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.GERMAN));
                     String formattedAprovados = df.format(aprovados);
 

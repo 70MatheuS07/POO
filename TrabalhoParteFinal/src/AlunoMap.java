@@ -3,8 +3,11 @@ package src;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
+import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Scanner;
 
@@ -34,25 +37,27 @@ public class AlunoMap implements Serializable {
             while (scanner.hasNextLine()) {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
-                int matricula = Integer.parseInt(dados[0]);
+                int matricula = Integer.parseInt(dados[0].trim());
                 if (alunos.containsKey(matricula)) {
                     throw new Excecao.MatriculasIguaisException(matricula);
                 }
-                String nome = dados[1];
+                String nome = dados[1].trim();
                 String[] disciplinasCSV = dados[2].split(",");
-                //desconsidera espacoes em branco
+
+                // desconsidera espacoes em branco
                 for (int i = 0; i < disciplinasCSV.length; i++) {
                     disciplinasCSV[i] = disciplinasCSV[i].trim();
                 }
+                
                 for (String disciplina : disciplinasCSV) {
                     if (!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
                         throw new Excecao.CodDisciplinaIndefinidoAlunoExcpetion(matricula, disciplina);
                     }
                 }
-                String tipo = dados[3];
+                String tipo = dados[3].trim();
 
                 if (tipo.equals("G")) {
-                    int curso = Integer.parseInt(dados[4]);
+                    int curso = Integer.parseInt(dados[4].trim());
                     if (!(cursos.getCursoMap().containsKey(curso))) {
                         throw new Excecao.CodCursoIndefinidoException(matricula, curso);
                     }
@@ -60,7 +65,7 @@ public class AlunoMap implements Serializable {
                 }
 
                 else if (tipo.equals("P")) {
-                    String curso = dados[4];
+                    String curso = dados[4].trim();
                     if (curso.equals("M"))
                         aluno = new AlunoPos(nome, "P", "Mestrado");
 
@@ -113,7 +118,7 @@ public class AlunoMap implements Serializable {
             while (scanner.hasNextLine()) {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
-                String codigo = dados[0];
+                String codigo = dados[0].trim();
 
                 // Tratamento da excecao codigo de avaliacao inexistente em sua planilha
                 if (!avaliacoes.getAvaliacaoMap().containsKey(codigo)) {
@@ -126,7 +131,7 @@ public class AlunoMap implements Serializable {
                         MatriculasErro.add(matriculaErro);
                     }
                     String result = String.join(", ", MatriculasErro);
-                    throw new Excecao.CodAvaliacaoIndefinidoException(result,codigo);
+                    throw new Excecao.CodAvaliacaoIndefinidoException(result, codigo);
 
                 }
                 // Pega codigo da avaliacao a partir do mapa de avaliacoes
@@ -137,9 +142,9 @@ public class AlunoMap implements Serializable {
 
                 int matricula = -1;
 
-                String doubleString = dados[2];
+                String doubleString = dados[2].trim();
                 doubleString = doubleString.replace(',', '.');
-                double nota = Double.parseDouble(doubleString);
+                double nota = Double.parseDouble(doubleString.trim());
                 if (nota < 0 || nota > 10) {
                     String matriculaErroN = null;
                     ArrayList<String> MatriculasErroN = new ArrayList<String>();
@@ -151,11 +156,16 @@ public class AlunoMap implements Serializable {
                         MatriculasErroN.add(matriculaErroN);
                     }
                     String result = String.join(", ", matriculasStringErroN);
-                    throw new Excecao.NotaInvalidaAvaliacaoException(result, codigo, nota);
+
+                    DecimalFormat df_media = new DecimalFormat("0.0");
+                    df_media.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.GERMAN));
+                    String formattedMedia = df_media.format(nota);
+
+                    throw new Excecao.NotaInvalidaAvaliacaoException(result, codigo, formattedMedia);
                 }
 
                 if (avaliacao instanceof Prova) {
-                    matricula = Integer.parseInt(dados[1]);
+                    matricula = Integer.parseInt(dados[1].trim());
 
                     if (alunos.containsKey(matricula) == false) {
                         throw new Excecao.MatriculaIndefinidaException(codigo, matricula);
@@ -190,7 +200,7 @@ public class AlunoMap implements Serializable {
                         }
                         if (alunos.get(matricula).notasProvas.containsKey(codigo)) {
                             throw new Excecao.NotaDuplicada(matricula, codigo);
-                    }
+                        }
 
                         matriculas.add(matricula);
                     }

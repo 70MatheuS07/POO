@@ -48,15 +48,15 @@ public class AvaliacaoMap implements Serializable {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
 
-                String disciplina = dados[0];
-                String codigo = dados[1];
+                String disciplina = dados[0].trim();
+                String codigo = dados[1].trim();
 
                 if (!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
                     throw new Excecao.CodDisciplinaIndefinidoAvalExcpetion(codigo, disciplina);
                 }
 
-                String nome = dados[2];
-                double peso = Double.parseDouble(dados[3]);
+                String nome = dados[2].trim();
+                double peso = Double.parseDouble(dados[3].trim());
 
                 if (peso <= 0) {
                     throw new Excecao.PesoZeroNegativo(codigo, peso);
@@ -68,7 +68,7 @@ public class AvaliacaoMap implements Serializable {
 
                 int tamMax;
                 if ((tipo.equals("P") || tipo.equals("F")) && dados.length > 6) {
-                    tamMax = Integer.parseInt(dados[6]);
+                    tamMax = Integer.parseInt(dados[6].trim());
                     throw new Excecao.TamGrupoNaProvaException(codigo, tamMax);
                 }
 
