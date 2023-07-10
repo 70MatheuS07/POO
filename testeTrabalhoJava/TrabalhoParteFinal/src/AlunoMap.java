@@ -67,10 +67,10 @@ public class AlunoMap implements Serializable {
                 else if (tipo.equals("P")) {
                     String curso = dados[4].trim();
                     if (curso.equals("M"))
-                        aluno = new AlunoPos(nome, "P", "Mestrado");
+                        aluno = new AlunoPos(nome, "P", AlunoPos.MESTRADO);
 
                     else if (curso.equals("D")) {
-                        aluno = new AlunoPos(nome, "P", "Doutorado");
+                        aluno = new AlunoPos(nome, "P", AlunoPos.DOUTORADO);
                     } else {
                         throw new Excecao.NemMNemDException(matricula, curso);
                     }

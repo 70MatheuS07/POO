@@ -1,4 +1,5 @@
 package src;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -73,10 +74,10 @@ public class AvaliacaoMap implements Serializable {
                 }
 
                 if (tipo.equals("P")) {
-                    avaliacao = new Prova(disciplina, nome, peso, data, false);
+                    avaliacao = new Prova(disciplina, nome, peso, data, Prova.PARCIAL);
 
                 } else if (tipo.equals("F")) {
-                    avaliacao = new Prova(disciplina, nome, peso, data, true);
+                    avaliacao = new Prova(disciplina, nome, peso, data, Prova.FINAL);
                 }
 
                 else if (tipo.equals("T")) {
@@ -149,6 +150,7 @@ public class AvaliacaoMap implements Serializable {
 
     /**
      * Cria o arquivo avaliacoes.csv
+     * 
      * @param disciplinas
      * @param alunos
      * @throws Excecao
@@ -189,7 +191,7 @@ public class AvaliacaoMap implements Serializable {
                             Avaliacao avaliacao = avaliacoes.get(key_NA);
 
                             if (avaliacao instanceof Prova) {
-                                if (!((Prova) avaliacao).getTipoProva()) {
+                                if (((Prova) avaliacao).getTipoProva() == 0) {
                                     if (!totalNotas.containsKey(key_a)) {
                                         qtdNotas.put(key_a, 1);
                                         totalNotas.put(key_a, value_NA);

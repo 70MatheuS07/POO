@@ -130,7 +130,7 @@ public class DisciplinaMap implements Serializable {
 
                 Map<Integer, Aluno> aluno_map = value_d.getAlunoMap().getAlunoMap();
 
-                //Esse for é para imprimir todas as chaves de avaliação corretas
+                // Esse for é para imprimir todas as chaves de avaliação corretas
                 for (Map.Entry<Integer, Aluno> entry_aluno : aluno_map.entrySet()) {
                     Aluno value_a = entry_aluno.getValue();
 
@@ -151,7 +151,7 @@ public class DisciplinaMap implements Serializable {
 
                         if (aa.getDisciplinaKey().equals(key_d)) {
                             if (aa instanceof Prova) {
-                                if (!((Prova) aa).getTipoProva()) {
+                                if (((Prova) aa).getTipoProva() == 0) {
                                     writer.write(key_avaliacao_aluno + ";");
                                 }
 
@@ -208,7 +208,7 @@ public class DisciplinaMap implements Serializable {
 
                         if (aa.getDisciplinaKey().equals(key_d)) {
                             if (aa instanceof Prova) {
-                                if (!((Prova) aa).getTipoProva()) {
+                                if (((Prova) aa).getTipoProva() == 0) {
                                     formattedTotal = df.format(value_avaliacao_aluno);
                                     writer.write(formattedTotal + ";");
                                     total += value_avaliacao_aluno * aa.getPeso();
@@ -298,7 +298,7 @@ public class DisciplinaMap implements Serializable {
 
                             if (avaliacao.getDisciplinaKey().equals(key_d)) {
                                 if (avaliacao instanceof Prova) {
-                                    if (!((Prova) avaliacao).getTipoProva()) {
+                                    if (((Prova) avaliacao).getTipoProva() == 0) {
                                         total_notas += value_np * avaliacao.getPeso();
                                         qtd_notas += avaliacao.getPeso();
                                     }
@@ -335,14 +335,14 @@ public class DisciplinaMap implements Serializable {
                     } else {
                         AlunoPos aluno_pos = (AlunoPos) value_a;
 
-                        if (aluno_pos.getNivel().equals(AlunoPos.MESTRADO)) {
-                            if (!alunosGeral.containsKey(AlunoPos.MESTRADO)) {
-                                alunosGeral.put(AlunoPos.MESTRADO, 1);
-                                mediaAlunos.put(AlunoPos.MESTRADO, 0.0);
-                                alunosAprovados.put(AlunoPos.MESTRADO, 0);
+                        if (aluno_pos.getNivel() == AlunoPos.MESTRADO) {
+                            if (!alunosGeral.containsKey("Mestrado")) {
+                                alunosGeral.put("Mestrado", 1);
+                                mediaAlunos.put("Mestrado", 0.0);
+                                alunosAprovados.put("Mestrado", 0);
                             } else {
-                                int currentValue = alunosGeral.get(AlunoPos.MESTRADO);
-                                alunosGeral.put(AlunoPos.MESTRADO, currentValue + 1);
+                                int currentValue = alunosGeral.get("Mestrado");
+                                alunosGeral.put("Mestrado", currentValue + 1);
                             }
 
                             // Preciso saber se ele foi aprovado.
@@ -354,7 +354,7 @@ public class DisciplinaMap implements Serializable {
 
                                 if (avaliacao.getDisciplinaKey().equals(key_d)) {
                                     if (avaliacao instanceof Prova) {
-                                        if (!((Prova) avaliacao).getTipoProva()) {
+                                        if (((Prova) avaliacao).getTipoProva() == 0) {
                                             total_notas += value_np * avaliacao.getPeso();
                                             qtd_notas += avaliacao.getPeso();
                                         }
@@ -373,31 +373,31 @@ public class DisciplinaMap implements Serializable {
                             total_final = ((double) (total_notas / qtd_notas));
 
                             if (total_final >= 7.0) {
-                                int currentValueAprovados = alunosAprovados.get(AlunoPos.MESTRADO);
-                                alunosAprovados.put(AlunoPos.MESTRADO, currentValueAprovados + 1);
+                                int currentValueAprovados = alunosAprovados.get("Mestrado");
+                                alunosAprovados.put("Mestrado", currentValueAprovados + 1);
                             } else {
                                 total_final = ((double) ((total_final + prova_final) / 2));
 
                                 if (total_final >= 5.0) {
-                                    int currentValueAprovados = alunosAprovados.get(AlunoPos.MESTRADO);
-                                    alunosAprovados.put(AlunoPos.MESTRADO, currentValueAprovados + 1);
+                                    int currentValueAprovados = alunosAprovados.get("Mestrado");
+                                    alunosAprovados.put("Mestrado", currentValueAprovados + 1);
                                 }
 
                             }
 
-                            double currentValueDouble = mediaAlunos.get(AlunoPos.MESTRADO);
-                            mediaAlunos.put(AlunoPos.MESTRADO, currentValueDouble + total_final);
+                            double currentValueDouble = mediaAlunos.get("Mestrado");
+                            mediaAlunos.put("Mestrado", currentValueDouble + total_final);
 
                         }
 
                         else {
-                            if (!alunosGeral.containsKey(AlunoPos.DOUTORADO)) {
-                                alunosGeral.put(AlunoPos.DOUTORADO, 1);
-                                mediaAlunos.put(AlunoPos.DOUTORADO, 0.0);
-                                alunosAprovados.put(AlunoPos.DOUTORADO, 0);
+                            if (!alunosGeral.containsKey("Doutorado")) {
+                                alunosGeral.put("Doutorado", 1);
+                                mediaAlunos.put("Doutorado", 0.0);
+                                alunosAprovados.put("Doutorado", 0);
                             } else {
-                                int currentValue = alunosGeral.get(AlunoPos.DOUTORADO);
-                                alunosGeral.put(AlunoPos.DOUTORADO, currentValue + 1);
+                                int currentValue = alunosGeral.get("Doutorado");
+                                alunosGeral.put("Doutorado", currentValue + 1);
                             }
 
                             // Preciso saber se ele foi aprovado.
@@ -409,7 +409,7 @@ public class DisciplinaMap implements Serializable {
 
                                 if (avaliacao.getDisciplinaKey().equals(key_d)) {
                                     if (avaliacao instanceof Prova) {
-                                        if (!((Prova) avaliacao).getTipoProva()) {
+                                        if (((Prova) avaliacao).getTipoProva() == 0) {
                                             total_notas += value_np * avaliacao.getPeso();
                                             qtd_notas += avaliacao.getPeso();
                                         }
@@ -428,20 +428,20 @@ public class DisciplinaMap implements Serializable {
                             total_final = ((double) (total_notas / qtd_notas));
 
                             if (total_final >= 7.0) {
-                                int currentValueAprovados = alunosAprovados.get(AlunoPos.DOUTORADO);
-                                alunosAprovados.put(AlunoPos.DOUTORADO, currentValueAprovados + 1);
+                                int currentValueAprovados = alunosAprovados.get("Doutorado");
+                                alunosAprovados.put("Doutorado", currentValueAprovados + 1);
                             } else {
                                 total_final = ((double) ((total_final + prova_final) / 2));
 
                                 if (total_final >= 5.0) {
-                                    int currentValueAprovados = alunosAprovados.get(AlunoPos.DOUTORADO);
-                                    alunosAprovados.put(AlunoPos.DOUTORADO, currentValueAprovados + 1);
+                                    int currentValueAprovados = alunosAprovados.get("Doutorado");
+                                    alunosAprovados.put("Doutorado", currentValueAprovados + 1);
                                 }
 
                             }
 
-                            double currentValueDouble = mediaAlunos.get(AlunoPos.DOUTORADO);
-                            mediaAlunos.put(AlunoPos.DOUTORADO, currentValueDouble + total_final);
+                            double currentValueDouble = mediaAlunos.get("Doutorado");
+                            mediaAlunos.put("Doutorado", currentValueDouble + total_final);
 
                         }
 

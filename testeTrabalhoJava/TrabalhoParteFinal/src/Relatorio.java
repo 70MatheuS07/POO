@@ -1,4 +1,5 @@
 package src;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.InputMismatchException;
@@ -9,6 +10,7 @@ public class Relatorio {
 
     /**
      * Escolhe o relatório específico.
+     * 
      * @param scanner
      * @param d
      * @param a
@@ -51,6 +53,7 @@ public class Relatorio {
 
     /**
      * Escolhe a pauta da disciplina.
+     * 
      * @param scanner
      * @param d
      * @param a
@@ -73,6 +76,7 @@ public class Relatorio {
 
     /**
      * Imprime notas das provas do aluno.
+     * 
      * @param id
      * @param notas
      * @param avaliacoes
@@ -114,6 +118,7 @@ public class Relatorio {
 
     /**
      * Calcula média parcial.
+     * 
      * @param notas
      * @param avaliacoes
      * @return
@@ -130,7 +135,7 @@ public class Relatorio {
             if (avaliacao instanceof Prova) {
                 Prova prova = (Prova) avaliacao;
 
-                if (prova.getTipoProva() == false) {
+                if (prova.getTipoProva() == 0) {
                     total += notaProva * pesoProva;
                     pesoTotal += pesoProva;
                 }
@@ -145,6 +150,7 @@ public class Relatorio {
 
     /**
      * Devolve nota da prova final.
+     * 
      * @param notas
      * @param avaliacoes
      * @return
@@ -158,7 +164,7 @@ public class Relatorio {
             if (avaliacao instanceof Prova) {
                 Prova prova = (Prova) avaliacao;
 
-                if (prova.getTipoProva() == true) {
+                if (prova.getTipoProva() == 1) {
                     return notaProva;
                 }
             }
@@ -169,6 +175,7 @@ public class Relatorio {
 
     /**
      * Estatísticas por disciplina.
+     * 
      * @param d
      * @param a
      */
@@ -194,6 +201,7 @@ public class Relatorio {
 
     /**
      * Calcula a média de alunos da disciplina.
+     * 
      * @param disciplina
      * @param a
      */
@@ -216,6 +224,7 @@ public class Relatorio {
 
     /**
      * Analiza e diferencia os alunos.
+     * 
      * @param aluno
      * @param a
      * @return
@@ -247,8 +256,15 @@ public class Relatorio {
         else {
             AlunoPos alunoPos = (AlunoPos) aluno;
 
-            if (alunoPos.getNivel().equals("mestrado")) {
-                String curso = alunoPos.getNivel();
+            String curso = null;
+
+            if (alunoPos.getNivel() == AlunoPos.MESTRADO) {
+
+                if (alunoPos.getNivel() == AlunoPos.MESTRADO) {
+                    curso = "Mestrado";
+                } else {
+                    curso = "Doutorado";
+                }
 
                 Map<String, Double> notas = alunoPos.getNotasAvaliacoes();
 
@@ -266,7 +282,12 @@ public class Relatorio {
                     System.out.printf("média notas final: %.2f; ", mediaFinal);
                 }
             } else {
-                String curso = alunoPos.getNivel();
+
+                if (alunoPos.getNivel() == AlunoPos.MESTRADO) {
+                    curso = "Mestrado";
+                } else {
+                    curso = "Doutorado";
+                }
 
                 Map<String, Double> notas = alunoPos.getNotasAvaliacoes();
 
@@ -296,6 +317,7 @@ public class Relatorio {
 
     /**
      * Calcula a média das notas obtidas.
+     * 
      * @param a
      * @param d
      */
@@ -324,6 +346,7 @@ public class Relatorio {
 
     /**
      * Calcula a media dos alunos nas avaliações.
+     * 
      * @param disciplina
      * @param key
      * @return

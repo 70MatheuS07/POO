@@ -1,4 +1,5 @@
 package src;
+
 import java.io.Serializable;
 import java.util.Map;
 
@@ -33,7 +34,14 @@ public class Disciplina implements Serializable {
                 System.out.println("\t- " + aluno.getNome() + " (" + nomeCurso + ")");
             } else {
                 AlunoPos alunoPos = (AlunoPos) aluno;
-                String grad = alunoPos.getNivel();
+                String grad = null;
+
+                if (alunoPos.getNivel() == AlunoPos.MESTRADO) {
+                    grad = "Mestrado";
+                } else {
+                    grad = "Doutorado";
+                }
+
                 System.out.println("\t- " + aluno.getNome() + " (" + grad + ")");
             }
         }

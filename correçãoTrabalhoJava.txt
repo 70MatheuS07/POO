@@ -1,0 +1,31 @@
+Avaliação objetiva [7,0]:
+- Trabalho compilou com Ant e executou no script sem problemas;								NÃO É PROBLEMA
+
+- Erro de ordenação no relatório 2 - disciplinas [-1,0]; 								OK
+
+- Relatório 3 - avaliações veio vazio no teste 03 [-0,5];								MACUMBA
+
+- Saída diferente da esperada no teste 15 [-0,5];									REI DA EXCECAO
+
+- Pequenos erros de formatação nos testes 6 e 16 [-0,5];								REI DA EXCECAO
+
+- Pequeno erro de formatação quando os arquivos de entrada possuíam espaços em branco [-0,5];				CORRIGIDO!
+
+Avaliação subjetiva [5,0]:
+- Alguns feedbacks anteriores não foram atendidos: Disciplina imprime em tela, sintaxe diamante, 
+  Aluno e Avaliacao concretas, tipo enumerado para AlunoPos, Prova::tipoProva, divisão de responsabilidade,
+  uso de instanceof, pacotes [-3,0];											AQUI FOI TRISTE
+
+- Associação entre Avaliacao e Disciplina foi implementadas por código (Avaliacao::disciplinaKey) [-0,5];		VENDEU
+
+- Aluno recebe parâmetro Grad em seu construtor porém não faz nada com ele [-0,5];					REI DO INSTANCEOF
+
+- A leitura dos argumentos do programa foi dividida em vários laços desnecessariamente [-0,5];				CORRIGIDO!
+
+- Na leitura/escrita de arquivos não foi utilizado o try-com-recursos e o Scanner não é fechado [-0,5];			DA PRA FAZER
+
+- Em DisciplinaMap::CriaPautaDisciplinas() há um laço for com um break incondicional. Por que usar um laço então?	EXPLICADO!
+
+- Nas leituras, são feitos laços que passam pelos dados (ex.: em AlunoMap::CadastrarAlunos()
+  se passa pelos códigos de disciplina) verificando erros e depois, caso não haja erro algum,
+  são feitos outros laços para efetivamente fazer as matrículas. Por que não um só laço?				PORQUE É NECESSÁRIO TRATAR ALGUMAS COISAS ANTES

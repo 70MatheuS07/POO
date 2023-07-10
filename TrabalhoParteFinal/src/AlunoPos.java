@@ -1,14 +1,16 @@
 package src;
-public class AlunoPos extends Aluno {
-    public static final String MESTRADO = "Mestrado";
-    public static final String DOUTORADO = "Doutorado";
-    private String nivel;
 
-    public AlunoPos(String nome ,String grad,String nivel){
+public class AlunoPos extends Aluno {
+    public static final int MESTRADO = 0;
+    public static final int DOUTORADO = 1;
+    private int nivel;
+
+    public AlunoPos(String nome, String grad, int nivel) {
         super(nome, grad);
-        this.nivel=nivel;
+        this.nivel = nivel;
     }
-    public String getNivel(){
+
+    public int getNivel() {
         return nivel;
     }
 }
