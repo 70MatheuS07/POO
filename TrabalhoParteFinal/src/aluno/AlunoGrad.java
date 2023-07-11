@@ -10,8 +10,8 @@ import src.curso.CursoMap;
 public class AlunoGrad extends Aluno {
     private int curso;
 
-    public AlunoGrad(String nome, String grad, int curso) {
-        super(nome, grad);
+    public AlunoGrad(String nome, int curso) {
+        super(nome);
         this.curso = curso;
     }
 

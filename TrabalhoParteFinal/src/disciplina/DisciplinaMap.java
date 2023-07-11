@@ -38,8 +38,7 @@ public class DisciplinaMap implements Serializable {
     public void CadastrarDisciplinas(String arquivo) throws Excecao {
         File disciplinaFile = new File(arquivo);
 
-        try {
-            Scanner scanner = new Scanner(disciplinaFile);
+        try (Scanner scanner = new Scanner(disciplinaFile)) {
 
             // Primeira linha é o cabeçalho.
             String linha = Leitura.LehLine(scanner);
@@ -55,8 +54,6 @@ public class DisciplinaMap implements Serializable {
                 disciplina.setDisciplina(nome);
                 disciplinas.put(codigo, disciplina);
             }
-
-            scanner.close();
         }
 
         catch (IOException e) {
@@ -231,8 +228,8 @@ public class DisciplinaMap implements Serializable {
     }
 
     public void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos) throws Excecao {
-        try {
-            FileWriter writer = new FileWriter("2-disciplinas.csv");
+        try (FileWriter writer = new FileWriter("2-disciplinas.csv")) {
+
             writer.write("Código;Disciplina;Curso;Média;% Aprovados\n");
 
             // Ordena as disciplinas a serem impressas no arquivo.
@@ -292,8 +289,6 @@ public class DisciplinaMap implements Serializable {
                     writer.write(formattedMedia + ";" + formattedAprovados + "\n");
                 }
             }
-
-            writer.close();
 
         } catch (IOException e) {
             throw new Excecao.ErroDeIO();

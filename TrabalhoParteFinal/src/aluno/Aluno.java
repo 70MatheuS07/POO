@@ -9,10 +9,9 @@ import src.curso.CursoMap;
 
 public abstract class Aluno implements Serializable {
     protected String nome;
-    protected String Grad;
     public Map<String, Double> notasProvas = new HashMap<String, Double>();
 
-    public Aluno(String nome, String Grad) {
+    public Aluno(String nome) {
         this.nome = nome;
     }
 
