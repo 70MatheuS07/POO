@@ -156,7 +156,19 @@ public class Excecao extends Exception {
         int matricula;
 
         public MatriculaIndefinidaException(String codigo, int matricula) {
-            super("Matricula de aluno não definida usada na planilha de notas, asssociada à avaliação " + codigo + ":"
+            super("Matrícula de aluno não definida usada na planilha de notas, associada à avaliação " + codigo + ": "
+                    + matricula + ".\n");
+            this.codigo = codigo;
+            this.matricula = matricula;
+        }
+    }
+
+    public static class MatriculaIndefinidaLongException extends Excecao {
+        String codigo;
+        long matricula;
+
+        public MatriculaIndefinidaLongException(String codigo, long matricula) {
+            super("Matrícula de aluno não definida usada na planilha de notas, associada à avaliação " + codigo + ": "
                     + matricula + ".\n");
             this.codigo = codigo;
             this.matricula = matricula;

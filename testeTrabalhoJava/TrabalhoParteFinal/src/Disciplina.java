@@ -1,7 +1,6 @@
 package src;
 
 import java.io.Serializable;
-import java.util.Map;
 
 public class Disciplina implements Serializable {
     private String nome;
@@ -17,34 +16,6 @@ public class Disciplina implements Serializable {
 
     public String getNome() {
         return nome;
-    }
-
-    /**
-     * Imprime os alunos de acordo com suas matrículas nas disciplinas.
-     * 
-     * @param cursos
-     */
-    public void ImprimeAlunosDisciplina(CursoMap cursos) {
-        for (Map.Entry<Integer, Aluno> entry : alunos.getAlunoMap().entrySet()) {
-            Aluno aluno = entry.getValue();
-            if (aluno instanceof AlunoGrad) {
-                AlunoGrad alunoGrad = (AlunoGrad) aluno;
-                Curso curso = cursos.getCursoMap().get(alunoGrad.getCurso());
-                String nomeCurso = curso.getNome();
-                System.out.println("\t- " + aluno.getNome() + " (" + nomeCurso + ")");
-            } else {
-                AlunoPos alunoPos = (AlunoPos) aluno;
-                String grad = null;
-
-                if (alunoPos.getNivel() == AlunoPos.MESTRADO) {
-                    grad = "Mestrado";
-                } else {
-                    grad = "Doutorado";
-                }
-
-                System.out.println("\t- " + aluno.getNome() + " (" + grad + ")");
-            }
-        }
     }
 
 }

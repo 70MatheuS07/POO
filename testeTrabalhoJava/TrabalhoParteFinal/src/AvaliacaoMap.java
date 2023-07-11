@@ -190,34 +190,8 @@ public class AvaliacaoMap implements Serializable {
                         if (key_a.equals(key_NA)) {
                             Avaliacao avaliacao = avaliacoes.get(key_NA);
 
-                            if (avaliacao instanceof Prova) {
-                                if (((Prova) avaliacao).getTipoProva() == 0) {
-                                    if (!totalNotas.containsKey(key_a)) {
-                                        qtdNotas.put(key_a, 1);
-                                        totalNotas.put(key_a, value_NA);
-
-                                    } else {
-                                        int currentValueInteger = qtdNotas.get(key_a);
-                                        qtdNotas.put(key_a, currentValueInteger + 1);
-
-                                        double currentValueDouble = totalNotas.get(key_a);
-                                        totalNotas.put(key_a, currentValueDouble + value_NA);
-                                    }
-                                }
-
-                            } else {
-                                if (!totalNotas.containsKey(key_a)) {
-                                    qtdNotas.put(key_a, 1);
-                                    totalNotas.put(key_a, value_NA);
-
-                                } else {
-                                    int currentValueInteger = qtdNotas.get(key_a);
-                                    qtdNotas.put(key_a, currentValueInteger + 1);
-
-                                    double currentValueDouble = totalNotas.get(key_a);
-                                    totalNotas.put(key_a, currentValueDouble + value_NA);
-                                }
-                            }
+                            // Tiramos o instanceof
+                            avaliacao.ModificaMapasNotas(qtdNotas, totalNotas, avaliacao, key_a, value_NA);
 
                         }
 
@@ -239,9 +213,9 @@ public class AvaliacaoMap implements Serializable {
             while (scanner.hasNextLine()) {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
-                String codigo = dados[0];
+                String codigo = dados[0].trim();
 
-                String doubleString = dados[2];
+                String doubleString = dados[2].trim();
                 doubleString = doubleString.replace(',', '.');
                 double nota = Double.parseDouble(doubleString);
 
@@ -265,7 +239,7 @@ public class AvaliacaoMap implements Serializable {
                 public int compare(Map.Entry<String, Double> a, Map.Entry<String, Double> b) {
                     if (avaliacoes.get(a.getKey()).getDisciplinaKey()
                             .equals(avaliacoes.get(b.getKey()).getDisciplinaKey())) {
-                        return a.getKey().compareTo(b.getKey());
+                        return a.getKey().compareTo(b.getKey()); 
                     }
                     return avaliacoes.get(a.getKey()).getDisciplinaKey()
                             .compareTo(avaliacoes.get(b.getKey()).getDisciplinaKey());

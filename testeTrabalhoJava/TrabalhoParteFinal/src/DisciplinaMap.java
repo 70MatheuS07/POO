@@ -77,26 +77,6 @@ public class DisciplinaMap implements Serializable {
     }
 
     /**
-     * Imprime as disciplinas com seus alunos matriculados.
-     * 
-     * @param cursos
-     */
-    public void DisciplinasAlunosMatriculados(CursoMap cursos) {
-        System.out.println("Disciplinas e alunos matriculados:");
-
-        for (Map.Entry<String, Disciplina> entry : disciplinas.entrySet()) {
-            String codigo = entry.getKey();
-            Disciplina disciplina = entry.getValue();
-            String nome = disciplina.getNome();
-
-            System.out.printf("- %s (%s)%n", nome, codigo);
-
-            disciplina.ImprimeAlunosDisciplina(cursos);
-            System.out.println(); // adiciona uma linha em branco entre as disciplinas
-        }
-    }
-
-    /**
      * Imprime para debuggar.
      */
     public void ImprimeDisciplinaCSV() {
@@ -118,7 +98,7 @@ public class DisciplinaMap implements Serializable {
     public void CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoes) throws Excecao {
         try {
             double total = 0.0;
-            int qtd_prov_trab = 0;
+            double qtd_prov_trab = 0.0;
 
             for (Map.Entry<String, Disciplina> d : disciplinas.entrySet()) {
                 String key_d = d.getKey();
@@ -150,15 +130,7 @@ public class DisciplinaMap implements Serializable {
                         Avaliacao aa = avaliacoes.getAvaliacaoMap().get(key_avaliacao_aluno);
 
                         if (aa.getDisciplinaKey().equals(key_d)) {
-                            if (aa instanceof Prova) {
-                                if (((Prova) aa).getTipoProva() == 0) {
-                                    writer.write(key_avaliacao_aluno + ";");
-                                }
-
-                            } else {
-                                writer.write(key_avaliacao_aluno + ";");
-                            }
-
+                            aa.WriteKeyAvaliacao(writer, aa, key_avaliacao_aluno);
                         }
                     }
 
@@ -181,7 +153,7 @@ public class DisciplinaMap implements Serializable {
                     int key_a = a.getKey();
                     Aluno value_a = a.getValue();
                     total = 0.0;
-                    qtd_prov_trab = 0;
+                    qtd_prov_trab = 0.0;
                     double provaFinal = -1.0;
 
                     writer.write(key_a + ";" + value_a.getNome() + ";");
@@ -207,24 +179,18 @@ public class DisciplinaMap implements Serializable {
                         Avaliacao aa = avaliacoes.getAvaliacaoMap().get(key_avaliacao_aluno);
 
                         if (aa.getDisciplinaKey().equals(key_d)) {
-                            if (aa instanceof Prova) {
-                                if (((Prova) aa).getTipoProva() == 0) {
-                                    formattedTotal = df.format(value_avaliacao_aluno);
-                                    writer.write(formattedTotal + ";");
-                                    total += value_avaliacao_aluno * aa.getPeso();
-                                    qtd_prov_trab += aa.getPeso();
-                                }
+                            Avaliacao.Valores_WriteValueAvaliacaoAluno valores = aa.WriteValueAvaliacaoAluno(writer, aa,
+                                    value_avaliacao_aluno);
 
-                                else {
-                                    provaFinal = value_avaliacao_aluno;
-                                }
-
+                            if (valores.getProva_final() == -1.0) {
+                                total += valores.getTotal();
+                                qtd_prov_trab += valores.getQtd();
                             } else {
-                                formattedTotal = df.format(value_avaliacao_aluno);
-                                writer.write(formattedTotal + ";");
-                                total += value_avaliacao_aluno * aa.getPeso();
-                                qtd_prov_trab += aa.getPeso();
+                                total += valores.getTotal();
+                                qtd_prov_trab += valores.getQtd();
+                                provaFinal = valores.getProva_final();
                             }
+
                         }
                     }
 
@@ -260,7 +226,18 @@ public class DisciplinaMap implements Serializable {
         try {
             FileWriter writer = new FileWriter("2-disciplinas.csv");
             writer.write("Código;Disciplina;Curso;Média;% Aprovados\n");
-            for (Map.Entry<String, Disciplina> d : disciplinas.entrySet()) {
+
+            //Ordena as disciplinas a serem impressas no arquivo.
+            List<Map.Entry<String, Disciplina>> entries2 = new ArrayList<>(disciplinas.entrySet());
+            Collections.sort(entries2, new Comparator<Map.Entry<String, Disciplina>>() {
+                @Override
+                public int compare(Map.Entry<String, Disciplina> a, Map.Entry<String, Disciplina> b) {
+
+                    return a.getKey().compareTo(b.getKey());
+                }
+            });
+
+            for (Map.Entry<String, Disciplina> d : entries2) {
                 String key_d = d.getKey();
                 Disciplina value_d = d.getValue();
 
@@ -270,186 +247,24 @@ public class DisciplinaMap implements Serializable {
 
                 for (Map.Entry<Integer, Aluno> a : value_d.getAlunoMap().getAlunoMap().entrySet()) {
                     Aluno value_a = a.getValue();
-                    double total_notas = 0.0;
-                    int qtd_notas = 0;
-                    double total_final = 0.0;
-                    double prova_final = 0.0;
 
-                    if (value_a instanceof AlunoGrad) {
-                        AlunoGrad aluno_grad = (AlunoGrad) value_a;
-
-                        Curso curso = cursos.getCursoMap().get(aluno_grad.getCurso());
-
-                        if (!alunosGeral.containsKey(curso.getNome())) {
-                            alunosGeral.put(curso.getNome(), 1);
-                            mediaAlunos.put(curso.getNome(), 0.0);
-                            alunosAprovados.put(curso.getNome(), 0);
-                        } else {
-                            int currentValue = alunosGeral.get(curso.getNome());
-                            alunosGeral.put(curso.getNome(), currentValue + 1);
-                        }
-
-                        // Preciso saber se ele foi aprovado.
-                        for (Map.Entry<String, Double> np : aluno_grad.notasProvas.entrySet()) {
-                            String key_np = np.getKey();
-                            double value_np = np.getValue();
-
-                            Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(key_np);
-
-                            if (avaliacao.getDisciplinaKey().equals(key_d)) {
-                                if (avaliacao instanceof Prova) {
-                                    if (((Prova) avaliacao).getTipoProva() == 0) {
-                                        total_notas += value_np * avaliacao.getPeso();
-                                        qtd_notas += avaliacao.getPeso();
-                                    }
-
-                                    else {
-                                        prova_final = value_np;
-                                    }
-
-                                } else {
-                                    total_notas += value_np * avaliacao.getPeso();
-                                    qtd_notas += avaliacao.getPeso();
-                                }
-                            }
-                        }
-
-                        total_final = ((double) (total_notas / qtd_notas));
-
-                        if (total_final >= 7.0) {
-                            int currentValueAprovados = alunosAprovados.get(curso.getNome());
-                            alunosAprovados.put(curso.getNome(), currentValueAprovados + 1);
-                        } else {
-                            total_final = ((double) ((total_final + prova_final) / 2));
-
-                            if (total_final >= 5.0) {
-                                int currentValueAprovados = alunosAprovados.get(curso.getNome());
-                                alunosAprovados.put(curso.getNome(), currentValueAprovados + 1);
-                            }
-
-                        }
-
-                        double currentValueDouble = mediaAlunos.get(curso.getNome());
-                        mediaAlunos.put(curso.getNome(), currentValueDouble + total_final);
-
-                    } else {
-                        AlunoPos aluno_pos = (AlunoPos) value_a;
-
-                        if (aluno_pos.getNivel() == AlunoPos.MESTRADO) {
-                            if (!alunosGeral.containsKey("Mestrado")) {
-                                alunosGeral.put("Mestrado", 1);
-                                mediaAlunos.put("Mestrado", 0.0);
-                                alunosAprovados.put("Mestrado", 0);
-                            } else {
-                                int currentValue = alunosGeral.get("Mestrado");
-                                alunosGeral.put("Mestrado", currentValue + 1);
-                            }
-
-                            // Preciso saber se ele foi aprovado.
-                            for (Map.Entry<String, Double> np : aluno_pos.getNotasAvaliacoes().entrySet()) {
-                                String key_np = np.getKey();
-                                double value_np = np.getValue();
-
-                                Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(key_np);
-
-                                if (avaliacao.getDisciplinaKey().equals(key_d)) {
-                                    if (avaliacao instanceof Prova) {
-                                        if (((Prova) avaliacao).getTipoProva() == 0) {
-                                            total_notas += value_np * avaliacao.getPeso();
-                                            qtd_notas += avaliacao.getPeso();
-                                        }
-
-                                        else {
-                                            prova_final = value_np;
-                                        }
-
-                                    } else {
-                                        total_notas += value_np * avaliacao.getPeso();
-                                        qtd_notas += avaliacao.getPeso();
-                                    }
-                                }
-                            }
-
-                            total_final = ((double) (total_notas / qtd_notas));
-
-                            if (total_final >= 7.0) {
-                                int currentValueAprovados = alunosAprovados.get("Mestrado");
-                                alunosAprovados.put("Mestrado", currentValueAprovados + 1);
-                            } else {
-                                total_final = ((double) ((total_final + prova_final) / 2));
-
-                                if (total_final >= 5.0) {
-                                    int currentValueAprovados = alunosAprovados.get("Mestrado");
-                                    alunosAprovados.put("Mestrado", currentValueAprovados + 1);
-                                }
-
-                            }
-
-                            double currentValueDouble = mediaAlunos.get("Mestrado");
-                            mediaAlunos.put("Mestrado", currentValueDouble + total_final);
-
-                        }
-
-                        else {
-                            if (!alunosGeral.containsKey("Doutorado")) {
-                                alunosGeral.put("Doutorado", 1);
-                                mediaAlunos.put("Doutorado", 0.0);
-                                alunosAprovados.put("Doutorado", 0);
-                            } else {
-                                int currentValue = alunosGeral.get("Doutorado");
-                                alunosGeral.put("Doutorado", currentValue + 1);
-                            }
-
-                            // Preciso saber se ele foi aprovado.
-                            for (Map.Entry<String, Double> np : aluno_pos.getNotasAvaliacoes().entrySet()) {
-                                String key_np = np.getKey();
-                                double value_np = np.getValue();
-
-                                Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(key_np);
-
-                                if (avaliacao.getDisciplinaKey().equals(key_d)) {
-                                    if (avaliacao instanceof Prova) {
-                                        if (((Prova) avaliacao).getTipoProva() == 0) {
-                                            total_notas += value_np * avaliacao.getPeso();
-                                            qtd_notas += avaliacao.getPeso();
-                                        }
-
-                                        else {
-                                            prova_final = value_np;
-                                        }
-
-                                    } else {
-                                        total_notas += value_np * avaliacao.getPeso();
-                                        qtd_notas += avaliacao.getPeso();
-                                    }
-                                }
-                            }
-
-                            total_final = ((double) (total_notas / qtd_notas));
-
-                            if (total_final >= 7.0) {
-                                int currentValueAprovados = alunosAprovados.get("Doutorado");
-                                alunosAprovados.put("Doutorado", currentValueAprovados + 1);
-                            } else {
-                                total_final = ((double) ((total_final + prova_final) / 2));
-
-                                if (total_final >= 5.0) {
-                                    int currentValueAprovados = alunosAprovados.get("Doutorado");
-                                    alunosAprovados.put("Doutorado", currentValueAprovados + 1);
-                                }
-
-                            }
-
-                            double currentValueDouble = mediaAlunos.get("Doutorado");
-                            mediaAlunos.put("Doutorado", currentValueDouble + total_final);
-
-                        }
-
-                    }
+                    value_a.WriteAlunoGrad(value_a, cursos, alunosGeral, mediaAlunos, alunosAprovados, avaliacoes,
+                            key_d);
 
                 }
 
-                for (Map.Entry<String, Integer> aluno_geral : alunosGeral.entrySet()) {
+                List<Map.Entry<String, Integer>> entries = new ArrayList<>(alunosGeral.entrySet());
+                Collections.sort(entries, new Comparator<Map.Entry<String, Integer>>() {
+                    @Override
+                    public int compare(Map.Entry<String, Integer> a, Map.Entry<String, Integer> b) {
+
+                        double mediaA = mediaAlunos.get(a.getKey()) / a.getValue();
+                        double mediaB = mediaAlunos.get(b.getKey()) / b.getValue();
+                        return Double.compare(mediaB, mediaA); // Inverte a ordem de comparação
+                    }
+                });
+
+                for (Map.Entry<String, Integer> aluno_geral : entries) {
                     String key_ag = aluno_geral.getKey();
                     int value_ag = aluno_geral.getValue();
 

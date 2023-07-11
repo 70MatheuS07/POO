@@ -12,7 +12,7 @@ import java.util.Map;
 import java.util.Scanner;
 
 public class AlunoMap implements Serializable {
-    private Map<Integer, Aluno> alunos = new HashMap<Integer, Aluno>();
+    Map<Integer, Aluno> alunos = new HashMap<Integer, Aluno>();
 
     public Map<Integer, Aluno> getAlunoMap() {
         return alunos;
@@ -44,11 +44,11 @@ public class AlunoMap implements Serializable {
                 String nome = dados[1].trim();
                 String[] disciplinasCSV = dados[2].split(",");
 
-                // desconsidera espacoes em branco
+                // desconsidera espacos em branco
                 for (int i = 0; i < disciplinasCSV.length; i++) {
                     disciplinasCSV[i] = disciplinasCSV[i].trim();
                 }
-                
+
                 for (String disciplina : disciplinasCSV) {
                     if (!(disciplinas.getDisciplinaMap().containsKey(disciplina))) {
                         throw new Excecao.CodDisciplinaIndefinidoAlunoExcpetion(matricula, disciplina);
@@ -115,7 +115,6 @@ public class AlunoMap implements Serializable {
 
             // Primeira linha é o cabeçalho.
             String linha = Leitura.LehLine(scanner);
-            Aluno aluno = null;
 
             while (scanner.hasNextLine()) {
                 linha = Leitura.LehLine(scanner);
@@ -142,8 +141,6 @@ public class AlunoMap implements Serializable {
                 Disciplina disciplina = disciplinas.getDisciplinaMap().get(avaliacao.getDisciplinaKey());
                 AlunoMap mapaAlunos = disciplina.getAlunoMap();
 
-                int matricula = -1;
-
                 String doubleString = dados[2].trim();
                 doubleString = doubleString.replace(',', '.');
                 double nota = Double.parseDouble(doubleString.trim());
@@ -157,7 +154,7 @@ public class AlunoMap implements Serializable {
                         matriculaErroN = s.trim();
                         MatriculasErroN.add(matriculaErroN);
                     }
-                    String result = String.join(", ", matriculasStringErroN);
+                    String result = String.join(",", matriculasStringErroN);
 
                     DecimalFormat df_media = new DecimalFormat("0.0");
                     df_media.setDecimalFormatSymbols(new DecimalFormatSymbols(Locale.GERMAN));
@@ -166,52 +163,7 @@ public class AlunoMap implements Serializable {
                     throw new Excecao.NotaInvalidaAvaliacaoException(result, codigo, formattedMedia);
                 }
 
-                if (avaliacao instanceof Prova) {
-                    matricula = Integer.parseInt(dados[1].trim());
-
-                    if (alunos.containsKey(matricula) == false) {
-                        throw new Excecao.MatriculaIndefinidaException(codigo, matricula);
-                    }
-                    if (!mapaAlunos.alunos.containsKey(matricula)) {
-                        throw new Excecao.AlunoNaoMatriculadoException(matricula, codigo, avaliacao.getDisciplinaKey());
-                    }
-
-                    if (alunos.get(matricula).notasProvas.containsKey(codigo)) {
-                        throw new Excecao.NotaDuplicada(matricula, codigo);
-                    }
-                    aluno = alunos.get(matricula);
-                    aluno.getNotasAvaliacoes().put(codigo, nota);
-
-                } else {
-                    ArrayList<Integer> matriculas = new ArrayList<Integer>();
-
-                    // loop para ler as matriculas dos alunos, armazenando em uma lista
-                    String[] matriculasString = new String[10];
-                    matriculasString = dados[1].split(",");
-
-                    for (String s : matriculasString) {
-                        matricula = Integer.parseInt(s.trim());
-
-                        // confere se o aluno esta na no mapa de alunos da disciplina
-                        if (!alunos.containsKey(matricula)) {
-                            throw new Excecao.MatriculaIndefinidaException(codigo, matricula);
-                        }
-                        if (!mapaAlunos.alunos.containsKey(matricula)) {
-                            throw new Excecao.AlunoNaoMatriculadoException(matricula, codigo,
-                                    avaliacao.getDisciplinaKey());
-                        }
-                        if (alunos.get(matricula).notasProvas.containsKey(codigo)) {
-                            throw new Excecao.NotaDuplicada(matricula, codigo);
-                        }
-
-                        matriculas.add(matricula);
-                    }
-
-                    for (int m : matriculas) {
-                        Aluno aluno_aluno = alunos.get(m);
-                        aluno_aluno.getNotasAvaliacoes().put(codigo, nota);
-                    }
-                }
+                avaliacao.TratamentoExcecoes(dados, alunos, mapaAlunos, codigo, avaliacao, nota);
 
             }
 
