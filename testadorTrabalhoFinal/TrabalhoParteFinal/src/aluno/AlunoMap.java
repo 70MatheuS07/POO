@@ -150,6 +150,19 @@ public class AlunoMap implements Serializable {
                 String doubleString = dados[2].trim();
                 doubleString = doubleString.replace(',', '.');
                 double nota = Double.parseDouble(doubleString.trim());
+
+                if (!avaliacoes.getTotalNotasIO().containsKey(codigo)) {
+                    avaliacoes.getQtdNotasIO().put(codigo, 1);
+                    avaliacoes.getTotalNotasIO().put(codigo, nota);
+
+                } else {
+                    int currentValueInteger = avaliacoes.getQtdNotasIO().get(codigo);
+                    avaliacoes.getQtdNotasIO().put(codigo, currentValueInteger + 1);
+
+                    double currentValueDouble = avaliacoes.getTotalNotasIO().get(codigo);
+                    avaliacoes.getTotalNotasIO().put(codigo, currentValueDouble + nota);
+                }
+
                 if (nota < 0 || nota > 10) {
                     String matriculaErroN = null;
                     ArrayList<String> MatriculasErroN = new ArrayList<String>();

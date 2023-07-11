@@ -27,7 +27,27 @@ import src.disciplina.DisciplinaMap;
 import src.excecao.Excecao;
 
 public class AvaliacaoMap implements Serializable {
-    private Map<String, Avaliacao> avaliacoes = new HashMap<String, Avaliacao>();
+    private Map<String, Avaliacao> avaliacoes = new HashMap<>();
+
+    // Usados pós desserilização
+    private Map<String, Integer> qtdNotasIO = new HashMap<>();
+    private Map<String, Double> totalNotasIO = new HashMap<>();
+
+    public Map<String, Integer> getQtdNotasIO() {
+        return qtdNotasIO;
+    }
+
+    public void setQtdNotasIO(Map<String, Integer> qtdNotasIO) {
+        this.qtdNotasIO = qtdNotasIO;
+    }
+
+    public Map<String, Double> getTotalNotasIO() {
+        return totalNotasIO;
+    }
+
+    public void setTotalNotasIO(Map<String, Double> totalNotasIO) {
+        this.totalNotasIO = totalNotasIO;
+    }
 
     public Map<String, Avaliacao> getAvaliacaoMap() {
         return avaliacoes;
@@ -161,8 +181,7 @@ public class AvaliacaoMap implements Serializable {
      */
     public void CriaAvaliacoesCSV(DisciplinaMap disciplinas, AlunoMap alunos) throws Excecao {
 
-        try (FileWriter writer = new FileWriter("3-avaliacoes.csv");
-                Scanner scanner = new Scanner(new File("notas.csv"))) {
+        try (FileWriter writer = new FileWriter("3-avaliacoes.csv")) {
             List<Map.Entry<String, Avaliacao>> entries = new ArrayList<>(avaliacoes.entrySet());
             Collections.sort(entries, new Comparator<Map.Entry<String, Avaliacao>>() {
                 @Override
@@ -203,34 +222,7 @@ public class AvaliacaoMap implements Serializable {
                 }
             }
 
-            Map<String, Integer> qtdNotasIO = new HashMap<String, Integer>();
-            Map<String, Double> totalNotasIO = new HashMap<String, Double>();
-
-            // Primeira linha é o cabeçalho.
-            String linha = Leitura.LehLine(scanner);
-
-            while (scanner.hasNextLine()) {
-                linha = Leitura.LehLine(scanner);
-                String[] dados = linha.split(";");
-                String codigo = dados[0].trim();
-
-                String doubleString = dados[2].trim();
-                doubleString = doubleString.replace(',', '.');
-                double nota = Double.parseDouble(doubleString);
-
-                if (!totalNotasIO.containsKey(codigo)) {
-                    qtdNotasIO.put(codigo, 1);
-                    totalNotasIO.put(codigo, nota);
-
-                } else {
-                    int currentValueInteger = qtdNotasIO.get(codigo);
-                    qtdNotasIO.put(codigo, currentValueInteger + 1);
-
-                    double currentValueDouble = totalNotasIO.get(codigo);
-                    totalNotasIO.put(codigo, currentValueDouble + nota);
-                }
-
-            }
+            
 
             List<Map.Entry<String, Double>> entries2 = new ArrayList<>(totalNotas.entrySet());
             Collections.sort(entries2, new Comparator<Map.Entry<String, Double>>() {
