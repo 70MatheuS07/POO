@@ -44,8 +44,7 @@ public class AvaliacaoMap implements Serializable {
 
         File avaliacaoFile = new File(arquivo);
 
-        try {
-            Scanner scanner = new Scanner(avaliacaoFile);
+        try (Scanner scanner = new Scanner(avaliacaoFile)) {
 
             // Primeira linha é o cabeçalho.
             String linha = Leitura.LehLine(scanner);
@@ -115,8 +114,6 @@ public class AvaliacaoMap implements Serializable {
                     throw new Excecao.DisciplinaSemAvaliacaoException(CodD);
                 }
             }
-
-            scanner.close();
         }
 
         catch (IOException e) {
@@ -164,7 +161,8 @@ public class AvaliacaoMap implements Serializable {
      */
     public void CriaAvaliacoesCSV(DisciplinaMap disciplinas, AlunoMap alunos) throws Excecao {
 
-        try {
+        try (FileWriter writer = new FileWriter("3-avaliacoes.csv");
+                Scanner scanner = new Scanner(new File("notas.csv"))) {
             List<Map.Entry<String, Avaliacao>> entries = new ArrayList<>(avaliacoes.entrySet());
             Collections.sort(entries, new Comparator<Map.Entry<String, Avaliacao>>() {
                 @Override
@@ -179,8 +177,6 @@ public class AvaliacaoMap implements Serializable {
 
             Map<String, Integer> qtdNotas = new HashMap<String, Integer>();
             Map<String, Double> totalNotas = new HashMap<String, Double>();
-
-            FileWriter writer = new FileWriter("3-avaliacoes.csv");
 
             writer.write("Disciplina;Código;Avaliação;Data;Média\n");
 
@@ -207,12 +203,8 @@ public class AvaliacaoMap implements Serializable {
                 }
             }
 
-            File disciplinaFile = new File("notas.csv");
-
             Map<String, Integer> qtdNotasIO = new HashMap<String, Integer>();
             Map<String, Double> totalNotasIO = new HashMap<String, Double>();
-
-            Scanner scanner = new Scanner(disciplinaFile);
 
             // Primeira linha é o cabeçalho.
             String linha = Leitura.LehLine(scanner);
@@ -246,7 +238,7 @@ public class AvaliacaoMap implements Serializable {
                 public int compare(Map.Entry<String, Double> a, Map.Entry<String, Double> b) {
                     if (avaliacoes.get(a.getKey()).getDisciplinaKey()
                             .equals(avaliacoes.get(b.getKey()).getDisciplinaKey())) {
-                        return a.getKey().compareTo(b.getKey()); 
+                        return a.getKey().compareTo(b.getKey());
                     }
                     return avaliacoes.get(a.getKey()).getDisciplinaKey()
                             .compareTo(avaliacoes.get(b.getKey()).getDisciplinaKey());
@@ -283,9 +275,6 @@ public class AvaliacaoMap implements Serializable {
                 }
 
             }
-
-            writer.close();
-            scanner.close();
 
         } catch (IOException e) {
             throw new Excecao.ErroDeIO();

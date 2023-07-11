@@ -11,8 +11,8 @@ public class AlunoPos extends Aluno {
     public static final int DOUTORADO = 1;
     private int nivel;
 
-    public AlunoPos(String nome, String grad, int nivel) {
-        super(nome, grad);
+    public AlunoPos(String nome, int nivel) {
+        super(nome);
         this.nivel = nivel;
     }
 

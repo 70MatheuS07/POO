@@ -69,16 +69,16 @@ public class AlunoMap implements Serializable {
                     if (!(cursos.getCursoMap().containsKey(curso))) {
                         throw new Excecao.CodCursoIndefinidoException(matricula, curso);
                     }
-                    aluno = new AlunoGrad(nome, "G", curso);
+                    aluno = new AlunoGrad(nome, curso);
                 }
 
                 else if (tipo.equals("P")) {
                     String curso = dados[4].trim();
                     if (curso.equals("M"))
-                        aluno = new AlunoPos(nome, "P", AlunoPos.MESTRADO);
+                        aluno = new AlunoPos(nome, AlunoPos.MESTRADO);
 
                     else if (curso.equals("D")) {
-                        aluno = new AlunoPos(nome, "P", AlunoPos.DOUTORADO);
+                        aluno = new AlunoPos(nome, AlunoPos.DOUTORADO);
                     } else {
                         throw new Excecao.NemMNemDException(matricula, curso);
                     }
@@ -118,9 +118,7 @@ public class AlunoMap implements Serializable {
 
         File disciplinaFile = new File(arquivo);
 
-        try {
-            Scanner scanner = new Scanner(disciplinaFile);
-
+        try (Scanner scanner = new Scanner(disciplinaFile)) {
             // Primeira linha é o cabeçalho.
             String linha = Leitura.LehLine(scanner);
 
@@ -174,8 +172,6 @@ public class AlunoMap implements Serializable {
                 avaliacao.TratamentoExcecoes(dados, alunos, mapaAlunos, codigo, avaliacao, nota);
 
             }
-
-            scanner.close();
         }
 
         catch (IOException e) {

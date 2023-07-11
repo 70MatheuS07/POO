@@ -1,4 +1,5 @@
 package src.curso;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
@@ -24,8 +25,7 @@ public class CursoMap implements Serializable {
     public void CadastrarCursos(String arquivo) throws Excecao {
         File cursoFile = new File(arquivo);
 
-        try {
-            Scanner scanner = new Scanner(cursoFile);
+        try (Scanner scanner = new Scanner(cursoFile)) {
 
             // Primeira linha é o cabeçalho.
             String linha = Leitura.LehLine(scanner);
@@ -34,7 +34,7 @@ public class CursoMap implements Serializable {
                 linha = Leitura.LehLine(scanner);
                 String[] dados = linha.split(";");
                 int codigo = Integer.parseInt(dados[0].trim());
-                if(cursos.containsKey(codigo)){
+                if (cursos.containsKey(codigo)) {
                     throw new Excecao.CodigosIguaisException(codigo);
                 }
                 String nome = dados[1].trim();
@@ -44,8 +44,6 @@ public class CursoMap implements Serializable {
                 curso.setCurso(nome);
                 cursos.put(codigo, curso);
             }
-
-            scanner.close();
         }
 
         catch (IOException e) {
@@ -61,7 +59,7 @@ public class CursoMap implements Serializable {
         for (Map.Entry<Integer, Curso> entry : cursos.entrySet()) {
             Integer key = entry.getKey();
             Curso value = entry.getValue();
-            
+
             System.out.printf("curso: %d %s\n", key, value.getNome());
         }
     }
