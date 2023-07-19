@@ -3,12 +3,13 @@
 
 #include <string>
 
-class Curso {
+class Curso
+{
 private:
     std::string nome;
 
 public:
-    void setCurso(const std::string& nome);
+    void setCurso(const std::string &nome);
     std::string getNome() const;
 };
 

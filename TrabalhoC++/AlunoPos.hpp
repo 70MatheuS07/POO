@@ -1,19 +1,20 @@
-#ifndef ALUNOPOS_HPP
-#define ALUNOPOS_HPP
+#ifndef ALUNO_POS_HPP
+#define ALUNO_POS_HPP
 
-#include "Aluno.hpp"
+#include "Aluno.hpp" // Supondo que já existe um arquivo Aluno.hpp para a classe Aluno
 
-class AlunoPos : public Aluno {
+class AlunoPos : public Aluno
+{
 public:
-    static const std::string MESTRADO;
-    static const std::string DOUTORADO;
+    static const int MESTRADO = 0;
+    static const int DOUTORADO = 1;
 
 private:
-    std::string nivel;
+    int nivel;
 
 public:
-    AlunoPos(const std::string& nome, const std::string& grad, const std::string& nivel);
-    std::string getNivel() const;
+    AlunoPos(const std::string &nome, int nivel);
+    int getNivel() const;
 };
 
-#endif
+#endif // ALUNO_POS_HPP

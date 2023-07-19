@@ -4,14 +4,15 @@
 #include <string>
 #include "AlunoMap.hpp"
 
-class Disciplina {
+class Disciplina
+{
 private:
     std::string nome;
     AlunoMap alunos;
 
 public:
-    AlunoMap& getAlunoMap();
-    void setDisciplina(const std::string& nome);
+    AlunoMap &getAlunoMap();
+    void setDisciplina(const std::string &nome);
     std::string getNome() const;
 };
 

@@ -1,16 +1,15 @@
-#ifndef ALUNOMAP_HPP
-#define ALUNOMAP_HPP
+#ifndef ALUNO_MAP_HPP
+#define ALUNO_MAP_HPP
 
 #include <map>
-#include <iostream>
 #include "Aluno.hpp"
 
-class AlunoMap {
-private:
+class AlunoMap
+{
+public:
     std::map<int, Aluno> alunos;
 
-public:
-    std::map<int, Aluno>& getAlunoMap();
+    std::map<int, Aluno> &getAlunoMap();
 };
 
 #endif

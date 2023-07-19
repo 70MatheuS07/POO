@@ -1,13 +1,16 @@
 #include "Disciplina.hpp"
 
-AlunoMap& Disciplina::getAlunoMap() {
+AlunoMap &Disciplina::getAlunoMap()
+{
     return alunos;
 }
 
-void Disciplina::setDisciplina(const std::string& nome) {
+void Disciplina::setDisciplina(const std::string &nome)
+{
     this->nome = nome;
 }
 
-std::string Disciplina::getNome() const {
+std::string Disciplina::getNome() const
+{
     return nome;
 }

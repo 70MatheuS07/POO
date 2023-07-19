@@ -2,17 +2,25 @@
 #define PROVA_HPP
 
 #include "Avaliacao.hpp"
-#include <string>
-#include <ctime>
+#include "Excecao.hpp"
 
-class Prova : public Avaliacao {
+class Prova : public Avaliacao
+{
+public:
+    static const int PARCIAL = 0;
+    static const int FINAL = 1;
+
 private:
-    bool tipoProva;
+    int tipoProva;
 
 public:
-    Prova(const std::string& disciplina, const std::string& nome, double peso, const std::time_t& data, bool tipoProva);
+    Prova(const std::string &disciplina, const std::string &nome, double peso, std::time_t data, int tipoProva);
+    int getTipoProva() const;
 
-    bool getTipoProva() const;
+    void ModificaMapasNotas(std::map<std::string, int> &qtdNotas, std::map<std::string, double> &totalNotas,
+                            Avaliacao *avaliacao, std::string key_a, double value_NA) override;
+
+    void WriteKeyAvaliacao(std::ofstream &writer, Avaliacao *avaliacao, std::string key_avaliacao_aluno) override;
 };
 
 #endif

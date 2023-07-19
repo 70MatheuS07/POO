@@ -1,43 +1,41 @@
 #include "Dados.hpp"
 
-// Implementação dos métodos de Dados
-
-AlunoMap *Dados::getAlunos() const
+AlunoMap &Dados::getAlunos()
 {
     return alunos;
 }
 
-void Dados::setAlunos(AlunoMap *alunos)
+void Dados::setAlunos(const AlunoMap &alunos)
 {
     this->alunos = alunos;
 }
 
-CursoMap *Dados::getCursos() const
+CursoMap &Dados::getCursos()
 {
     return cursos;
 }
 
-void Dados::setCursos(CursoMap *cursos)
+void Dados::setCursos(const CursoMap &cursos)
 {
     this->cursos = cursos;
 }
 
-DisciplinaMap *Dados::getDisciplinas() const
+DisciplinaMap &Dados::getDisciplinas()
 {
     return disciplinas;
 }
 
-void Dados::setDisciplinas(DisciplinaMap *disciplinas)
+void Dados::setDisciplinas(const DisciplinaMap &disciplinas)
 {
     this->disciplinas = disciplinas;
 }
 
-AvaliacaoMap *Dados::getAvaliacoes() const
+AvaliacaoMap &Dados::getAvaliacoes()
 {
-    return provas;
+    return avaliacoes;
 }
 
-void Dados::setAvaliacoes(AvaliacaoMap *provas)
+void Dados::setAvaliacoes(const AvaliacaoMap &avaliacoes)
 {
-    this->provas = provas;
+    this->avaliacoes = avaliacoes;
 }

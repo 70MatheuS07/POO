@@ -2,18 +2,17 @@
 #define ALUNO_HPP
 
 #include <string>
-#include <unordered_map>
+#include <map>
 
 class Aluno {
-private:
+protected:
     std::string nome;
-    std::string grad;
-    std::unordered_map<std::string, double> notasProvas;
+    std::map<std::string, double> notasProvas;
 
 public:
-    Aluno(const std::string& nome, const std::string& grad);
+    Aluno(const std::string& nome);
     std::string getNome() const;
-    std::unordered_map<std::string, double> getNotasAvaliacoes() const;
+    std::map<std::string, double> getNotasAvaliacoes() const;
 };
 
 #endif

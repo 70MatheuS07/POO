@@ -1,16 +1,17 @@
-#ifndef DISCIPLINAMAP_HPP
-#define DISCIPLINAMAP_HPP
+#ifndef DISCIPLINA_MAP_HPP
+#define DISCIPLINA_MAP_HPP
 
-#include <map>
 #include <string>
+#include <map>
 #include "Disciplina.hpp"
 
-class DisciplinaMap {
+class DisciplinaMap
+{
 private:
     std::map<std::string, Disciplina> disciplinas;
 
 public:
-    std::map<std::string, Disciplina>& getDisciplinaMap();
+    std::map<std::string, Disciplina> &getDisciplinaMap();
 };
 
 #endif

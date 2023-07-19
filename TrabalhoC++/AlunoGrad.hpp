@@ -1,5 +1,5 @@
-#ifndef ALUNOGRAD_HPP
-#define ALUNOGRAD_HPP
+#ifndef ALUNO_GRAD_HPP
+#define ALUNO_GRAD_HPP
 
 #include "Aluno.hpp"
 
@@ -8,8 +8,8 @@ private:
     int curso;
 
 public:
-    AlunoGrad(const std::string& nome, const std::string& grad, int curso);
+    AlunoGrad(const std::string& nome, int curso);
     int getCurso() const;
 };
 
-#endif
+#endif // ALUNO_GRAD_HPP

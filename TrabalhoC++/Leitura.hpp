@@ -8,9 +8,9 @@
 class Leitura
 {
 public:
-    static int LehInt(std::istream &input);
-    static double LehDouble(std::istream &input);
-    static std::string LehLine(std::istream &input);
+    static int leInteiro();
+    static double leDouble();
+    static std::string leLinha();
 };
 
 #endif

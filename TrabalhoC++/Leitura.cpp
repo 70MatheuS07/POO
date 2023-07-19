@@ -1,21 +1,24 @@
 #include "Leitura.hpp"
 
-int Leitura::LehInt(std::istream& input) {
+int Leitura::leInteiro()
+{
     int inteiro;
-    input >> inteiro;
-    input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin >> inteiro;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return inteiro;
 }
 
-double Leitura::LehDouble(std::istream& input) {
+double Leitura::leDouble()
+{
     double valor;
-    input >> valor;
-    input.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+    std::cin >> valor;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
     return valor;
 }
 
-std::string Leitura::LehLine(std::istream& input) {
+std::string Leitura::leLinha()
+{
     std::string linha;
-    std::getline(input, linha);
+    std::getline(std::cin, linha);
     return linha;
 }
