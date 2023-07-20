@@ -4,7 +4,7 @@
 #include <string>
 #include <map>
 #include <vector>
-#include "Avaliacao.hpp" // Supondo que já existe um arquivo Avaliacao.hpp para a classe Avaliacao
+#include "Avaliacao.hpp"
 
 class AvaliacaoMap
 {
@@ -15,9 +15,11 @@ private:
 
 public:
     std::map<std::string, Avaliacao> &getAvaliacaoMap();
-    std::map<std::string, int> &getQtdNotasIO();
+
+    std::map<std::string, int> getQtdNotasIO() const;
     void setQtdNotasIO(const std::map<std::string, int> &qtdNotasIO);
-    std::map<std::string, double> &getTotalNotasIO();
+
+    std::map<std::string, double> getTotalNotasIO() const;
     void setTotalNotasIO(const std::map<std::string, double> &totalNotasIO);
 };
 
