@@ -38,7 +38,41 @@ void Prova::WriteKeyAvaliacao(std::ofstream &writer, Avaliacao *avaliacao, std::
     }
     catch (const std::exception &e)
     {
-        throw Excecao::ErroDeIO();
+        throw ErroDeIO();
     }
 }
 
+Avaliacao::Valores_WriteValueAvaliacaoAluno Prova::WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
+                                                                            double value_avaliacao_aluno)
+{
+    // Implementação da função WriteValueAvaliacaoAluno
+    std::stringstream formattedTotal;
+    double provaFinal = -1.0;
+    Avaliacao::Valores_WriteValueAvaliacaoAluno v(0.0, 0.0, -1.0);
+
+    try
+    {
+        if (dynamic_cast<Prova *>(avaliacao) && dynamic_cast<Prova *>(avaliacao)->getTipoProva() == 0)
+        {
+            // Formatar o valor para o formato "0.00"
+            formattedTotal << std::fixed << std::setprecision(2) << value_avaliacao_aluno;
+            writer << formattedTotal.str() << ";";
+
+            double total = value_avaliacao_aluno * avaliacao->getPeso();
+            double qtd_prov_trab = avaliacao->getPeso();
+
+            v = Avaliacao::Valores_WriteValueAvaliacaoAluno(total, qtd_prov_trab, -1.0);
+        }
+        else
+        {
+            provaFinal = value_avaliacao_aluno;
+            v = Avaliacao::Valores_WriteValueAvaliacaoAluno(0.0, 0.0, provaFinal);
+        }
+
+        return v;
+    }
+    catch (const std::exception &e)
+    {
+        throw ErroDeIO();
+    }
+}

@@ -21,6 +21,9 @@ public:
                             Avaliacao *avaliacao, std::string key_a, double value_NA) override;
 
     void WriteKeyAvaliacao(std::ofstream &writer, Avaliacao *avaliacao, std::string key_avaliacao_aluno) override;
+
+    Valores_WriteValueAvaliacaoAluno WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
+                                                              double value_avaliacao_aluno) override;
 };
 
 #endif
