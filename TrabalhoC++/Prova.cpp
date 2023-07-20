@@ -76,3 +76,24 @@ Avaliacao::Valores_WriteValueAvaliacaoAluno Prova::WriteValueAvaliacaoAluno(std:
         throw ErroDeIO();
     }
 }
+
+Avaliacao::Valores_WriteValueAvaliacaoAluno Prova::CalculaMediasAluno(Avaliacao *avaliacao, double value_np)
+{
+    Avaliacao::Valores_WriteValueAvaliacaoAluno v(0.0, 0.0, -1.0);
+    double prova_final = -1.0;
+
+    if (dynamic_cast<Prova *>(avaliacao) && dynamic_cast<Prova *>(avaliacao)->getTipoProva() == 0)
+    {
+        double total_notas = value_np * avaliacao->getPeso();
+        double qtd_notas = avaliacao->getPeso();
+
+        v = Avaliacao::Valores_WriteValueAvaliacaoAluno(total_notas, qtd_notas, -1.0);
+    }
+    else
+    {
+        prova_final = value_np;
+        v = Avaliacao::Valores_WriteValueAvaliacaoAluno(0.0, 0.0, prova_final);
+    }
+
+    return v;
+}

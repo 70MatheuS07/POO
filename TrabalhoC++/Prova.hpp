@@ -24,6 +24,8 @@ public:
 
     Valores_WriteValueAvaliacaoAluno WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
                                                               double value_avaliacao_aluno) override;
+
+    Valores_WriteValueAvaliacaoAluno CalculaMediasAluno(Avaliacao *avaliacao, double value_np) override;
 };
 
 #endif

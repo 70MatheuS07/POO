@@ -42,6 +42,23 @@ public:
 
     virtual Valores_WriteValueAvaliacaoAluno WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
                                                                       double value_avaliacao_aluno) = 0;
+
+    class Valores_WriteValueAvaliacaoAluno
+    {
+    public:
+        Valores_WriteValueAvaliacaoAluno(double total, double qtd, double prova_final);
+
+        double getTotal() const;
+        double getQtd() const;
+        double getProva_final() const;
+
+    private:
+        double total;
+        double qtd;
+        double prova_final;
+    };
+
+    virtual Valores_WriteValueAvaliacaoAluno CalculaMediasAluno(Avaliacao *avaliacao, double value_np) = 0;
 };
 
 #endif

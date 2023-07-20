@@ -1,4 +1,5 @@
 package src.IO;
+
 import java.io.Serializable;
 
 import src.aluno.AlunoMap;
@@ -10,7 +11,7 @@ public class Dados implements Serializable {
     AlunoMap alunos;
     CursoMap cursos;
     DisciplinaMap disciplinas;
-    AvaliacaoMap provas;
+    AvaliacaoMap avaliacoes;
 
     public AlunoMap getAlunos() {
         return alunos;
@@ -37,10 +38,10 @@ public class Dados implements Serializable {
     }
 
     public AvaliacaoMap getAvaliacoes() {
-        return provas;
+        return avaliacoes;
     }
 
-    public void setAvaliacoes(AvaliacaoMap provas) {
-        this.provas = provas;
+    public void setAvaliacoes(AvaliacaoMap avaliacoes) {
+        this.avaliacoes = avaliacoes;
     }
 }
