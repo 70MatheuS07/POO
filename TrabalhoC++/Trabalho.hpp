@@ -2,6 +2,7 @@
 #define TRABALHO_HPP
 
 #include "Avaliacao.hpp"
+#include "Excecao.hpp"
 
 class Trabalho : public Avaliacao
 {

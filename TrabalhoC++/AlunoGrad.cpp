@@ -11,7 +11,7 @@ int AlunoGrad::getCurso() const
 void AlunoGrad::WriteAlunoGrad(Aluno aluno, CursoMap cursos, std::map<std::string, int> &alunosGeral,
                                std::map<std::string, double> &mediaAlunos,
                                std::map<std::string, int> &alunosAprovados,
-                               AvaliacaoMap avaliacoes, std::string key_d)
+                               AvaliacaoMap avaliacoes, std::string key_d) override
 {
 
     double total_notas = 0.0;

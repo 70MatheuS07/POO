@@ -18,7 +18,7 @@ void AlunoPos::WriteAlunoGrad(Aluno aluno, CursoMap cursos, std::map<std::string
     double total_final = 0.0;
     double prova_final = 0.0;
 
-    AlunoPos aluno_pos = (AlunoPos)aluno;s
+    AlunoPos aluno_pos = (AlunoPos)aluno;
 
     if (aluno_pos.getNivel() == AlunoPos::MESTRADO)
     {

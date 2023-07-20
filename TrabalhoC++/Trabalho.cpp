@@ -12,7 +12,7 @@ void Trabalho::ModificaMapasNotas(std::map<std::string, int> &qtdNotas, std::map
                                   Avaliacao *avaliacao, std::string key_a, double value_NA)
 {
     // Implementação da função ModificaMapasNotas
-    if (dynamic_cast<Prova *>(avaliacao) && dynamic_cast<Prova *>(avaliacao)->getTipoProva() == 0)
+    if (dynamic_cast<Trabalho *>(avaliacao) && dynamic_cast<Trabalho *>(avaliacao)->getTipoProva() == 0)
     {
         if (totalNotas.find(key_a) == totalNotas.end())
         {

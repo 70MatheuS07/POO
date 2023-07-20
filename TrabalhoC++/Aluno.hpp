@@ -17,7 +17,7 @@ public:
     std::string getNome() const;
     std::map<std::string, double> getNotasAvaliacoes() const;
 
-    virtual void WriteAlunoGrad(CursoMap &cursos,
+    virtual void WriteAlunoGrad(Aluno aluno, CursoMap &cursos,
                                 std::map<std::string, int> &alunosGeral,
                                 std::map<std::string, double> &mediaAlunos,
                                 std::map<std::string, int> &alunosAprovados,
