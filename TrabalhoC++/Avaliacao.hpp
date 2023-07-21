@@ -34,7 +34,7 @@ public:
         double qtd;
         double prova_final;
     };
-
+   
     /*
    virtual void ModificaMapasNotas(std::map<std::string, int> &qtdNotas, std::map<std::string, double> &totalNotas,
                                    Avaliacao *avaliacao, std::string key_a, double value_NA) = 0;

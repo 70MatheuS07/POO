@@ -34,7 +34,7 @@ public:
     void WriteKeyAvaliacao(std::ofstream &writer, Avaliacao *avaliacao, std::string key_avaliacao_aluno) override;
 
     Valores_WriteValueAvaliacaoAluno WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
-                                                                         double value_avaliacao_aluno) override;
+                                                              double value_avaliacao_aluno) override;
 
     Valores_WriteValueAvaliacaoAluno CalculaMediasAluno(Avaliacao *avaliacao, double value_np) override;
 

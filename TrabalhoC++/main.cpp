@@ -5,6 +5,8 @@
 #include "CursoMap.hpp"
 #include "DisciplinaMap.hpp"
 #include "AvaliacaoMap.hpp"
+#include "CriaAvaliacoesCSV.hpp"
+#include "CriaDisciplinasCSV.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -55,6 +57,10 @@ int main(int argc, char *argv[])
             // alunos->RegistraNotaAlunoAvaliacao(avaliacoes, disciplinas, nomeArquivo);
         }
     }
+
+    // disciplinas->CriaPautaDisciplinas(alunos, avaliacoes);
+    CriaDisciplinasCSV::CriaDisciplinasCSVFunction(disciplinas, alunos, avaliacoes, cursos);
+    CriaAvaliacoesCSV::CriaAvaliacoesCSVFunction(avaliacoes, disciplinas, alunos);
 
     delete cursos;
     delete disciplinas;

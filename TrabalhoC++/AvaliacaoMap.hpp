@@ -11,8 +11,6 @@ class AvaliacaoMap
 {
 private:
     std::map<std::string, Avaliacao> avaliacoes;
-    std::map<std::string, int> qtdNotasIO;
-    std::map<std::string, double> totalNotasIO;
 
 public:
     std::map<std::string, Avaliacao> &getAvaliacaoMap();
