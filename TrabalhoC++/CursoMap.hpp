@@ -4,6 +4,14 @@
 #include <map>
 #include "Curso.hpp"
 #include <vector>
+#include <string>
+#include <vector>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+#include "Excecao.hpp"
+#include "Leitura.hpp"
+#include "Trim.hpp"
 
 class CursoMap
 {
