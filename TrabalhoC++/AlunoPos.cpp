@@ -7,6 +7,7 @@ int AlunoPos::getNivel() const
     return nivel;
 }
 
+/*
 void AlunoPos::WriteAlunoGrad(Aluno *aluno, CursoMap &cursos,
                               std::map<std::string, int> &alunosGeral,
                               std::map<std::string, double> &mediaAlunos,
@@ -148,3 +149,5 @@ void AlunoPos::WriteAlunoGrad(Aluno *aluno, CursoMap &cursos,
         mediaAlunos["Doutorado"] = currentValueDouble + total_final;
     }
 }
+
+*/

@@ -5,6 +5,42 @@ std::map<std::string, Disciplina> &DisciplinaMap::getDisciplinaMap()
     return disciplinas;
 }
 
+void DisciplinaMap::CadastrarDisciplinas(const std::string &arquivo)
+{
+    std::ifstream disciplinaFile(arquivo);
+
+    if (!disciplinaFile.is_open())
+    {
+        throw Excecao("Erro ao abrir o arquivo.");
+    }
+
+    // Primeira linha é o cabeçalho.
+    std::string linha;
+    linha = Leitura::LehLine(disciplinaFile); // Supondo que você tenha um método LehLine definido na classe Leitura
+
+    while (std::getline(disciplinaFile, linha))
+    {
+        std::istringstream ss(linha);
+        std::string item;
+        std::vector<std::string> dados;
+
+        while (std::getline(ss, item, ';'))
+        {
+            dados.push_back(item);
+        }
+
+        std::string codigo = trim(dados[0]);
+        std::string nome = trim(dados[1]);
+
+        Disciplina disciplina;
+        disciplina.setDisciplina(nome);
+        disciplinas[codigo] = disciplina;
+    }
+
+    disciplinaFile.close();
+}
+
+/*
 void DisciplinaMap::CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoes)
 {
     try
@@ -103,8 +139,7 @@ void DisciplinaMap::CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoe
 
                     if (aa->getDisciplinaKey().compare(*key_d) == 0)
                     {
-                        Avaliacao::Valores_WriteValueAvaliacaoAluno valores = aa->WriteValueAvaliacaoAluno(
-                            writer, aa, value_avaliacao_aluno);
+                        Avaliacao::Valores_WriteValueAvaliacaoAluno valores = aa->WriteValueAvaliacaoAluno(writer, aa, value_avaliacao_aluno);
 
                         if (valores.getProva_final() == -1.0)
                         {
@@ -160,7 +195,8 @@ void DisciplinaMap::CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoe
         throw ErroDeIO();
     }
 }
-
+*/
+/*
 void DisciplinaMap::CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos)
 {
     try
@@ -231,3 +267,4 @@ void DisciplinaMap::CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes,
         throw ErroDeIO();
     }
 }
+*/

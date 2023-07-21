@@ -14,7 +14,7 @@ class Leitura
 public:
     static int leInteiro();
     static double leDouble();
-    static std::string leLinha();
+    static std::string LehLine(std::istream &input);
 };
 
 #endif

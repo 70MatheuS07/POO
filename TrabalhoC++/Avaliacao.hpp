@@ -20,11 +20,6 @@ public:
     double getPeso() const;
     std::time_t getData() const;
 
-    virtual void ModificaMapasNotas(std::map<std::string, int> &qtdNotas, std::map<std::string, double> &totalNotas,
-                                    Avaliacao *avaliacao, std::string key_a, double value_NA) = 0;
-
-    virtual void WriteKeyAvaliacao(std::ofstream &writer, Avaliacao *avaliacao, std::string key_avaliacao_aluno) = 0;
-
     class Valores_WriteValueAvaliacaoAluno
     {
     public:
@@ -40,10 +35,18 @@ public:
         double prova_final;
     };
 
-    virtual Valores_WriteValueAvaliacaoAluno WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
-                                                                                 double value_avaliacao_aluno) = 0;
+    /*
+   virtual void ModificaMapasNotas(std::map<std::string, int> &qtdNotas, std::map<std::string, double> &totalNotas,
+                                   Avaliacao *avaliacao, std::string key_a, double value_NA) = 0;
 
-    virtual Valores_WriteValueAvaliacaoAluno CalculaMediasAluno(Avaliacao *avaliacao, double value_np) = 0;
+   virtual void WriteKeyAvaliacao(std::ofstream &writer, Avaliacao *avaliacao, std::string key_avaliacao_aluno) = 0;
+
+   virtual Valores_WriteValueAvaliacaoAluno WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
+                                                                                double value_avaliacao_aluno) = 0;
+
+   virtual Valores_WriteValueAvaliacaoAluno CalculaMediasAluno(Avaliacao *avaliacao, double value_np) = 0;
+
+   */
 
     /*
     virtual void TratamentoExcecoes(std::string *dados, AlunoMap &alunos, AlunoMap &mapaAlunos,

@@ -8,6 +8,7 @@ int Prova::getTipoProva() const
     return tipoProva;
 }
 
+/*
 void Prova::ModificaMapasNotas(std::map<std::string, int> &qtdNotas, std::map<std::string, double> &totalNotas,
                                Avaliacao *avaliacao, std::string key_a, double value_NA)
 {
@@ -96,6 +97,7 @@ Avaliacao::Valores_WriteValueAvaliacaoAluno Prova::CalculaMediasAluno(Avaliacao 
     return v;
 }
 
+*/
 /*
 void Prova::TratamentoExcecoes(std::string *dados, AlunoMap &alunos, const AlunoMap &mapaAlunos,
                                    const std::string &codigo, Avaliacao *avaliacao, double nota)

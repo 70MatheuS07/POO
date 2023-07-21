@@ -3,6 +3,7 @@
 
 #include <map>
 #include "Curso.hpp"
+#include <vector>
 
 class CursoMap
 {
@@ -11,6 +12,7 @@ private:
 
 public:
     std::map<int, Curso> &getCursoMap();
+    void CadastrarCursos(const std::string &arquivo);
 };
 
 #endif

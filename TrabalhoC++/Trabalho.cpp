@@ -8,6 +8,7 @@ int Trabalho::getQtdGrupos() const
     return qtdGrupos;
 }
 
+/*
 void Trabalho::ModificaMapasNotas(std::map<std::string, int> &qtdNotas, std::map<std::string, double> &totalNotas,
                                   Avaliacao *avaliacao, std::string key_a, double value_NA)
 {
@@ -65,6 +66,8 @@ Avaliacao::Valores_WriteValueAvaliacaoAluno Trabalho::CalculaMediasAluno(Avaliac
 
     return Valores_WriteValueAvaliacaoAluno(total_notas, qtd_notas, -1.0);
 }
+
+*/
 
 /*
 void Trabalho::TratamentoExcecoes(std::string dados[], std::map<int, Aluno> &alunos, AlunoMap &mapaAlunos,

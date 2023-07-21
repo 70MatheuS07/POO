@@ -24,9 +24,11 @@ private:
 public:
     std::map<std::string, Disciplina> &getDisciplinaMap();
 
-    void CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoes);
+    void CadastrarDisciplinas(const std::string &arquivo);
 
-    void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos);
+    // void CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoes);
+
+    // void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos);
 };
 
 #endif

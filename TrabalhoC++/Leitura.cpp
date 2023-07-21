@@ -16,9 +16,8 @@ double Leitura::leDouble()
     return valor;
 }
 
-std::string Leitura::leLinha()
-{
+std::string Leitura::LehLine(std::istream& input) {
     std::string linha;
-    std::getline(std::cin, linha);
+    std::getline(input, linha);
     return linha;
 }

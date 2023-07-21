@@ -6,6 +6,6 @@
 #include <cctype>
 #include <locale>
 
-static inline std::string &trim(std::string &s);
+std::string &trim(std::string &s);
 
 #endif

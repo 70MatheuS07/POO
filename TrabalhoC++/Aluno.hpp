@@ -17,12 +17,15 @@ public:
     std::string getNome() const;
     std::map<std::string, double> getNotasAvaliacoes() const;
 
-    virtual void WriteAlunoGrad(Aluno *aluno, CursoMap &cursos,
-                                std::map<std::string, int> &alunosGeral,
-                                std::map<std::string, double> &mediaAlunos,
-                                std::map<std::string, int> &alunosAprovados,
-                                AvaliacaoMap &avaliacoes,
-                                std::string key_d) = 0;
+    /*
+        virtual void WriteAlunoGrad(Aluno *aluno, CursoMap &cursos,
+                                    std::map<std::string, int> &alunosGeral,
+                                    std::map<std::string, double> &mediaAlunos,
+                                    std::map<std::string, int> &alunosAprovados,
+                                    AvaliacaoMap &avaliacoes,
+                                    std::string key_d) = 0;
+
+                                    */
 };
 
 #endif

@@ -8,6 +8,8 @@ int AlunoGrad::getCurso() const
     return curso;
 }
 
+/*
+
 void AlunoGrad::WriteAlunoGrad(Aluno *aluno, CursoMap &cursos,
                                std::map<std::string, int> &alunosGeral,
                                std::map<std::string, double> &mediaAlunos,
@@ -118,3 +120,5 @@ void AlunoGrad::WriteAlunoGrad(Aluno *aluno, CursoMap &cursos,
     double currentValueDouble = mediaAlunos[curso->getNome()];
     mediaAlunos[curso->getNome()] = currentValueDouble + total_final;
 }
+
+*/
