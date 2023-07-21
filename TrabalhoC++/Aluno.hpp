@@ -3,8 +3,6 @@
 
 #include <string>
 #include <map>
-#include "CursoMap.hpp"
-#include "AvaliacaoMap.hpp"
 
 class Aluno
 {

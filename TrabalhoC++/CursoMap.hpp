@@ -2,13 +2,14 @@
 #define CURSO_MAP_HPP
 
 #include <map>
-#include "Curso.hpp"
 #include <vector>
 #include <string>
 #include <vector>
 #include <iostream>
 #include <sstream>
 #include <fstream>
+
+#include "Curso.hpp"
 #include "Excecao.hpp"
 #include "Leitura.hpp"
 #include "Trim.hpp"

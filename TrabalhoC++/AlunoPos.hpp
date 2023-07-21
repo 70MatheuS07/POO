@@ -1,5 +1,6 @@
 #ifndef ALUNO_POS_HPP
 #define ALUNO_POS_HPP
+#include <string>
 
 #include "Aluno.hpp"
 

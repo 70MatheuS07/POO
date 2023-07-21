@@ -1,16 +1,17 @@
 #ifndef PROVA_HPP
 #define PROVA_HPP
 
-#include "Avaliacao.hpp"
-#include "Excecao.hpp"
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-#include "Trim.hpp"
 #include <vector>
 #include <climits>
 #include <string>
 #include <sstream>
+
+#include "Avaliacao.hpp"
+#include "Excecao.hpp"
+#include "Trim.hpp"
 
 class Prova : public Avaliacao
 {

@@ -1,17 +1,18 @@
 #ifndef TRABALHO_HPP
 #define TRABALHO_HPP
 
-#include "Avaliacao.hpp"
-#include "Excecao.hpp"
 #include <locale>
 #include <iostream>
 #include <fstream>
 #include <sstream>
 #include <iomanip>
-#include "Trim.hpp"
 #include <vector>
 #include <climits>
 #include <string>
+
+#include "Avaliacao.hpp"
+#include "Excecao.hpp"
+#include "Trim.hpp"
 
 class Trabalho : public Avaliacao
 {

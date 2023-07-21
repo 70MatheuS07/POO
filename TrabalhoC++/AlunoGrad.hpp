@@ -1,15 +1,11 @@
 #ifndef ALUNO_GRAD_HPP
 #define ALUNO_GRAD_HPP
 
-#include "Aluno.hpp"
-#include "AlunoMap.hpp"
-#include "CursoMap.hpp"
-#include "AvaliacaoMap.hpp"
-#include "Prova.hpp"
-#include "Trabalho.hpp"
 #include <string>
 #include <vector>
 #include <map>
+
+#include "Aluno.hpp"
 
 class AlunoGrad : public Aluno
 {
