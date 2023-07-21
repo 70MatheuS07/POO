@@ -24,3 +24,4 @@ void AvaliacaoMap::setTotalNotasIO(const std::map<std::string, double> &totalNot
 {
     this->totalNotasIO = totalNotasIO;
 }
+
