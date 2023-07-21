@@ -117,7 +117,7 @@ void CriaPautaDisciplinas::CriaPautaDisciplinasFunction(DisciplinaMap *disciplin
                                         }
                                         */
                 }
-
+                
                 total = ((double)total / qtd_prov_trab);
 
                 std::stringstream stream;
