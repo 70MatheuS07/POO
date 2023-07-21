@@ -12,83 +12,98 @@ void DisciplinaMap::CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoe
         double total = 0.0;
         double qtd_prov_trab = 0.0;
 
-        for (const auto &d : disciplinas)
+        for (auto &d : disciplinas)
         {
-            const std::string &key_d = d.first;
-            const Disciplina &value_d = d.second;
+            std::string *key_d = const_cast<std::string *>(&d.first);
+            Disciplina *value_d = const_cast<Disciplina *>(&d.second);
 
-            std::ofstream writer("1-pauta-" + key_d + ".csv");
+            std::ofstream writer("1-pauta-" + *key_d + ".csv");
             writer << "Matrícula;Aluno;";
 
-            const auto &aluno_map = value_d.getAlunoMap().getAlunoMap();
+            auto *aluno_map = &(value_d->getAlunoMap().getAlunoMap());
 
-            for (const auto &entry_aluno : aluno_map)
+            for (auto &entry_aluno : *aluno_map)
             {
-                const Aluno &value_a = entry_aluno.second;
+                Aluno *value_a = const_cast<Aluno *>(&entry_aluno.second);
 
-                const auto &avaliacoes_aluno = value_a.getNotasAvaliacoes();
+                auto avaliacoes_aluno = value_a->getNotasAvaliacoes();
 
-                std::vector<std::pair<std::string, double>> entries(avaliacoes_aluno.begin(), avaliacoes_aluno.end());
-                std::sort(entries.begin(), entries.end(),
+                // Copia os elementos do std::map<std::string, double> para um vetor temporário.
+                std::vector<std::pair<std::string, double>> temp_entries(avaliacoes_aluno.begin(), avaliacoes_aluno.end());
+
+                // Ordena o vetor temporário pelas chaves (strings) do std::map.
+                std::sort(temp_entries.begin(), temp_entries.end(),
                           [](const std::pair<std::string, double> &a, const std::pair<std::string, double> &b)
                           {
                               return a.first < b.first;
                           });
 
-                for (const auto &entry_ava : entries)
+                // Agora você pode usar o vetor temp_entries conforme necessário.
+
+                for (auto &entry_ava : temp_entries)
                 {
-                    const std::string &key_avaliacao_aluno = entry_ava.first;
-                    const double value_avaliacao_aluno = entry_ava.second;
+                    auto *a = &(avaliacoes.getAvaliacaoMap().find(entry_ava.first)->second);
 
-                    const Avaliacao &aa = avaliacoes.getAvaliacaoMap().get(key_avaliacao_aluno);
+                    Avaliacao *aa = a;
 
-                    if (aa.getDisciplinaKey() == key_d)
+                    if (aa->getDisciplinaKey() == *key_d)
                     {
-                        aa.WriteKeyAvaliacao(writer, aa, key_avaliacao_aluno);
+                        aa->WriteKeyAvaliacao(writer, aa, entry_ava.first);
                     }
                 }
-
                 break;
             }
 
             writer << "Média Parcial;Prova Final;Média Final\n";
 
-            std::vector<std::pair<int, Aluno>> entries(aluno_map.begin(), aluno_map.end());
-            std::sort(entries.begin(), entries.end(),
+            // Copia os elementos do std::map<int, Aluno> para um vetor temporário.
+            std::vector<std::pair<int, Aluno>> temp_entries(aluno_map->begin(), aluno_map->end());
+
+            // Ordena o vetor temporário pelo nome do aluno.
+            std::sort(temp_entries.begin(), temp_entries.end(),
                       [](const std::pair<int, Aluno> &a, const std::pair<int, Aluno> &b)
                       {
                           return a.second.getNome() < b.second.getNome();
                       });
 
-            for (const auto &a : entries)
+            // Agora você pode usar o vetor temp_entries conforme necessário.
+
+            for (auto &a : temp_entries)
             {
                 int key_a = a.first;
-                const Aluno &value_a = a.second;
+                Aluno &value_a = a.second;
                 total = 0.0;
                 qtd_prov_trab = 0.0;
                 double provaFinal = -1.0;
 
                 writer << key_a << ";" << value_a.getNome() << ";";
 
-                const auto &avaliacoesAluno = value_a.getNotasAvaliacoes();
+                auto avaliacoesAluno = value_a.getNotasAvaliacoes();
 
-                std::vector<std::pair<std::string, double>> entries2(avaliacoesAluno.begin(), avaliacoesAluno.end());
+                std::vector<std::pair<std::string, double>> entries2;
+                for (auto &entry : avaliacoesAluno)
+                {
+                    entries2.push_back(entry); // Copia os elementos do mapa para o vetor
+                }
+
                 std::sort(entries2.begin(), entries2.end(),
                           [](const std::pair<std::string, double> &a, const std::pair<std::string, double> &b)
                           {
                               return a.first < b.first;
                           });
 
-                for (const auto &avaliacao_aluno : entries2)
+                for (auto &avaliacao_aluno : entries2)
                 {
-                    const std::string &key_avaliacao_aluno = avaliacao_aluno.first;
-                    const double value_avaliacao_aluno = avaliacao_aluno.second;
+                    std::string &key_avaliacao_aluno = avaliacao_aluno.first;
+                    double value_avaliacao_aluno = avaliacao_aluno.second;
 
-                    const Avaliacao &aa = avaliacoes.getAvaliacaoMap().get(key_avaliacao_aluno);
+                    auto *a = &avaliacoes.getAvaliacaoMap().find(key_avaliacao_aluno)->second;
 
-                    if (aa.getDisciplinaKey() == key_d)
+                    Avaliacao *aa = a;
+
+                    if (aa->getDisciplinaKey().compare(*key_d) == 0)
                     {
-                        Avaliacao::Valores_WriteValueAvaliacaoAluno valores = aa.WriteValueAvaliacaoAluno(
+                        Avaliacao::Valores_WriteValueAvaliacaoAluno valores = aa->WriteValueAvaliacaoAluno(
                             writer, aa, value_avaliacao_aluno);
 
                         if (valores.getProva_final() == -1.0)
@@ -142,7 +157,7 @@ void DisciplinaMap::CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoe
     }
     catch (const std::ofstream::failure &e)
     {
-        throw Excecao::ErroDeIO();
+        throw ErroDeIO();
     }
 }
 
@@ -161,21 +176,21 @@ void DisciplinaMap::CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes,
                       return a.first < b.first;
                   });
 
-        for (const auto &d : entries2)
+        for (auto &d : entries2)
         {
-            const std::string &key_d = d.first;
-            const Disciplina &value_d = d.second;
+            std::string &key_d = d.first;
+            Disciplina *value_d = const_cast<Disciplina *>(&d.second);
 
             std::map<std::string, int> alunosGeral;
             std::map<std::string, double> mediaAlunos;
             std::map<std::string, int> alunosAprovados;
 
-            for (const auto &a : value_d.getAlunoMap().getAlunoMap())
+            for (auto &a : value_d->getAlunoMap().getAlunoMap())
             {
-                const Aluno &value_a = a.second;
+                Aluno *value_a = &a.second;
 
-                value_a.WriteAlunoGrad(value_a, cursos, alunosGeral, mediaAlunos, alunosAprovados, avaliacoes,
-                                       key_d);
+                value_a->WriteAlunoGrad(value_a, cursos, alunosGeral, mediaAlunos, alunosAprovados, avaliacoes,
+                                        key_d);
             }
 
             std::vector<std::pair<std::string, int>> entries(alunosGeral.begin(), alunosGeral.end());
@@ -192,7 +207,7 @@ void DisciplinaMap::CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes,
                 const std::string &key_ag = aluno_geral.first;
                 int value_ag = aluno_geral.second;
 
-                writer << key_d << ";" << value_d.getNome() << ";" << key_ag << ";";
+                writer << key_d << ";" << value_d->getNome() << ";" << key_ag << ";";
 
                 double total = mediaAlunos[key_ag];
                 double media = ((double)(total / value_ag));
@@ -213,6 +228,6 @@ void DisciplinaMap::CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes,
     }
     catch (const std::ofstream::failure &e)
     {
-        throw Excecao::ErroDeIO();
+        throw ErroDeIO();
     }
 }

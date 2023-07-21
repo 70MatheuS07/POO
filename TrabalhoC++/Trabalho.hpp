@@ -3,6 +3,15 @@
 
 #include "Avaliacao.hpp"
 #include "Excecao.hpp"
+#include <locale>
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <iomanip>
+#include "Trim.hpp"
+#include <vector>
+#include <climits>
+#include <string>
 
 class Trabalho : public Avaliacao
 {
@@ -18,9 +27,15 @@ public:
 
     void WriteKeyAvaliacao(std::ofstream &writer, Avaliacao *avaliacao, std::string key_avaliacao_aluno) override;
 
-    Valores_WriteValueAvaliacaoAluno WriteValueAvaliacaoAluno(std::ofstream &writer, double value_avaliacao_aluno) override;
+    Valores_WriteValueAvaliacaoAluno WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
+                                                              double value_avaliacao_aluno) override;
 
-    Valores_WriteValueAvaliacaoAluno CalculaMediasAluno(double value_np) const override;
+    Valores_WriteValueAvaliacaoAluno CalculaMediasAluno(Avaliacao *avaliacao, double value_np) override;
+
+    /*
+        void TratamentoExcecoes(std::string dados[], std::map<int, Aluno> &alunos, AlunoMap &mapaAlunos,
+                                std::string codigo, Avaliacao avaliacao, double nota);
+                                */
 };
 
 #endif

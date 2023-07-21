@@ -4,6 +4,10 @@
 #include <string>
 #include <iostream>
 #include <limits>
+#include <algorithm>
+#include <cctype>
+#include <functional>
+#include <locale>
 
 class Leitura
 {

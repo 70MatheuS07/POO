@@ -1,6 +1,7 @@
 #ifndef DADOS_HPP
 #define DADOS_HPP
 
+#include "Aluno.hpp"
 #include "AlunoMap.hpp"
 #include "CursoMap.hpp"
 #include "DisciplinaMap.hpp"

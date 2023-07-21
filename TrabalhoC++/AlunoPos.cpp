@@ -7,10 +7,11 @@ int AlunoPos::getNivel() const
     return nivel;
 }
 
-void AlunoPos::WriteAlunoGrad(Aluno aluno, CursoMap cursos, std::map<std::string, int> &alunosGeral,
+void AlunoPos::WriteAlunoGrad(Aluno *aluno, CursoMap &cursos,
+                              std::map<std::string, int> &alunosGeral,
                               std::map<std::string, double> &mediaAlunos,
                               std::map<std::string, int> &alunosAprovados,
-                              AvaliacaoMap avaliacoes, std::string key_d) override
+                              AvaliacaoMap &avaliacoes, std::string key_d)
 {
 
     double total_notas = 0.0;
@@ -18,9 +19,9 @@ void AlunoPos::WriteAlunoGrad(Aluno aluno, CursoMap cursos, std::map<std::string
     double total_final = 0.0;
     double prova_final = 0.0;
 
-    AlunoPos aluno_pos = (AlunoPos)aluno;
+    AlunoPos *aluno_pos = (AlunoPos *)aluno;
 
-    if (aluno_pos.getNivel() == AlunoPos::MESTRADO)
+    if (aluno_pos->getNivel() == AlunoPos::MESTRADO)
     {
         if (!alunosGeral.count("Mestrado"))
         {
@@ -35,17 +36,18 @@ void AlunoPos::WriteAlunoGrad(Aluno aluno, CursoMap cursos, std::map<std::string
         }
 
         // Preciso saber se ele foi aprovado.
-        for (const auto &np : aluno_pos.getNotasAvaliacoes())
+        for (const auto &np : aluno_pos->getNotasAvaliacoes())
         {
             std::string key_np = np.first;
             double value_np = np.second;
 
-            Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(key_np);
+            auto a = avaliacoes.getAvaliacaoMap().find(key_np);
 
-            if (avaliacao.getDisciplinaKey() == key_d)
+            Avaliacao *avaliacao = &(a->second);
+
+            if (avaliacao->getDisciplinaKey() == key_d)
             {
-                Avaliacao.Valores_WriteValueAvaliacaoAluno valores;
-                valores = avaliacao.CalculaMediasAluno(avaliacao, value_np);
+                Avaliacao::Valores_WriteValueAvaliacaoAluno valores = avaliacao->CalculaMediasAluno(avaliacao, value_np);
 
                 if (valores.getProva_final() == -1.0)
                 {
@@ -97,17 +99,18 @@ void AlunoPos::WriteAlunoGrad(Aluno aluno, CursoMap cursos, std::map<std::string
         }
 
         // Preciso saber se ele foi aprovado.
-        for (const auto &np : aluno_pos.getNotasAvaliacoes())
+        for (const auto &np : aluno_pos->getNotasAvaliacoes())
         {
             std::string key_np = np.first;
             double value_np = np.second;
 
-            Avaliacao avaliacao = avaliacoes.getAvaliacaoMap().get(key_np);
+            auto a = avaliacoes.getAvaliacaoMap().find(key_np);
 
-            if (avaliacao.getDisciplinaKey() == key_d)
+            Avaliacao *avaliacao = &(a->second);
+
+            if (avaliacao->getDisciplinaKey() == key_d)
             {
-                Avaliacao.Valores_WriteValueAvaliacaoAluno valores;
-                valores = avaliacao.CalculaMediasAluno(avaliacao, value_np);
+                Avaliacao::Valores_WriteValueAvaliacaoAluno valores = avaliacao->CalculaMediasAluno(avaliacao, value_np);
 
                 if (valores.getProva_final() == -1.0)
                 {

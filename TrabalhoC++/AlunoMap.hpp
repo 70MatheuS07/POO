@@ -1,8 +1,8 @@
 #ifndef ALUNO_MAP_HPP
 #define ALUNO_MAP_HPP
 
-#include <map>
 #include "Aluno.hpp"
+#include <map>
 
 class AlunoMap
 {

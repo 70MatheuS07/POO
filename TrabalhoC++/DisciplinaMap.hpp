@@ -9,10 +9,12 @@
 #include <fstream>
 #include <iomanip>
 #include <locale>
+#include <sstream>
 #include "Disciplina.hpp"
 #include "AvaliacaoMap.hpp"
 #include "AlunoMap.hpp"
 #include "CursoMap.hpp"
+#include "Excecao.hpp"
 
 class DisciplinaMap
 {

@@ -11,7 +11,6 @@ int Prova::getTipoProva() const
 void Prova::ModificaMapasNotas(std::map<std::string, int> &qtdNotas, std::map<std::string, double> &totalNotas,
                                Avaliacao *avaliacao, std::string key_a, double value_NA)
 {
-    // Implementação da função ModificaMapasNotas
     if (dynamic_cast<Prova *>(avaliacao) && dynamic_cast<Prova *>(avaliacao)->getTipoProva() == 0)
     {
         if (totalNotas.find(key_a) == totalNotas.end())
@@ -45,7 +44,6 @@ void Prova::WriteKeyAvaliacao(std::ofstream &writer, Avaliacao *avaliacao, std::
 Avaliacao::Valores_WriteValueAvaliacaoAluno Prova::WriteValueAvaliacaoAluno(std::ofstream &writer, Avaliacao *avaliacao,
                                                                             double value_avaliacao_aluno)
 {
-    // Implementação da função WriteValueAvaliacaoAluno
     std::stringstream formattedTotal;
     double provaFinal = -1.0;
     Avaliacao::Valores_WriteValueAvaliacaoAluno v(0.0, 0.0, -1.0);
@@ -97,3 +95,41 @@ Avaliacao::Valores_WriteValueAvaliacaoAluno Prova::CalculaMediasAluno(Avaliacao 
 
     return v;
 }
+
+/*
+void Prova::TratamentoExcecoes(std::string *dados, AlunoMap &alunos, const AlunoMap &mapaAlunos,
+                                   const std::string &codigo, Avaliacao *avaliacao, double nota)
+{
+    long matriculaLong = std::stol(trim(dados[1]));
+
+    // Tratamento de uma matricula fora do escopo inteiro.
+    if (matriculaLong > INT_MAX)
+    {
+        throw Excecao("MatriculaIndefinidaLongException: Codigo: " + codigo + ", Matricula: " + std::to_string(matriculaLong));
+    }
+
+    int matricula = std::stoi(trim(dados[1]));
+
+    // Tratamento de uma matricula fora do escopo inteiro.
+    if (alunos.alunos.find(matricula) != alunos.alunos.end())
+    {
+        throw Excecao("MatriculaIndefinidaException: Codigo: " + codigo + ", Matricula: " + std::to_string(matricula));
+    }
+
+    if (mapaAlunos.alunos.find(matricula) != mapaAlunos.alunos.end())
+    {
+        throw Excecao("AlunoNaoMatriculadoException: Matricula: " + std::to_string(matricula) + ", Codigo: " + codigo +
+                      ", DisciplinaKey: " + avaliacao->getDisciplinaKey());
+    }
+
+    if (alunos.alunos.find(matricula)->second.getNotasAvaliacoes().find(codigo) != alunos.alunos.find(matricula)->second.getNotasAvaliacoes().end())
+    {
+        {
+            throw Excecao("NotaDuplicada: Matricula: " + std::to_string(matricula) + ", Codigo: " + codigo);
+        }
+
+        Aluno aluno = alunos.alunos.find(matricula)->second;
+        aluno.getNotasAvaliacoes().insert(std::make_pair(codigo, nota));
+    }
+}
+*/

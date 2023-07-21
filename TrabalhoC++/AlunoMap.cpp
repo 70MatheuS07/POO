@@ -1,5 +1,6 @@
 #include "AlunoMap.hpp"
 
-std::map<int, Aluno>& AlunoMap::getAlunoMap() {
+std::map<int, Aluno> &AlunoMap::getAlunoMap()
+{
     return alunos;
 }

@@ -16,10 +16,11 @@ public:
     AlunoPos(const std::string &nome, int nivel);
     int getNivel() const;
 
-    void WriteAlunoGrad(Aluno aluno, CursoMap cursos, std::map<std::string, int> &alunosGeral,
+    void WriteAlunoGrad(Aluno *aluno, CursoMap &cursos,
+                        std::map<std::string, int> &alunosGeral,
                         std::map<std::string, double> &mediaAlunos,
                         std::map<std::string, int> &alunosAprovados,
-                        AvaliacaoMap avaliacoes, std::string key_d) override;
+                        AvaliacaoMap &avaliacoes, std::string key_d) override;
 };
 
 #endif

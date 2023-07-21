@@ -12,6 +12,7 @@ private:
 
 public:
     AlunoMap &getAlunoMap();
+    const AlunoMap &getAlunoMap() const;
     void setDisciplina(const std::string &nome);
     std::string getNome() const;
 };
