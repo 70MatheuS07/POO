@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <fstream>
 
 #include "Aluno.hpp"
 #include "Excecao.hpp"
