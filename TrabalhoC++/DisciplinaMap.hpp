@@ -27,11 +27,7 @@ public:
 
     void CadastrarDisciplinas(const std::string &arquivo);
 
-    // void CriaPautaDisciplinas(AlunoMap alunos, AvaliacaoMap avaliacoes);
 
-    // void CriaDisciplinasCSV(AlunoMap alunos, AvaliacaoMap avaliacoes, CursoMap cursos);
-
-    // void CadastrarAvaliacoes(DisciplinaMap& disciplinas, const std::string& arquivo);
 };
 
 #endif

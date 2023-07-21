@@ -6,6 +6,9 @@
 #include <vector>
 
 #include "Avaliacao.hpp"
+#include "Prova.hpp"
+#include "Trabalho.hpp"
+#include "DisciplinaMap.hpp"
 
 class AvaliacaoMap
 {
@@ -20,6 +23,7 @@ public:
 
     std::map<std::string, double> getTotalNotasIO() const;
     void setTotalNotasIO(const std::map<std::string, double> &totalNotasIO);
+
 };
 
 #endif

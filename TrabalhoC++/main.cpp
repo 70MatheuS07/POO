@@ -8,6 +8,8 @@
 #include "CriaAvaliacoesCSV.hpp"
 #include "CriaDisciplinasCSV.hpp"
 #include "CriaPautaDisciplinas.hpp"
+#include "CadastraAlunos.hpp"
+#include "CadastraAvaliacao.hpp"
 
 int main(int argc, char *argv[])
 {
@@ -22,7 +24,7 @@ int main(int argc, char *argv[])
 
     // Esse vector tira o warning que aparecee no terminal.
     for (std::vector<int>::size_type i = 0; i < args.size(); i++)
-    {
+    {            // Implementado
         if (args[i] == "-c")
         {
             i++;
@@ -42,19 +44,20 @@ int main(int argc, char *argv[])
             i++;
             nomeArquivo = args[i];
             // Implementado
-            //  alunos->CadastrarAlunos(cursos, disciplinas, nomeArquivo);
+              CadastraAlunos::CadastrarAlunosFunction(alunos,cursos, disciplinas, nomeArquivo);
         }
         else if (args[i] == "-p")
         {
             i++;
             nomeArquivo = args[i];
             // Implementado
-            //  avaliacoes->CadastrarAvaliacoes(disciplinas, nomeArquivo);
+            CadastrarAvaliacao::CadastrarAvaliacoesFunction(avaliacoes,disciplinas, nomeArquivo);
         }
         else if (args[i] == "-n")
         {
             i++;
             nomeArquivo = args[i];
+            //criariamos tambem o registranotaluno como classe para evitar a dependencia circular
             // alunos->RegistraNotaAlunoAvaliacao(avaliacoes, disciplinas, nomeArquivo);
         }
     }
